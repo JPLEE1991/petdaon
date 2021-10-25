@@ -78,7 +78,7 @@
           <a class="nav-link" href="<%= request.getContextPath() %>/volunteerBoard/boardList">봉사게시판</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">고객센터</a>
+          <a class="nav-link" href="<%= request.getContextPath() %>/serviceBoard/serviceCenter">고객센터</a>
         </li>
       </ul>
     </div>
