@@ -3,7 +3,7 @@
 		</section>
 
 	  <footer>
-    <div class="padding-20px-tb border-top border-color-light-black">
+    <div class="padding-20px-tb">
       <div class="container">
         <div class="row fixed-bottom border-top">
           <div class="col-md-12 text-center">
