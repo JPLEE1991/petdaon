@@ -100,7 +100,7 @@
     </form>
   -->
 
-  <!-- 겔러리용 nav -->
+  <!-- animal icon nav -->
   <nav class="navbar navbar-expand-lg navbar-light container justify-content-end">
     <div class="collapse navbar-collapse justify-content-center">
       <ul class="navbar-nav">
