@@ -21,25 +21,40 @@
 	$("#selboxDirectTime").hide();
 	$("#selboxDirectDay").hide();
     
+	// 봉사시간
 	$("#time").change(function() {
-		//직접입력을 누를 때 나타남
+		// 직접입력을 누를 때 나타남
 		if($("#time").val() == "directTime") {
 			$("#selboxDirectTime").show();
+			// 직접입력 시 required 속성 추가하기
+			$("#selboxDirectTime").attr("required" , true);
 		}
-		else {	
+		else {
 			$("#selboxDirectTime").hide();
+			// 값 초기화
+			$("#selboxDirectTime").val('');
+			// required 속성 없애기
+			$("#selboxDirectTime").attr("required" , false);
 		}	
 	})
 	
+	// 봉사요일
 	$("#day").change(function() {
-		//직접입력을 누를 때 나타남
+		// 직접입력을 누를 때 나타남
 		if($("#day").val() == "directDay") {
 			$("#selboxDirectDay").show();
+			// 직접입력 시 required 속성 추가하기
+			$("#selboxDirectDay").attr("required" , true);
+			
 		}
 		else {	
 			$("#selboxDirectDay").hide();
+			// 값 초기화
+			$("#selboxDirectDay").val('');
+			// required 속성 없애기
+			$("#selboxDirectDay").attr("required" , false);
 		}	
-	}) 
+	})
 });
 
 /**
@@ -70,18 +85,25 @@ $(() => {
 </script>
 
 	<div class="container">
-		<h2>봉사 등록</h2>
+		<h3>봉사 등록</h3>
 		<form
 			name="volunteerBoardEnrollFrm"
 			action="<%=request.getContextPath() %>/volunteerBoard/boardEnroll"
 			method="post"
-			enctype="multipart/form-data">
+			enctype="multipart/form-data"> 
 
 			<div class="row">
+				<%-- <div class="col-md-4">
+					<!-- 봉사 게시글 썸네일 이미지 -->
+					<img src="<%= request.getContextPath() %>/images/blank-profile-640.png" class="img-thumbnail" id="img-thumbnail" alt="봉사게시판 썸네일 사진">
+					<input class="form-control" type="file" name="thumbnail" id="thumbnail">	
+				</div> --%>
+				
+				<!-- 이미지 미리보기 작업 중 -->
 				<div class="col-md-4">
 					<!-- 봉사 게시글 썸네일 이미지 -->
-					<img src="<%= request.getContextPath() %>/images/blank-profile-640.png" class="img-thumbnail" alt="봉사게시판 썸네일 사진">
-					<input class="form-control" type="file" name="thumbnail" id="thumbnail">	
+					<img src="<%= request.getContextPath() %>/images/blank-profile-640.png" class="img-thumbnail" id="img-thumbnail" alt="봉사게시판 썸네일 사진" onchange="setThumbnail(this);">
+					<input class="form-control" type="file" name="thumbnail" id="thumbnail" onchange="setThumbnail(this);">	
 				</div>
 				
 				<div class="col-md-8">
@@ -149,7 +171,7 @@ $(() => {
 					<div class="mb-2 row">
 						<label for="time" class="col-sm-2 col-form-label">봉사시간</label>
 						<div class="col-sm-5">
-							<select class="form-select" name="time" id="time" aria-label="Default select example" required>
+							<select class="form-select" name="time" id="time" aria-label="Default select example">
 							  <option value="" selected>봉사시간</option>
 							  <option value="시간협의">시간협의</option>
 							  <option value="directTime">직접입력</option>
@@ -164,7 +186,7 @@ $(() => {
 					<div class="mb-2 row">
 						<label for="day" class="col-sm-2 col-form-label">봉사요일</label>
 						<div class="col-sm-5">
-							<select class="form-select" name="day" id="day" aria-label="Default select example" required>
+							<select class="form-select" name="day" id="day" aria-label="Default select example">
 							  <option value="" selected>봉사요일</option>
 							  <option value="요일협의">요일협의</option>
 							  <option value="평일">평일</option>
@@ -220,7 +242,7 @@ $(() => {
 			<div class="row">
 			
 				<div class="d-flex justify-content-center my-3">
-					<button type="button" class="col-sm-2 btn btn-secondary btn-lg mx-3">취소</button>
+					<button type="button" class="col-sm-2 btn btn-secondary btn-lg mx-3" onclick="history.back()">취소</button>
 					<button type="submit" class="col-sm-2 btn btn-primary btn-lg mx-3">등록하기</button>
 				
 				</div>
@@ -244,6 +266,31 @@ $(() => {
       placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
 	});
 	*/
+	
+	
+<!-- 이미지 미리보기 -->
+function setThumbnail(input){
+	//console.log(input.files.length);
+	if(input.files.length == 1) {
+		// 파일을 읽기 위한 FileReader객체 생성
+		var reader = new FileReader();
+		
+		//파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
+		reader.onload = function(e){
+			//이미지 tag의 src속성에 읽어들인 file내용을 지정
+			$("#img-thumbnail").attr("src", e.target.result);
+		};
+		
+		//file내용을 읽어 dataURL형식의 문자열로 저장
+		reader.readAsDataURL(input.files[0]);
+	}
+	
+	// 파일 고르지 않으면 이미지 속성 초기화
+	else if(input.files.length == 0) {
+		$("#img-thumbnail").attr("src", "<%= request.getContextPath() %>/images/blank-profile-640.png");
+	}
+}
+
 </script>
 
 
