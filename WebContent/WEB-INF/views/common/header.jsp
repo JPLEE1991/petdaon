@@ -51,8 +51,8 @@
     <div class="container">
       <h2>펫다온 Petdaon</h2>
       <div id="login">
-        <a href="#">로그인</a>
-        <a href="#">회원가입</a>
+        <a href="<%= request.getContextPath() %>/member/memberLogin">로그인</a>
+        <a href="<%= request.getContextPath() %>/member/memberEnroll">회원가입</a>
       </div>
     </div>
   </div>

@@ -8,7 +8,7 @@ import java.util.Date;
 
 import com.oreilly.servlet.multipart.FileRenamePolicy;
 
-public class MvcFileRenamePolicy implements FileRenamePolicy {
+public class MvcFileRenamePolicy implements FileRenamePolicy { 
 
 	/**
 	 * D:\\Workspaces\\web_server_workspace\\03_hello_mvc\\WebContent\\upload\\board\\김밥사랑.txt
