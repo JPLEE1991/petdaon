@@ -133,8 +133,8 @@
            
 
             <div class="card-body">
-              <a href="link"><img src="images/미니핀.jpg/"></a>
-              <p class="card-text">미니핀 "똘똘이" 강아지</p>
+              <a href="https://www.zooseyo.com/main/main.php?"><img src="images/주세요닷컴.jpg"></a>
+              <p class="card-text">주세요 닷컴</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
@@ -150,8 +150,8 @@
           
 
             <div class="card-body">
-              <a href="link"><img src="images/친칠라 믹스.jpg/"></a>
-              <p class="card-text">친칠라 믹스 "꼬미" 고양이</p>
+              <a href="https://dmanimal.co.kr/"><img src="images/도그마루 보호소.jpg"></a>
+              <p class="card-text">도그마루 보호소</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
@@ -166,8 +166,8 @@
           <div class="card shadow-sm">
            
             <div class="card-body">
-              <a href="link"><img src="images/믹스견.jpg/"></a>
-              <p class="card-text">믹스견 "복실이" 강아지</p>
+              <a href="https://www.minipetmall.co.kr/pc/review/review_030100.html"><img src="images/미니펫.jpg"></a>
+              <p class="card-text">미니펫</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
@@ -183,8 +183,8 @@
           <div class="card shadow-sm">
 
             <div class="card-body">
-              <a href="link"><img src="images/코숏.jpg/"></a>
-              <p class="card-text">코숏 "태희" 고양이</p>
+              <a href="https://www.dog-zzang.co.kr/main/main.php?kwqy=N%25EA%25B0%2595%25EC%2595%2584%25EC%25A7%2580%25EC%259E%2585%25EC%2596%2591%25EC%2582%25AC%25EC%259D%25B4%25ED%258A%25B8"><img src="images/도그짱.jpg"></a>
+              <p class="card-text">도그짱</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
@@ -199,8 +199,8 @@
           <div class="card shadow-sm">
 
             <div class="card-body">
-              <a href="link"><img src="images/코숏1.jpg/"></a>
-              <p class="card-text">코숏 "이월이" 고양이</p>
+              <a href="https://ulovepetshelter.co.kr/level"><img src="images/유럽펫보호소.jpg"></a>
+              <p class="card-text">유럽펫보호소</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
@@ -215,8 +215,8 @@
           <div class="card shadow-sm">
 
             <div class="card-body">
-              <a href="link"><img src="images/페르시안친칠라.jpg/"></a>
-              <p class="card-text">페르시안 친칠라 "프루" 고양이</p>
+              <a href="https://laonshelter.co.kr/"><img src="images/라온보고서.jpg"></a>
+              <p class="card-text">라온 보고서</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
@@ -232,8 +232,8 @@
           <div class="card shadow-sm">
 
             <div class="card-body">
-              <a href="link"><img src="images/비숑.jpg/"></a>
-              <p class="card-text">비숑 "까불이" 강아지</p>
+              <a href="https://www.ijoa.co.kr/44"><img src="images/아이조아.jpg"></a>
+              <p class="card-text">아이조아</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
@@ -243,30 +243,7 @@
             </div>
           </div>
         </div>
-        <div class="col">
-          <div class="card shadow-sm">
-
-            <div class="card-body">
-              <a href="link"><img src="images/비숑1.jpg/"></a>
-              <p class="card-text">비숑 "누리" 강아지</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>        
-                </div>      
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-
-            <div class="card-body">
-              <a href="link"><img src="images/믹스견1.jpg/"></a>
-              <p class="card-text">믹스견 "크림이" 강아지</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
-                </div>
+      
               </div>
             </div>
           </div>
