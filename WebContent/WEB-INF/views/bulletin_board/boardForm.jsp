@@ -1,21 +1,13 @@
-<%@page import="java.util.List"%>
-<%@page import="com.petdaon.mvc.bulletin_board.model.vo.BoardExt"%>
-<%@page import="com.petdaon.mvc.bulletin_board.model.vo.BulletinBoard"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Bulletin_board</title>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+<title>enroll</title>
 <style>
-	@CHARSET "UTF-8";
 /*게시판*/
-section#board-container{width:800px; margin:0 auto; text-align:center;}
+section#board-container{width:600px; margin:0 auto; text-align:center;}
 section#board-container h2{margin:10px 0;}
 table#tbl-board{width:100%; margin:0 auto; border:1px solid black; border-collapse:collapse; clear:both; }
 table#tbl-board th, table#tbl-board td {border:1px solid; padding: 5px 0; text-align:center;} 
@@ -83,86 +75,108 @@ table#tbl-comment button.btn-insert2{width:60px; height:23px; color:white; backg
 /* 삭제버튼관련 */
 table#tbl-comment button.btn-delete{background:red; color:white; display:none;}
 table#tbl-comment tr:hover button.btn-delete{display:inline;}
-
-.nav-item>a {
-  	text-align:center;
-  }
- .nav-item {
-  	margin: 30px;
-  }
- .btn-w {
-	display: flex;
-	justify-content:flex-end;
-	margin-right:30px;
-  }
 </style>
 </head>
-<%@ include file="/WEB-INF/views/common/header.jsp" %>
-<%
-	List<BulletinBoard> list = (List<BulletinBoard>) request.getAttribute("list");
-%>
 
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
+
+<script>
+/**
+* boardEnrollFrm 유효성 검사
+*/
+function boardValidate(e){
+	const $title = $("[name=title]");
+	const $content = $("[name=content]");
+	//제목을 작성하지 않은 경우 폼제출할 수 없음.
+	if(!/^.+$/.test($title.val())){
+		alert("제목을 입력하세요.");
+		return false;
+	}
+					   
+	//내용을 작성하지 않은 경우 폼제출할 수 없음.
+	// .(임의의 문자)에는 \n(개행문자)가 포함되지 않는다.
+	if(!/^(.|\n)+$/.test($content.val())){
+		alert("내용을 입력하세요.");
+		return false;
+	}
+	return true;
+}
+
+$(() => {
+	$(document.boardEnrollFrm).submit(boardValidate);
+});
+</script>
 <section id="board-container">
-	<h2>자유게시판</h2>
-	<!-- animal icon nav -->
-  <nav class="navbar navbar-expand-lg navbar-light container justify-content-end">
-    <div class="collapse navbar-collapse justify-content-center">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <img src="<%= request.getContextPath() %>/images/all.png" width="70"; />
-          <a class="nav-link" href="<%= request.getContextPath() %>/findMe_board/boardList">전체</a>
-        </li>
-        <li class="nav-item">
-          <img src="<%= request.getContextPath() %>/images/pet.png" width="70";/>
-          <a class="nav-link" href="#">강아지</a>
-        </li>
-        <li class="nav-item">
-          <img src="<%= request.getContextPath() %>/images/cat.png" width="70"; />
-          <a class="nav-link" href="#">고양이</a>
-        </li>
-        <li class="nav-item">
-          <img src="<%= request.getContextPath() %>/images/pawprint.png" width="70"; />
-          <a class="nav-link" href="#">자유</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-	<table id="tbl-board">
-		<tr>
-			<th>번호</th>		
-			<th>말머리</th>		
-			<th>제목</th>	
-			<th>작성자</th>	
-			<th>작성일</th>	
-			<th>조회수</th>				
-		</tr>
-	</table>
+<h2>게시판 작성</h2>
+<form
+	name="boardEnrollFrm"
+	action="<%=request.getContextPath() %>/board/boardEnroll" 
+	method="post"
+	enctype="multipart/form-data">
+	<table id="tbl-board-view">
+	<tr>
+		<th>제 목</th>
+		<td><input type="text" name="title" required></td>
+	</tr>
+	<tr>
+		<th>작성자</th>
+		<td>
+			<input type="text" name="writer" value="<%= loginMember.getMemberId() %>"readonly/>
+		</td>
+	</tr>
+	<tr>
+		<th>첨부파일</th>
+		<td>			
+			<input type="file" name="upFile">
+		</td>
+	</tr>
+	<tr>
+		<th>내 용</th>
+		<td><textarea rows="5" cols="40" name="content"></textarea></td>
+	</tr>
+	<tr>
+		<th colspan="2">
+			<input type="submit" value="등록하기">
+		</th>
+	</tr>
+</table>
+</form>
 </section>
 
-<%
-	for(BulletinBoard _board : list){
-		BoardExt board = (BoardExt) _board;
-%>
-	<tr>
-		<td><%= board.getNo() %></td>
-		<td>
-			<a href="<%= request.getContextPath() %>/views/bulletin_board/boardView?no=<%= board.getNo() %>"><%= board.getTitle() %></a>
-		</td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-	</tr>
 
-<%
-	}
-%>
+<!-- 
+<form name="listFrm" action="">
+	<fieldset>
+		<legeng>등록</legeng>
+		<label for="name">이름</label>
+		<input type="text" name="name" id="name" />
+		<br />
+		<input type="file" name="img" id="img" />
+		<button type="button" id="btn-list-save">저장</button>
+	</fieldset>
+</form>
 
-<div class="btn-w">
-<a type="button" class="btn btn-outline-secondary" href="<%= request.getContextPath() %>/views/bulletin_board/boardEnroll.jsp">글쓰기</a>
-</div>
-<br />
-<br />
-
-
-<!-- <%@ include file="/WEB-INF/views/common/footer.jsp" %> --> 
+<script>
+/**
+ * ajax로 폼데이터전송(비동기)
+ * - file upload : FormData객체를 통한 전송
+ * - enctype="multipart/form-data" 관련 설정
+ */
+$("#btn-list-save").click((e) => {
+	const frmData = new FormData(document.listFrm);
+	console.log(frmData);
+	
+	return;
+	
+	$.ajax({
+		url: "<%= request.getContextPath() %>/celeb/insert",
+		data: "",
+		success(data){
+			console.log(data);
+		},
+		error: console.log
+	});
+});
+</script>
+ -->
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
