@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class galleryBoardListServlet
  */
 @WebServlet("/gallery_board/boardList")
-public class galleryBoardListServlet extends HttpServlet {
+public class GalleryBoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**

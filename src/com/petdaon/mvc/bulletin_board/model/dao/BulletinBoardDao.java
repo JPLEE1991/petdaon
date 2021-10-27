@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.petdaon.mvc.bulletin_board.model.exception.BulletinBoardException;
 import com.petdaon.mvc.bulletin_board.model.vo.BulletinBoard;
+import com.petdaon.mvc.common.vo.Attachment;
 
 public class BulletinBoardDao {
 	
@@ -22,7 +24,7 @@ public class BulletinBoardDao {
 	 * prop객체에 buildpath로 배포된  /sql/bulletin_board/board-query.properties 불러오기
 	 */
 	public BulletinBoardDao() {
-		String filepath = BulletinBoardDao.class.getResource("sql/bulletin_board/bulletin_board-query.properties").getPath();
+		String filepath = BulletinBoardDao.class.getResource("/sql/bulletin_board/bulletin_board-query.properties").getPath();
 		try {
 			prop.load(new FileReader(filepath));
 		} catch (IOException e) {
@@ -68,6 +70,75 @@ public class BulletinBoardDao {
 			close(pstmt);
 		}
 		return list;
+	}
+
+	public int insertBoard(Connection conn, BulletinBoard board) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertBoard");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, board.getTitle());
+			pstmt.setString(2, board.getWriter());
+			pstmt.setString(3, board.getContent());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new BulletinBoardException("게시글 등록 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int selectLastBoardNo(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectLastBoardNo");
+		int boardNo = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				boardNo = rset.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new BulletinBoardException("게시글번호 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return boardNo;
+	}
+
+	public int insertAttachment(Connection conn, Attachment attach) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertAttachment");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, attach.getBoardNo());
+			pstmt.setString(2, attach.getOriginalFilename());
+			pstmt.setString(3, attach.getRenamedFilename());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BulletinBoardException("첨부파일 등록 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 	
 }
