@@ -75,8 +75,7 @@ public class Attachment implements Serializable {
 		return "Attachment [no=" + no + ", boardNo=" + boardNo + ", originalFilename=" + originalFilename
 				+ ", renamedFilename=" + renamedFilename + ", regDate=" + regDate + "]";
 	}
-	
-	
+
 	
 	
 }

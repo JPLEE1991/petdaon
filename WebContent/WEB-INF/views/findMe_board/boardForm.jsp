@@ -3,6 +3,8 @@
 <%@page import = "java.io.File"%>
 
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	
 <style>
 	.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
@@ -44,88 +46,167 @@
 	#pagination a {display:inline-block;margin-right:10px;}
 	#pagination .on {font-weight: bold; cursor: default;color:#777;}
 </style>
+<script>
+
+/**
+* volunteerBoardEnrollFrm 유효성 검사
+*/
+
+$(() => {
+	$(document.findMeBoardEnrollFrm).submit(boardValidate);
+});
+
+function boardValidate(e){
+	const $title = $("[name=title]");
+	const $contents = $("[name=contents]");
+	//제목을 작성하지 않은 경우 폼제출할 수 없음.
+	if(!/^.+$/.test($title.val())){
+		alert("제목을 입력하세요.");
+		return false;
+	}
+					   
+	//내용을 작성하지 않은 경우 폼제출할 수 없음.
+	// .(임의의 문자)에는 \n(개행문자)가 포함되지 않는다.
+	if(!/^(.|\n)+$/.test($contents.val())){
+		alert("내용을 입력하세요.");
+		return false;
+	}
+	return true;
+}
+
+
 	
+</script>
+
 
 <!--Form 제출  -->
-<form id="frm" name="frm" action="<%=request.getContextPath() %>/findMe_board/boardForm"  method="post">
-
+<form
+	name="findMeBoardEnrollFrm"
+	action="<%=request.getContextPath() %>/findMe_board/boardEnroll"
+	method="post"
+	enctype="multipart/form-data">
+	
 	<div class="container">
 		
-		<!--이미지 업로드  -->
-		<div>
-		 	<img id="blah" alt="your image" width="100" height="100" src="/images/findMe_sampleImg.png"/>
-			<br />
-			<input 
-				type="file" 
-			    onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])"
-			    name="upImage">
-		</div>
+			<!--이미지 업로드  -->
+			<div>
+			 	<img id="blah" alt="your image" width="100" height="100" src="/images/findMe_sampleImg.png"/>
+				<br />
+				<input 
+					type="file" 
+				    onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])"
+				    name="upImage">
+			</div>
 	 	
-	    <!-- input 내용들 -->
-	    <div class="form-outline mb-4">
-	      <label class="form-label" for="form6Example3">제목</label>
-	      <input type="text" id="form6Example3" class="form-control" name/>
-	    </div>    
-	  
-	    <!-- Text input -->
-	    <div class="row mb-4">
-	      <div class="col">
-			<div class="form-outline mb-4">
-		      <label class="form-label" for="form6Example4">연락처</label>
-		      <input type="text" id="form6Example4" class="form-control" />
-		    </div>
-		  
-		    <!-- Email input -->
-		    <div class="form-outline mb-4">
-		      <label class="form-label" for="form6Example5">성별</label>
-		      <input type="email" id="form6Example5" class="form-control" />
-		    </div>
-		  
-		    <!-- Number input -->
-		    <div class="form-outline mb-4">
-		      <label class="form-label" for="form6Example6">몸무게</label>
-		      <input type="number" id="form6Example6" class="form-control" />
-		    </div>
+		    <!-- input 내용들 -->
 		    
-		    <div class="form-outline mb-4">
-		      <label class="form-label" for="form6Example6">털색</label>
-		      <input type="number" id="form6Example6" class="form-control" />
-		    </div>
+		    <!-- 제목  -->
+<!-- 		    <div class="row"> -->
+			      <label for="title" class="col-1.5 col-form-label" >제목</label>
+					<div class="col-11.5">
+					  <input type="text" placeholder="제목 입력" class="form-control" name="title" id="title" value="첫 글의 제목">
+				    </div>    
+		    	<br />
 		  
-		    <div class="form-outline mb-4">
-		      <label class="form-label" for="form6Example6">특징</label>
-		      <input type="number" id="form6Example6" class="form-control" />
-		    </div>  
 		  
-		    <div class="form-outline mb-4">
-		      <label class="form-label" for="form6Example6">일자</label>
-		      <input type="number" id="form6Example6" class="form-control" />
-		    </div>
-	      
+		    <!-- 연락처 -->
+		    <div class="row mb-4">
+		      <div class="col-4">
+					<div class="form-outline mb-4">
+				      <label class="form-label sm-10" for="form6Example4">연락처</label>
+				      <input type="text" id="form6Example4" class="form-control" name="phone"/>
+			    	</div>
+			    	
+			  		<!-- 분류  -->
+					<div class="row">
+						<label for="animalType" class="col-sm-10 col-form-label">분류</label>
+						<div class="col-5">
+							<select class="form-select" name="animalType" id="animalType" aria-label="Default select example" required>
+							  <option value="강아지" selected>강아지</option>
+							  <option value="수컷">고양이</option>
+							  <option value="암컷">기타</option>
+							</select>
+						</div>
+						<!--종  -->
+						<div class="col-7">
+							<select class="form-select" name="breed" id="breed" aria-label="Default select example" value="리트리버" required>
+							  <option value="" selected>종을 선택해주세요</option>
+							  <option value="" selected>종을 선택해주세요</option>
+							  <option value="수컷">고양이</option>
+							  <option value="암컷">기타</option>
+							</select>
+						</div>						
+					</div>
+					<br />				  
+				  
+				  
+			  		<!-- 성별  -->
+					<div class="row">
+						<label for="gender" class="col-sm-10 col-form-label">성별</label>
+						<div class="col-10">
+							<select class="form-select" name="gender" id="gender" aria-label="Default select example" value="수컷" >
+							  <option value="" selected>성별</option>
+							  <option value="미확인">미확인</option>
+							  <option value="수컷">수컷</option>
+							  <option value="암컷">암컷</option>
+							</select>
+						</div>
+					</div>
+				<br />
+			  
+			  
+			  
+			    <!-- Number input -->
+			    <div class="form-outline mb-4">
+			      <label class="form-label" for="weight">몸무게</label>
+			      <input type="number" id="weight" class="form-control" name="weight"/>
+			    </div>
+			    
+			    <!--털색  -->
+			    <div class="form-outline mb-4">
+			      <label class="form-label" for="form6Example6">털색</label>
+			      <input type="text" id="form6Example6" class="form-control" name="color"/>
+			    </div>
+			  
+			  	<!--특징  -->
+			    <div class="form-outline mb-4">
+			      <label class="form-label" for="form6Example6">특징</label>
+			      <input type="text" id="form6Example6" class="form-control" name="character"/>
+			    </div>  
+			    
+			  	<!--일자  -->
+				<div class="mb-4 row">
+					<label for="missDate" class="col-sm-10 col-form-label">일자</label>
+					<div class="col-sm-8">
+						<input type="date" class="form-control" name="missDate" id="missDate">
+					</div>
+				</div>
 	      </div>
-	      <div class="col">
+	      <div class="col-8">
 	        <div class="form-outline">
 				<div>지도영역
 	
-	<div class="map_wrap">
-	    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-	
-	    <div id="menu_wrap" class="bg_white">
-	        <div class="option">
-	            <div style="">
-	                    키워드 : <input type="text" value="서울역" id="keyword" size="15"> 
-	            <button onclick="searchPlaces(); return false;">검색하기</button> 
-	            </div>
-	        </div>
-	        <hr>
-	        <ul id="placesList"></ul>
-	        <div id="pagination"></div>
-	    </div>
+		<div class="map_wrap">
+		    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+		
+		    <div id="menu_wrap" class="bg_white">
+		        <div class="option">
+		            <div style="">
+		                    키워드 : <input type="text" value="서울역" id="keyword" size="15"> 
+		            <button onclick="searchPlaces(); return false;">검색하기</button> 
+		            </div>
+		        </div>
+		        <hr>
+		        <ul id="placesList"></ul>
+		        <div id="pagination"></div>
+		    </div>
 		</div>
 		
-		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=81fc3c40931e5c23dfea9c79c1a7abc4
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=81fc3c40931e5c23dfea9c79c1a7abc4
 	&libraries=services"></script>
-		<script>
+	
+	
+	<script>
 	// 마커를 담을 배열입니다
 	var markers = [];
 	
@@ -225,27 +306,22 @@
 	            
 	            // 리스트의 아이템을 클릭하면 정보들을 hidden 영역으로 전송
 	            itemEl.onclick = function() {
-	                if (praddress) {
-	                document.getElementById('fulladdress').value = "[" + pname + "]" + praddress;
-	                } else {
-	                document.getElementById('fulladdress').value = "[" + pname + "]" + paddress;
-	                }
-	            	
-	            	document.getElementById('pname').value = pname;
-	          
-	                if (praddress) {
-	                	document.getElementById('paddress').value = praddress;
-	                	document.getElementById('address').value = praddress;
-	                } else {
-	                	document.getElementById('paddress').value = paddress; 
-	                	document.getElementById('address').value = praddress;
-	                }
-	            	document.getElementById('latclick').value = plat;
-	            	document.getElementById('latitude').value = plat;
-	            	document.getElementById('lngclick').value = plng;
-	            	document.getElementById('longitude').value = plng;
-	            };
-	
+                if (praddress) {
+                document.getElementById('fulladdress').value = "[" + pname + "]" + praddress;
+                } else {
+                document.getElementById('fulladdress').value = "[" + pname + "]" + paddress;
+                }
+            	
+            	document.getElementById('pname').value = pname;            	
+                if (praddress) {
+                	document.getElementById('paddress').value = praddress;
+                } else {
+                	document.getElementById('paddress').value = paddress; 
+                }
+            	document.getElementById('latclick').value = plat;
+            	document.getElementById('lngclick').value = plng;
+        	    };
+            
 	            itemEl.onmouseover =  function () {
 	                displayInfowindow(marker, pname);
 	            };
@@ -337,12 +413,12 @@
 	</script>
 		
 	    <div>
-	    <!-- 위도 및 경도 좌표 및 위치정보 -->
-	    <input type="text" id="fulladdress" name="fulladdress" style="width:90%;" disabled> 
-	    <input type="text" id="pname" name="pname" value="">   
-	    <input type="text" id="paddress" name="paddress" value="">  
-	    <input type="text" id="latclick" name="latclick" value=""> 
-	    <input type="text" id="lngclick" name="lngclick" value=""> 
+		    <!-- 위도 및 경도 좌표 및 위치정보 -->
+		    <input type="text" id="fulladdress" name="fulladdress" style="width:90%;" disabled> 
+		    <input type="text" id="pname" name="pname" value="">   
+		    <input type="text" id="paddress" name="paddress" value="">  
+		    <input type="text" id="latclick" name="latclick" value=""> 
+		    <input type="text" id="lngclick" name="lngclick" value=""> 
 	    </div>
 				
 				
@@ -351,11 +427,30 @@
 	      </div>
 	    </div>	
 	  
-	    <!-- Text input -->
-	   <!-- Message input -->
+		<div class="mb-2 row">
+			<label for="status" class="col-sm-1 col-form-label">상태</label>
+			<div class="col-sm-4">
+				<select class="form-select col-6" name="status" id="status" aria-label="Default select example" value="실종">
+				  <option value="" selected>상태</option>
+				  <option value="실종">실종</option>
+				  <option value="목격">목격</option>
+				  <option value="보호">보호</option>
+				</select>
+			</div>
+			
+			<label for="day" class="col-sm-1 col-form-label">완료여부</label>
+			<div class="col-sm-4">
+				<select class="form-control col-6 disabled" name="day" id="day" aria-label="Default select example" disabled required>
+				  <option value="" selected>진행</option>
+				  <option value="완료">완료</option>
+				</select>
+			</div>
+			
+		</div>
+	  
+	   <!-- 내용 input -->
 	    <div class="form-outline mb-4">
-	      <label class="form-label" for="form6Example7">내용</label>
-	      <textarea class="form-control" id="form6Example7" rows="4"></textarea>
+	      <textarea class="form-control" rows="4" placeholder="내용을 입력해주세요" name="content"></textarea>
 	    </div>				
 				
 	  
