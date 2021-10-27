@@ -51,8 +51,8 @@
     <div class="container">
       <h2>펫다온 Petdaon</h2>
       <div id="login">
-        <a href="#">로그인</a>
-        <a href="#">회원가입</a>
+        <a href="<%= request.getContextPath() %>/member/memberLogin">로그인</a>
+        <a href="<%= request.getContextPath() %>/member/memberEnroll">회원가입</a>
       </div>
     </div>
   </div>
@@ -78,7 +78,7 @@
           <a class="nav-link" href="<%= request.getContextPath() %>/volunteerBoard/boardList">봉사게시판</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<%= request.getContextPath() %>/serviceBoard/serviceCenter">고객센터</a>
+          <a class="nav-link" href="<%= request.getContextPath() %>/serviceCenter">고객센터</a>
         </li>
       </ul>
     </div>

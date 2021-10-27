@@ -1,4 +1,4 @@
-package com.petdaon.mvc.serviceBoard.controller;
+package com.petdaon.mvc.volunteer_board.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,21 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class findMeBoardListServlet
+ * Servlet implementation class BoardFormServlet
  */
-@WebServlet("/askBoard/boardForm")
-public class AskBoardFormServlet extends HttpServlet {
+@WebServlet("/volunteerBoard/boardForm")
+public class VolunteerBoardFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//view단 처리
 		request
-		.getRequestDispatcher("/WEB-INF/views/service_board/ask_board/boardForm.jsp")
-		.forward(request, response);
-
+			.getRequestDispatcher("/WEB-INF/views/volunteer_board/volunteerBoardForm.jsp")
+			.forward(request, response);
 	}
 
 }

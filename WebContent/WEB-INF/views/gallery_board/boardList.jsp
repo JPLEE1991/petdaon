@@ -63,6 +63,11 @@
   .d-flex {
   	display: inline;
   }
+  .btn-w {
+  	display: flex;
+  	justify-content:flex-end;
+  	margin-right:30px;
+  }
 </style>
 
     
@@ -283,6 +288,11 @@
 
 </main>
 
+<div class="btn-w">
+<a type="button" class="btn btn-outline-secondary" href="<%= request.getContextPath() %>/views/gallery_board/boardEnroll.jsp">글쓰기</a>
+</div>
+<br />
+<br />
 
 
 

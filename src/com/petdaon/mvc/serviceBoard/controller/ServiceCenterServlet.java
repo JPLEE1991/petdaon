@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class findMeBoardListServlet
  */
-@WebServlet("/serviceBoard/serviceCenter")
+@WebServlet("/serviceCenter")
 public class ServiceCenterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

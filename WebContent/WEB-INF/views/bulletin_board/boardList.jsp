@@ -1,3 +1,6 @@
+<%@page import="java.util.List"%>
+<%@page import="com.petdaon.mvc.bulletin_board.model.vo.BoardExt"%>
+<%@page import="com.petdaon.mvc.bulletin_board.model.vo.BulletinBoard"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -87,10 +90,17 @@ table#tbl-comment tr:hover button.btn-delete{display:inline;}
  .nav-item {
   	margin: 30px;
   }
+ .btn-w {
+	display: flex;
+	justify-content:flex-end;
+	margin-right:30px;
+  }
 </style>
 </head>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-
+<%
+	List<BulletinBoard> list = (List<BulletinBoard>) request.getAttribute("list");
+%>
 
 <section id="board-container">
 	<h2>자유게시판</h2>
@@ -129,30 +139,30 @@ table#tbl-comment tr:hover button.btn-delete{display:inline;}
 	</table>
 </section>
 
+<%
+	for(BulletinBoard _board : list){
+		BoardExt board = (BoardExt) _board;
+%>
+	<tr>
+		<td><%= board.getNo() %></td>
+		<td>
+			<a href="<%= request.getContextPath() %>/views/bulletin_board/boardView?no=<%= board.getNo() %>"><%= board.getTitle() %></a>
+		</td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
 
+<%
+	}
+%>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<div class="btn-w">
+<a type="button" class="btn btn-outline-secondary" href="<%= request.getContextPath() %>/views/bulletin_board/boardEnroll.jsp">글쓰기</a>
+</div>
+<br />
+<br />
 
 
 <!-- <%@ include file="/WEB-INF/views/common/footer.jsp" %> --> 
