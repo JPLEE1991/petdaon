@@ -33,7 +33,7 @@ public class BoardService {
 			// attachment테이블 행추가
 			Attachment attach = board.getAttach();
 			if(attach != null) {
-				attach.setBoardNo(boardNo);
+				attach.setNo(boardNo);
 				result = boardDao.insertAttachment(conn, attach);
 			}
 			commit(conn);

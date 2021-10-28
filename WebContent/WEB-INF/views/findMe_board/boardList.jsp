@@ -11,8 +11,9 @@
   <div class="row row-cols-1 row-cols-md-3 g-4">
 <%
 	List<Board> list = (List<Board>)request.getAttribute("list");
-	for(Board _board : list){
-		BoardExt board = (BoardExt)_board;
+	for(Board board : list){
+		
+	
 %>
 
 
@@ -20,7 +21,19 @@
     
     <div class="col">
       <div class="card h-100">
-        <img src="..." class="card-img-top" alt="...">
+<!--첨부 이미지가 없을 때,-->
+<%
+	if(board.getAttach() == null) {
+%>
+				<img class="card-img-top" src="<%= request.getContextPath() %>/images/findMe_sampleImg.png" alt=""/>
+<!--첨부 이미지가 있을 때, -->									
+<%
+	}else{
+%>
+        <img src="<%= request.getContextPath() %>/upload/findMe_board/<%= board.getAttach().getRenamedFilename() %>" class="card-img-top" alt="신고 사진">
+<%
+	}
+%>
         <div class="card-body">
           <h5 class="card-title"><%= board.getAddress() %></h5>
           <p class="card-text"><%= board.getAnimalType() +"["+ board.getBreed()+"]" %></p>
@@ -28,80 +41,7 @@
         </div>
       </div>
     </div>
-    <!-- <div class="col">
-      <div class="card h-100">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">서울시 용산구</h5>
-          <p class="card-text">고양이(페르시안)</p>
-          <p class="card-text">2021-10-09</p>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card h-100">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">서울시 강동구</h5>
-          <p class="card-text">고양이(페르시안)</p>
-          <p class="card-text">2021-10-09</p>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card h-100">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">서울시 강동구</h5>
-          <p class="card-text">고양이(페르시안)</p>
-          <p class="card-text">2021-10-09</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <br><br><br><br>
-  <div class="row row-cols-1 row-cols-md-3 g-4">
-    <div class="col">
-      <div class="card h-100">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">서울시 강동구</h5>
-          <p class="card-text">고양이(페르시안)</p>
-          <p class="card-text">2021-10-09</p>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card h-100">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">서울시 용산구</h5>
-          <p class="card-text">고양이(페르시안)</p>
-          <p class="card-text">2021-10-09</p>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card h-100">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">서울시 강동구</h5>
-          <p class="card-text">고양이(페르시안)</p>
-          <p class="card-text">2021-10-09</p>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card h-100">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">서울시 강동구</h5>
-          <p class="card-text">고양이(페르시안)</p>
-          <p class="card-text">2021-10-09</p>
-        </div>
-      </div>
-    </div>
-  </div> -->
+    
   <br />
 <%
 	}
