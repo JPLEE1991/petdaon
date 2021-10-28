@@ -1,4 +1,4 @@
-package com.petdaon.mvc.findMe_board.controller;
+package com.petdaon.mvc.serviceBoard.askBoard.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,22 +10,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.petdaon.mvc.common.MvcUtils;
-import com.petdaon.mvc.findMe_board.model.service.BoardService;
-import com.petdaon.mvc.findMe_board.model.vo.Board;
-
-import oracle.security.o3logon.b;
+import com.petdaon.mvc.serviceBoard.askBoard.model.service.AskBoardService;
+import com.petdaon.mvc.serviceBoard.askBoard.model.vo.AskBoard;
 
 /**
- * Servlet implementation class findMeBoardListServlet
+ * Servlet implementation class AskBoardListServlet
  */
-@WebServlet("/findMe_board/boardList")
-public class findMeBoardListServlet extends HttpServlet {
+@WebServlet("/serviceCenter/askBoard/askBoardList")
+public class AskBoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private BoardService boardService = new BoardService();
-	
+	private AskBoardService askBoardService = new AskBoardService();
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		//1.사용자입력값처리 cPage numPerPage = 10
 		int cPage = 1;
 		int numPerPage = 10;
 		try {
@@ -33,25 +34,25 @@ public class findMeBoardListServlet extends HttpServlet {
 		} catch(NumberFormatException e) {
 			
 		}
-		//2. 업무로직
-		//a.content 영역 - paging query
+		System.out.println("cPage = " + cPage);
+		
+		//2.업무로직
+		//a.content영역 - paging query
 		int start = cPage * numPerPage - (numPerPage - 1);
 		int end = cPage * numPerPage;
-		List<Board> list = boardService.selectBoardList(start,end);
-		System.out.println("list@servelt = "+list);
+		List<AskBoard> list = askBoardService.selectAskBoardList(start, end);
 		
-		//b. pagebar영역
-		int totalContents = boardService.selectTotalContents();
+		//b.pagebar영역 
+		//totalContents, url 준비
+		int totalContents = askBoardService.selectTotalContents();
 		String url = request.getRequestURI();
 		String pagebar = MvcUtils.getPagebar(cPage, numPerPage, totalContents, url);
 		
-		
+		//3.view단 forwarding
 		request.setAttribute("list", list);
 		request.setAttribute("pagebar", pagebar);
-		
 		request
-			.getRequestDispatcher("/WEB-INF/views/findMe_board/boardList.jsp")
+			.getRequestDispatcher("/WEB-INF/views/service_board/ask_board/askBoardList.jsp")
 			.forward(request, response);
 	}
-
 }

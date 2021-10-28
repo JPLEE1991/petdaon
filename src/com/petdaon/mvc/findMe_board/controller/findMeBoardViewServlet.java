@@ -1,4 +1,4 @@
-package com.petdaon.mvc.serviceBoard.controller;
+package com.petdaon.mvc.findMe_board.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,21 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class findMeBoardListServlet
+ * Servlet implementation class findMeBoardViewServlet
  */
-@WebServlet("/askBoard/boardList")
-public class AskBoardListServlet extends HttpServlet {
+@WebServlet("/findMe_board/boardView")
+public class findMeBoardViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//view단 처리
+		System.out.println("findMeBoardViewServlet...");
 		request
-		.getRequestDispatcher("/WEB-INF/views/service_board/ask_board/boardList.jsp")
+		.getRequestDispatcher("/WEB-INF/views/findMe_board/boardView.jsp")
 		.forward(request, response);
-
 	}
 
 }
