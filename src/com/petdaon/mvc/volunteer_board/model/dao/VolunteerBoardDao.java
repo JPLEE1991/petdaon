@@ -67,7 +67,7 @@ public class VolunteerBoardDao {
 		return result;
 	}
 
-	// 전체 봉사 게시글 조회
+	// 승인상태인 전체 봉사 게시글 조회
 	public List<VolunteerBoard> selectVolunteerBoardList(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -104,16 +104,68 @@ public class VolunteerBoardDao {
 				board.setEnrollYn(rset.getString("enroll_yn"));
 				board.setThumbnail(rset.getString("thumbnail"));
 				
+				//보드를 리스트에 추가한다.
 				list.add(board);
 			}
 			
 		} catch (SQLException e) {
-			throw new BoardException("봉사 게시글 조회 오류", e);
+			throw new BoardException("승인 봉사 게시글 전체 조회 오류", e);
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
 		
 		return list;
+	}
+
+	// 봉사게시글 한건조회(상세보기)
+	public VolunteerBoard selectOneVolunteerBoard(Connection conn, int no) {
+		VolunteerBoard board = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectOneVolunteerBoard");
+		
+		try {
+			// 미완성쿼리문을 가지고 객체생성.
+			pstmt = conn.prepareStatement(sql);
+			// ?값 세팅한다.
+			pstmt.setInt(1, no);
+			// 쿼리문 실행
+			rset = pstmt.executeQuery();
+			
+			// 0 또는 1건이 존재하므로 if조건문 실행
+			if(rset.next()) {
+				board = new VolunteerBoard();
+				board.setNo(rset.getInt("no"));
+				board.setTitle(rset.getString("title"));
+				board.setCenterName(rset.getString("center_name"));
+				board.setContent(rset.getString("content"));
+				board.setStartDate(rset.getDate("start_date"));
+				board.setEndDate(rset.getDate("end_date"));
+				board.setEmail(rset.getString("email"));
+				board.setPhone(rset.getString("phone"));
+				board.setApprovalYn(rset.getString("approval_yn"));
+				board.setDeleteYn(rset.getString("delete_yn"));
+				board.setCapacity(rset.getInt("capacity"));
+				board.setPlace(rset.getString("place"));
+				board.setDeadlineDate(rset.getDate("deadline_date"));
+				board.setRegDate(rset.getDate("reg_date"));
+				board.setTime(rset.getString("time"));
+				board.setDay(rset.getString("day"));
+				board.setBoardCode(rset.getString("board_code"));
+				board.setWriter(rset.getString("writer"));
+				board.setEnrollYn(rset.getString("enroll_yn"));
+				board.setThumbnail(rset.getString("thumbnail"));
+			}
+		} catch (SQLException e) {
+			throw new BoardException("봉사 게시글 상세보기 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return board;
 	}
 }
