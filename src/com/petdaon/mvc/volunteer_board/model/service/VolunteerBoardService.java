@@ -46,13 +46,22 @@ public class VolunteerBoardService {
 		return result;
 	}
 
-	// 전체 봉사 게시글 조회
+	// 승인상태인 전체 봉사 게시글 조회
 	public List<VolunteerBoard> selectVolunteerBoardList() {
 		Connection conn = getConnection();
 		List<VolunteerBoard> list = volunteerBoardDao.selectVolunteerBoardList(conn);
 		// 단순조회로 트랜잭션 처리하지 않음
 		close(conn);
 		return list;
+	}
+
+	// 봉사게시글 한건조회(상세보기)
+	public VolunteerBoard selectOneVolunteerBoard(int no) {
+		Connection conn = getConnection();
+		VolunteerBoard board = volunteerBoardDao.selectOneVolunteerBoard(conn, no);
+		// 단순조회로 트랜잭션 처리하지 않음
+		close(conn);
+		return board;
 	}
 
 }
