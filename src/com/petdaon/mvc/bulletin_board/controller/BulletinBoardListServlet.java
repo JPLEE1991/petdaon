@@ -42,9 +42,10 @@ public class BulletinBoardListServlet extends HttpServlet {
 		
 		// b.
 		// view단 처리
+		request.setAttribute("list", list);
 		request
-		.getRequestDispatcher("/WEB-INF/views/bulletin_board/boardList.jsp")
-		.forward(request, response);
+			.getRequestDispatcher("/WEB-INF/views/bulletin_board/boardList.jsp")
+			.forward(request, response);
 	}
 
 }

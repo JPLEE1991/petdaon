@@ -1,5 +1,4 @@
 
-
 --page처리
 
 select *
@@ -31,10 +30,23 @@ CREATE TABLE BULLETIN_BOARD (
 
 create sequence seq_BULLETIN_BOARD_NO;
 
---테이블에 내용 삽입
+--테이블에 내용 삽입 '
+--게시판 코드: 01- 나를찾아줘   02- 커뮤니티   03- 봉사게시판   04- 공지사항   05- 임양임보   06- 1:1 문의
 insert into petdaon.bulletin_board (no,board_code,writer,title,content,enroll_date,view_num,scrap_num,like_num,animal_type,detail,category,delete_yn,notice_yn) 
-values (SEQ_BULLETIN_BOARD_NO.nextval,'','emma','유기견 봉사가실분 사람구해요','반갑습니다. 함께 가실분 모집합니다',to_date('21/08/10','RR/MM/DD'),0, 0, 0,'F','G','B','N','N');
+values (SEQ_BULLETIN_BOARD_NO.nextval,'02','liam','유기견 봉사가실분 사람구해요','반갑습니다. 함께 가실분 모집합니다',to_date('21/08/07','RR/MM/DD'),0, 0, 0,'F','G','B','N','N');
+insert into petdaon.bulletin_board (no,board_code,writer,title,content,enroll_date,view_num,scrap_num,like_num,animal_type,detail,category,delete_yn,notice_yn) 
+values (SEQ_BULLETIN_BOARD_NO.nextval,'02','sophia','사료 순위(21년 9월) 이건 꼭 먹여야해','이번달 정말 괜찮은 사료 추천드립립니다 여러분!',to_date('21/09/12','RR/MM/DD'),0, 0, 0,'F','G','B','N','N');
+insert into petdaon.bulletin_board (no,board_code,writer,title,content,enroll_date,view_num,scrap_num,like_num,animal_type,detail,category,delete_yn,notice_yn) 
+values (SEQ_BULLETIN_BOARD_NO.nextval,'02','noah','서울 친절한 병원','우리 댕댕이들를 위한 친절한 병원을 소개해드려요~',to_date('21/08/12','RR/MM/DD'),0, 0, 0,'F','G','B','N','N');
+insert into petdaon.bulletin_board (no,board_code,writer,title,content,enroll_date,view_num,scrap_num,like_num,animal_type,detail,category,delete_yn,notice_yn) 
+values (SEQ_BULLETIN_BOARD_NO.nextval,'02','lucas','사랑스런 퍼그~','귀여운 사진으로 힐링하세요~',to_date('21/10/22','RR/MM/DD'),0, 0, 0,'F','G','B','N','N');
+insert into petdaon.bulletin_board (no,board_code,writer,title,content,enroll_date,view_num,scrap_num,like_num,animal_type,detail,category,delete_yn,notice_yn) 
+values (SEQ_BULLETIN_BOARD_NO.nextval,'02','grayson','안녕하세요 인사드려요','안녕하세요 여러분 날씨도 이제 제법 쌀쌀해지네요',to_date('21/10/21','RR/MM/DD'),0, 0, 0,'F','G','B','N','N');
+insert into petdaon.bulletin_board (no,board_code,writer,title,content,enroll_date,view_num,scrap_num,like_num,animal_type,detail,category,delete_yn,notice_yn) 
+values (SEQ_BULLETIN_BOARD_NO.nextval,'02','jackson','가입인사','새로 회원가입 했습니다. 잘부탁드립니다~~',to_date('21/09/09','RR/MM/DD'),0, 0, 0,'F','G','B','N','N');
 
+
+select * from(select row_number() over(order by no desc) rnum, b.* from BULLETIN_BOARD b) where rnum between 1 and 10;
 
 --게시글 첨부파일있을때 별도의 테이블로 관리
 create table attachment (
@@ -44,7 +56,7 @@ create table attachment (
     renamed_filename varchar2(255) not null,
     reg_date date default sysdate,
     constraint pk_attachment_no primary key(no),
-    constraint fk_attachment_bulletin_board_no foreign key(bulletin_board_no) references bulletin_board(no) on delete cascade
+    constraint fk_attachment_board_no foreign key(board_no) references bulletin_board(no) on delete cascade
 );
 
 create sequence seq_attachment_no;
@@ -65,7 +77,11 @@ comment on column BULLETIN_BOARD.CATEGORY is '펫다온게시판B 펫다온갤�
 comment on column BULLETIN_BOARD.DELETE_YN is '삭제여부Y/N';
 comment on column BULLETIN_BOARD.NOTICE_YN is '공지여부Y/N';
 
-
+comment on column attachment.no is '첨부파일번호(PK)';
+comment on column attachment.board_no is '게시판글번호(FK)';
+comment on column attachment.original_filename is '업로드한 첨부파일명';
+comment on column attachment.renamed_filename is '서버에 저장된 첨부파일명';
+comment on column attachment.reg_date is '첨부파일업로드일시';
 
 
 ALTER TABLE BULLETIN_BOARD ADD CONSTRAINT PK_BULLETIN_BOARD_NO PRIMARY KEY (NO);
