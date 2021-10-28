@@ -147,11 +147,11 @@ table#tbl-comment tr:hover button.btn-delete{display:inline;}
 		<td><%= board.getNo() %></td>
 		<td>
 			<a href="<%= request.getContextPath() %>/views/bulletin_board/boardView?no=<%= board.getNo() %>"><%= board.getTitle() %></a>
+			<%= board.getBoardCommentCount() != 0 ? "(" + board.getBoardCommentCount() + ")" : "" %>
 		</td>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
+		<td><%= board.getWriter() %></td>
+		<td><%= board.getRegDate() %></td>
+
 	</tr>
 
 <%

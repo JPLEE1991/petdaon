@@ -20,7 +20,7 @@ import com.petdaon.mvc.common.vo.Attachment;
 /**
  * Servlet implementation class GalleryBoardEnrollServlet
  */
-@WebServlet("/views/bulletin_board/boardEnroll")
+@WebServlet("/views/bulletin_board/boardForm")
 public class BulletinBoardEnrollServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
