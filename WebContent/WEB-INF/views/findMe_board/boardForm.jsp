@@ -45,12 +45,58 @@
 	#pagination {margin:10px auto;text-align: center;}
 	#pagination a {display:inline-block;margin-right:10px;}
 	#pagination .on {font-weight: bold; cursor: default;color:#777;}
+	
+	#pname, #latclick, #lngclick, #paddress, #fulladdress{
+		visibility: hidden;
+	}
+	
+	#photo{
+		text-align: center
+	}
+	
+	
 </style>
 <script>
+	$(()=>{
+		//종 입력 칸 처음 상태는 hide
+		$("#dogBreed").hide();
+		$("#catBreed").hide(); 
+		$("#elseBreed").hide();
+	});
+
+ 	function showBreed(e){
+		var dog = ["닥스훈트","달마시안","도베르만","리트리버","닥스훈트","말라뮤트","말티즈","믹스견","비글","사모예드","셰퍼드","스피츠","시바","시베리안허스키","아메리칸불독","진도견","치와와","푸들","기타"];
+		var cat = ["노르웨이숲","데본렉스","러시안블루","리그돌-라가머핀","맹크스","먼치킨","메인쿤","믹스","발리네즈","버만","벵갈","봄베이","기타"];
+		var etc = ["모든 동물"];
+		var target = document.getElementById("breed");
+		console.log("target: "+ target);
+		
+		if($("#animalType").val()=="강아지")
+			var d = dog;				
+		else if($("#animalType").val()=="고양이")
+			var d = cat;		
+		else
+			var d = etc;
+				
+		target.options.length = 0;
+		
+		console.log("target: "+target);
+		for(x in d){
+			console.log("doing?")
+			var opt = document.createElement("option");
+			opt.value = d[x];
+			opt.innerHTML = d[x];
+			target.appendChild(opt);
+		}
+
+	}; 
+	
+
 
 /**
 * volunteerBoardEnrollFrm 유효성 검사
 */
+
 
 $(() => {
 	$(document.findMeBoardEnrollFrm).submit(boardValidate);
@@ -77,7 +123,7 @@ function boardValidate(e){
 
 	
 </script>
-
+<!--  -->
 
 <!--Form 제출  -->
 <form
@@ -89,13 +135,13 @@ function boardValidate(e){
 	<div class="container">
 		
 			<!--이미지 업로드  -->
-			<div>
-			 	<img id="blah" alt="your image" width="100" height="100" src="/images/findMe_sampleImg.png"/>
+			<div id="photo">
+				<img id="profile" src="<%= request.getContextPath() %>/images/findMe_sampleImg.png" alt="대표 사진" style="width:100px"/>					
 				<br />
 				<input 
 					type="file" 
-				    onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])"
-				    name="upImage">
+				    onchange="document.getElementById('profile').src = window.URL.createObjectURL(this.files[0])"
+				    name="upFile">
 			</div>
 	 	
 		    <!-- input 내용들 -->
@@ -113,29 +159,29 @@ function boardValidate(e){
 		    <div class="row mb-4">
 		      <div class="col-4">
 					<div class="form-outline mb-4">
-				      <label class="form-label sm-10" for="form6Example4">연락처</label>
+				      <label class="form-label" for="form6Example4">연락처</label>
 				      <input type="text" id="form6Example4" class="form-control" name="phone"/>
 			    	</div>
 			    	
 			  		<!-- 분류  -->
 					<div class="row">
-						<label for="animalType" class="col-sm-10 col-form-label">분류</label>
+						<label for="animalType" class="col-1.5">분류</label>
 						<div class="col-5">
-							<select class="form-select" name="animalType" id="animalType" aria-label="Default select example" required>
-							  <option value="강아지" selected>강아지</option>
-							  <option value="수컷">고양이</option>
-							  <option value="암컷">기타</option>
+							<select class="form-select" name="animalType" id="animalType" onchange="showBreed(this)">
+							  <option value="" selected>동물을 선택해주세요</option>
+							  <option value="강아지">강아지</option>
+							  <option value="고양이">고양이</option>
+							  <option value="기타">기타</option>
 							</select>
 						</div>
-						<!--종  -->
-						<div class="col-7">
-							<select class="form-select" name="breed" id="breed" aria-label="Default select example" value="리트리버" required>
-							  <option value="" selected>종을 선택해주세요</option>
-							  <option value="" selected>종을 선택해주세요</option>
-							  <option value="수컷">고양이</option>
-							  <option value="암컷">기타</option>
+						<!-- 동물 종류에 따른 종 분류 script 처리 -->
+						<div class="form-group col-1.5">
+							<label for="breed" class="col-form-label">종</label>
+							<select id="breed" class="form-control" name="breed">
+								<option value="">선택해주세요</option>
 							</select>
-						</div>						
+						</div>
+							
 					</div>
 					<br />				  
 				  
@@ -156,13 +202,13 @@ function boardValidate(e){
 			  
 			  
 			  
-			    <!-- Number input -->
+			    <!-- 몸무게
 			    <div class="form-outline mb-4">
 			      <label class="form-label" for="weight">몸무게</label>
 			      <input type="number" id="weight" class="form-control" name="weight"/>
 			    </div>
 			    
-			    <!--털색  -->
+			    <!-- 털색  -->
 			    <div class="form-outline mb-4">
 			      <label class="form-label" for="form6Example6">털색</label>
 			      <input type="text" id="form6Example6" class="form-control" name="color"/>
@@ -251,7 +297,7 @@ function boardValidate(e){
 	        displayPlaces(data);
 	
 	        // 페이지 번호를 표출합니다
-	        displayPagination(pagination);
+	        //displayPagination(pagination);
 	
 	    } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
 	

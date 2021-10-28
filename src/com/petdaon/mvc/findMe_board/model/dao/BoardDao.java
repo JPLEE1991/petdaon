@@ -36,42 +36,87 @@ public class BoardDao {
 	}
 
 	
+//	  public List<Board> selectBoardList(Connection conn, int start, int end) {
+//	  PreparedStatement pstmt = null; ResultSet rset = null; String sql =
+//	  prop.getProperty("selectBoardList"); List<Board> list = new ArrayList<>();
+//	  
+//	  try { 
+//		  pstmt = conn.prepareStatement(sql); 
+//		  pstmt.setInt(1, start);
+//		  pstmt.setInt(2, end);
+//		  
+//		  rset = pstmt.executeQuery();
+//	  
+//		  while(rset.next()) { // 테이블 record 1 -> VO객체 1 BoardExt board = new
+//			  
+//			  BoardExt board = new BoardExt(); 
+//			  
+//			  board.setNo(rset.getInt("no"));
+//			  board.setTitle(rset.getString("title"));
+//			  board.setWriter(rset.getString("writer"));
+//			  board.setContent(rset.getString("content"));
+//			  board.setEnrollDate(rset.getDate("enroll_date"));		  
+//			  board.setBoardCommentCount(rset.getInt("bc_count"));
+//			  
+//			  if(rset.getInt("attach_no") != 0) { Attachment attach = new Attachment();
+//			  attach.setNo(rset.getInt("attach_no"));
+//			  attach.setBoardNo(rset.getInt("board_no"));
+//			  attach.setOriginalFilename(rset.getString("original_filename"));
+//			  attach.setRenamedFilename(rset.getString("renamed_filename"));
+//			  attach.setRegDate(rset.getDate("attach_reg_date"));
+//			  
+//			  board.setAttach(attach); }
+//			  
+//		  list.add(board); }
+//	  
+//	  
+//	  } catch (SQLException e) { e.printStackTrace(); } finally { close(rset);
+//	  close(pstmt); } return list; }
+	
 	  public List<Board> selectBoardList(Connection conn, int start, int end) {
-	  PreparedStatement pstmt = null; ResultSet rset = null; String sql =
-	  prop.getProperty("selectBoardList"); List<Board> list = new ArrayList<>();
-	  
-	  try { 
-		  pstmt = conn.prepareStatement(sql); 
-		  pstmt.setInt(1, start);
-		  pstmt.setInt(2, end);
+		  PreparedStatement pstmt = null; 
+		  ResultSet rset = null; 
+		  String sql = prop.getProperty("selectBoardList"); List<Board> list = new ArrayList<>();
+		  System.out.println("boardDao board00 ");
+		  try { 
+			  pstmt = conn.prepareStatement(sql); 
+			  pstmt.setInt(1, start);
+			  pstmt.setInt(2, end);
+			  
+			  rset = pstmt.executeQuery();
 		  
-		  rset = pstmt.executeQuery();
-	  
-		  while(rset.next()) { // 테이블 record 1 -> VO객체 1 BoardExt board = new
-			  
-			  BoardExt board = new BoardExt(); 
-			  
-			  board.setNo(rset.getInt("no"));
-			  board.setTitle(rset.getString("title"));
-			  board.setWriter(rset.getString("writer"));
-			  board.setContent(rset.getString("content"));
-			  board.setEnrollDate(rset.getDate("enroll_date"));		  
-			  board.setBoardCommentCount(rset.getInt("bc_count"));
-			  
-			  if(rset.getInt("attach_no") != 0) { Attachment attach = new Attachment();
-			  attach.setNo(rset.getInt("attach_no"));
-			  attach.setBoardNo(rset.getInt("board_no"));
-			  attach.setOriginalFilename(rset.getString("original_filename"));
-			  attach.setRenamedFilename(rset.getString("renamed_filename"));
-			  attach.setRegDate(rset.getDate("attach_reg_date"));
-			  
-			  board.setAttach(attach); }
-			  
-		  list.add(board); }
-	  
-	  
-	  } catch (SQLException e) { e.printStackTrace(); } finally { close(rset);
-	  close(pstmt); } return list; }
+			  while(rset.next()) { // 테이블 record 1 -> VO객체 1 BoardExt board = new
+				  
+				  BoardExt board = new BoardExt(); 
+				  board.setAddress(rset.getString("address"));
+				  board.setAnimalType(rset.getString("animal_type"));
+				  board.setEnrollDate(rset.getDate("enroll_date"));		  
+				  board.setBoardCommentCount(rset.getInt("bc_count"));
+				  
+				  
+				  System.out.println("boardDao board.getAttach(): "+board.getAttach());
+				  System.out.println("boardDao attach_no: "+ rset.getInt("attach_no"));
+				  if(rset.getInt("attach_no") != 0) { 
+					  Attachment attach = new Attachment();
+					  attach.setNo(rset.getInt("no"));
+					  attach.setBoardCode(rset.getString("board_code"));
+					  attach.setOriginalFilename(rset.getString("original_filename"));
+					  attach.setRenamedFilename(rset.getString("renamed_filename"));
+					  attach.setRegDate(rset.getDate("enroll_date"));
+					  board.setAttach(attach); 
+					  System.out.println("boardDao board22: "+board);
+				  }
+				  
+				  list.add(board); 
+			  }
+		  
+		  } catch (SQLException e) { 
+			  e.printStackTrace(); 
+		  } finally { close(rset);
+		  	close(pstmt); 
+		  } 
+		  	return list; 
+	  }
 	 
 
 	
@@ -135,13 +180,15 @@ public class BoardDao {
 	public int insertAttachment(Connection conn, Attachment attach) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertAttachment");
+//		쿼리문:
+//		insertAttachment = insert into attachment values(seq_attachment_no.nextval, ?, ?, DEFAULT, "01", ?)
 		int result = 0;
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, attach.getBoardNo());
-			pstmt.setString(2, attach.getOriginalFilename());
-			pstmt.setString(3, attach.getRenamedFilename());
+			pstmt.setString(1, attach.getOriginalFilename());
+			pstmt.setString(2, attach.getRenamedFilename());
+			pstmt.setInt(3, attach.getNo());
 
 			result = pstmt.executeUpdate();
 

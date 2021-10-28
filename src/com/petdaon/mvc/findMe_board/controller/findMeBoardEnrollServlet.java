@@ -106,7 +106,7 @@ public class findMeBoardEnrollServlet extends HttpServlet {
 				
 		
 		Board board = new Board("01",0,title,"kh1231","01033332222",
-								enrollDate,"수컷",3,"노란색","사나움",
+								enrollDate,gender,weight,color,character,
 								missDate,content,status,"N","N",
 								latclick,lngclick,paddress,"N","강아지",
 								"리트리버",null);
@@ -129,7 +129,11 @@ public class findMeBoardEnrollServlet extends HttpServlet {
 		
 		// 3. 응답처리 : redirect
 		HttpSession session = request.getSession();
-		String location = request.getContextPath() + "/board/boardView?no=" + board.getNo();
+//		게시글 상세보기 페이지
+//		String location = request.getContextPath() + "/board/boardView?no=" + board.getNo();
+		
+		//임시로 리스트 페이지
+		String location = request.getContextPath() + "/findMe_board/boardList";
 		response.sendRedirect(location);
 	}
 

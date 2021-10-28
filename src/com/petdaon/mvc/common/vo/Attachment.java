@@ -11,7 +11,7 @@ public class Attachment implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private int no;
-	private int boardNo;
+	private String boardCode;
 	private String originalFilename;
 	private String renamedFilename;
 	private Date regDate;
@@ -21,10 +21,10 @@ public class Attachment implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Attachment(int no, int boardNo, String originalFilename, String renamedFilename, Date regDate) {
+	public Attachment(int no, String boardCode, String originalFilename, String renamedFilename, Date regDate) {
 		super();
 		this.no = no;
-		this.boardNo = boardNo;
+		this.boardCode = boardCode;
 		this.originalFilename = originalFilename;
 		this.renamedFilename = renamedFilename;
 		this.regDate = regDate;
@@ -38,12 +38,12 @@ public class Attachment implements Serializable {
 		this.no = no;
 	}
 
-	public int getBoardNo() {
-		return boardNo;
+	public String getBoardCode() {
+		return boardCode;
 	}
 
-	public void setBoardNo(int boardNo) {
-		this.boardNo = boardNo;
+	public void setBoardCode(String boardCode) {
+		this.boardCode = boardCode;
 	}
 
 	public String getOriginalFilename() {
@@ -72,9 +72,13 @@ public class Attachment implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Attachment [no=" + no + ", boardNo=" + boardNo + ", originalFilename=" + originalFilename
+		return "Attachment [no=" + no + ", boardCode=" + boardCode + ", originalFilename=" + originalFilename
 				+ ", renamedFilename=" + renamedFilename + ", regDate=" + regDate + "]";
 	}
+
+	
+
+
 
 	
 	
