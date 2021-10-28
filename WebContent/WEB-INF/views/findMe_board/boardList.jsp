@@ -35,9 +35,12 @@
 	}
 %>
         <div class="card-body">
+        <a href="<%=request.getContextPath() %>/findMe_board/boardView?no=<%= board.getNo()%>">
+          <p><%= board.getNo()%></p>
           <h5 class="card-title"><%= board.getAddress() %></h5>
           <p class="card-text"><%= board.getAnimalType() +"["+ board.getBreed()+"]" %></p>
-          <p class="card-text"><%= board.getMissDate() %></p>
+          <p class="card-text"><%= board.getMissDate() %></p>        
+        </a>
         </div>
       </div>
     </div>

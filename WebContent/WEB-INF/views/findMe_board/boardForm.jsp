@@ -51,25 +51,20 @@
 	}
 	
 	#photo{
-		text-align: center
+		text-align: center;
+	}
+	label,p {
+		font-weight: bold;
 	}
 	
 	
 </style>
 <script>
-	$(()=>{
-		//종 입력 칸 처음 상태는 hide
-		$("#dogBreed").hide();
-		$("#catBreed").hide(); 
-		$("#elseBreed").hide();
-	});
-
  	function showBreed(e){
 		var dog = ["닥스훈트","달마시안","도베르만","리트리버","닥스훈트","말라뮤트","말티즈","믹스견","비글","사모예드","셰퍼드","스피츠","시바","시베리안허스키","아메리칸불독","진도견","치와와","푸들","기타"];
 		var cat = ["노르웨이숲","데본렉스","러시안블루","리그돌-라가머핀","맹크스","먼치킨","메인쿤","믹스","발리네즈","버만","벵갈","봄베이","기타"];
 		var etc = ["모든 동물"];
 		var target = document.getElementById("breed");
-		console.log("target: "+ target);
 		
 		if($("#animalType").val()=="강아지")
 			var d = dog;				
@@ -82,7 +77,7 @@
 		
 		console.log("target: "+target);
 		for(x in d){
-			console.log("doing?")
+			console.log("doing?");
 			var opt = document.createElement("option");
 			opt.value = d[x];
 			opt.innerHTML = d[x];
@@ -98,33 +93,30 @@
 */
 
 
-$(() => {
-	$(document.findMeBoardEnrollFrm).submit(boardValidate);
-});
-
-function boardValidate(e){
-	const $title = $("[name=title]");
-	const $contents = $("[name=contents]");
-	//제목을 작성하지 않은 경우 폼제출할 수 없음.
-	if(!/^.+$/.test($title.val())){
-		alert("제목을 입력하세요.");
-		return false;
-	}
-					   
-	//내용을 작성하지 않은 경우 폼제출할 수 없음.
-	// .(임의의 문자)에는 \n(개행문자)가 포함되지 않는다.
-	if(!/^(.|\n)+$/.test($contents.val())){
-		alert("내용을 입력하세요.");
-		return false;
-	}
-	return true;
-}
-
-
+	$(() => {
+		$(document.findMeBoardEnrollFrm).submit(boardValidate);
+	});
 	
+	function boardValidate(e){
+		const $title = $("[name=title]");
+		const $contents = $("[name=contents]");
+		//제목을 작성하지 않은 경우 폼제출할 수 없음.
+		if(!/^.+$/.test($title.val())){
+			alert("제목을 입력하세요.");
+			return false;
+		}
+						   
+		//내용을 작성하지 않은 경우 폼제출할 수 없음.
+		// .(임의의 문자)에는 \n(개행문자)가 포함되지 않는다.
+		if(!/^(.|\n)+$/.test($contents.val())){
+			alert("내용을 입력하세요.");
+			return false;
+		}
+		return true;
+	}
 </script>
 <!--  -->
-
+<h2>나를 찾아줘</h2>
 <!--Form 제출  -->
 <form
 	name="findMeBoardEnrollFrm"
@@ -147,16 +139,18 @@ function boardValidate(e){
 		    <!-- input 내용들 -->
 		    
 		    <!-- 제목  -->
-<!-- 		    <div class="row"> -->
+		    <div class="row">
 			      <label for="title" class="col-1.5 col-form-label" >제목</label>
 					<div class="col-11.5">
 					  <input type="text" placeholder="제목 입력" class="form-control" name="title" id="title" value="첫 글의 제목">
 				    </div>    
 		    	<br />
+		    	<br />
+		    	<br />
 		  
 		  
 		    <!-- 연락처 -->
-		    <div class="row mb-4">
+		    <div class="row">
 		      <div class="col-4">
 					<div class="form-outline mb-4">
 				      <label class="form-label" for="form6Example4">연락처</label>
@@ -165,8 +159,8 @@ function boardValidate(e){
 			    	
 			  		<!-- 분류  -->
 					<div class="row">
-						<label for="animalType" class="col-1.5">분류</label>
-						<div class="col-5">
+						<div class="col-6">
+							<label for="animalType" class="">분류</label>
 							<select class="form-select" name="animalType" id="animalType" onchange="showBreed(this)">
 							  <option value="" selected>동물을 선택해주세요</option>
 							  <option value="강아지">강아지</option>
@@ -175,21 +169,19 @@ function boardValidate(e){
 							</select>
 						</div>
 						<!-- 동물 종류에 따른 종 분류 script 처리 -->
-						<div class="form-group col-1.5">
-							<label for="breed" class="col-form-label">종</label>
+						<div class="form-group col-6 mb-4">
+							<label for="breed" class="">종</label>
 							<select id="breed" class="form-control" name="breed">
 								<option value="">선택해주세요</option>
 							</select>
-						</div>
-							
-					</div>
-					<br />				  
+						</div>	
+					</div>				  
 				  
-				  
-			  		<!-- 성별  -->
 					<div class="row">
-						<label for="gender" class="col-sm-10 col-form-label">성별</label>
-						<div class="col-10">
+					
+				  		<!-- 성별  -->
+						<div class="form-outline mb-4 col-6">
+							<label class="form-label" for="gender">성별</label>
 							<select class="form-select" name="gender" id="gender" aria-label="Default select example" value="수컷" >
 							  <option value="" selected>성별</option>
 							  <option value="미확인">미확인</option>
@@ -197,56 +189,65 @@ function boardValidate(e){
 							  <option value="암컷">암컷</option>
 							</select>
 						</div>
+						
+					    <!--몸무게  -->
+					    <div class="form-outline mb-4 col-6">
+					      <label class="form-label" for="weight">몸무게</label>
+					      <input type="number" id="weight" class="form-control" name="weight"/>
+					    </div>
 					</div>
-				<br />
-			  
-			  
-			  
-			    <!-- 몸무게
-			    <div class="form-outline mb-4">
-			      <label class="form-label" for="weight">몸무게</label>
-			      <input type="number" id="weight" class="form-control" name="weight"/>
-			    </div>
-			    
-			    <!-- 털색  -->
+
+			    <!-- 털색 --> 
 			    <div class="form-outline mb-4">
 			      <label class="form-label" for="form6Example6">털색</label>
 			      <input type="text" id="form6Example6" class="form-control" name="color"/>
 			    </div>
 			  
-			  	<!--특징  -->
+			  	<!--특징 -->
 			    <div class="form-outline mb-4">
 			      <label class="form-label" for="form6Example6">특징</label>
 			      <input type="text" id="form6Example6" class="form-control" name="character"/>
 			    </div>  
 			    
 			  	<!--일자  -->
-				<div class="mb-4 row">
-					<label for="missDate" class="col-sm-10 col-form-label">일자</label>
-					<div class="col-sm-8">
-						<input type="date" class="form-control" name="missDate" id="missDate">
+			  	<div class="row">
+					<div class="form-outline mb-4 col-6">
+						<label for="missDate" class="col-form-label">일자</label>
+						<div>
+							<input type="date" class="form-control" name="missDate" id="missDate">
+						</div>
 					</div>
-				</div>
+					
+					<div class="form-outline mb-4 col-6">
+						<label for="status" class="col-form-label">상태</label>
+						<select class="form-select" name="status" id="status" aria-label="Default select example" value="실종">
+						  <option value="" selected>상태</option>
+						  <option value="실종">실종</option>
+						  <option value="목격">목격</option>
+						  <option value="보호">보호</option>
+						</select>
+					</div>
+			  	
+			  	</div>
 	      </div>
 	      <div class="col-8">
 	        <div class="form-outline">
-				<div>지도영역
-	
-		<div class="map_wrap">
-		    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
-		
-		    <div id="menu_wrap" class="bg_white">
-		        <div class="option">
-		            <div style="">
-		                    키워드 : <input type="text" value="서울역" id="keyword" size="15"> 
-		            <button onclick="searchPlaces(); return false;">검색하기</button> 
-		            </div>
-		        </div>
-		        <hr>
-		        <ul id="placesList"></ul>
-		        <div id="pagination"></div>
-		    </div>
-		</div>
+				<p>위치공유</p>	
+			<div class="map_wrap">
+			    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+			
+			    <div id="menu_wrap" class="bg_white">
+			        <div class="option">
+			            <div style="">
+			                    키워드 : <input type="text" value="서울역" id="keyword" size="15"> 
+			            <button onclick="searchPlaces(); return false;">검색하기</button> 
+			            </div>
+			        </div>
+			        <hr>
+			        <ul id="placesList"></ul>
+			        <div id="pagination"></div>
+			    </div>
+			</div>
 		
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=81fc3c40931e5c23dfea9c79c1a7abc4
 	&libraries=services"></script>
@@ -458,8 +459,8 @@ function boardValidate(e){
 	}
 	</script>
 		
+    <!-- 위도 및 경도 좌표 및 위치정보 넘기기. -->
 	    <div>
-		    <!-- 위도 및 경도 좌표 및 위치정보 -->
 		    <input type="text" id="fulladdress" name="fulladdress" style="width:90%;" disabled> 
 		    <input type="text" id="pname" name="pname" value="">   
 		    <input type="text" id="paddress" name="paddress" value="">  
@@ -468,29 +469,20 @@ function boardValidate(e){
 	    </div>
 				
 				
-				</div>
 	        </div>
 	      </div>
 	    </div>	
 	  
 		<div class="mb-2 row">
-			<label for="status" class="col-sm-1 col-form-label">상태</label>
-			<div class="col-sm-4">
-				<select class="form-select col-6" name="status" id="status" aria-label="Default select example" value="실종">
-				  <option value="" selected>상태</option>
-				  <option value="실종">실종</option>
-				  <option value="목격">목격</option>
-				  <option value="보호">보호</option>
-				</select>
-			</div>
+
 			
-			<label for="day" class="col-sm-1 col-form-label">완료여부</label>
+<!-- 			<label for="day" class="col-sm-1 col-form-label">완료여부</label>
 			<div class="col-sm-4">
 				<select class="form-control col-6 disabled" name="day" id="day" aria-label="Default select example" disabled required>
 				  <option value="" selected>진행</option>
 				  <option value="완료">완료</option>
 				</select>
-			</div>
+			</div> -->
 			
 		</div>
 	  
