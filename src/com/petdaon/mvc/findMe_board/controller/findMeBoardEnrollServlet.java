@@ -105,11 +105,11 @@ public class findMeBoardEnrollServlet extends HttpServlet {
 		System.out.println("missDate: "+missDate);
 				
 		
-		Board board = new Board("01",0,title,"kh1231","01033332222",
+		Board board = new Board("01",0,title,"kh1231",phone,
 								enrollDate,gender,weight,color,character,
-								missDate,content,status,"N","N",
-								latclick,lngclick,paddress,"N","강아지",
-								"리트리버",null);
+								missDate,content,"완료","N","N",
+								latclick,lngclick,paddress,"N",animalType,
+								breed,null);
 		System.out.println("findMeBoardEnrollServlet board" +board);
 		
 		if(multipartRequest.getFile("upFile") != null) {

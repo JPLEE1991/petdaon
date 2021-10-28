@@ -59,5 +59,13 @@ public class BoardService {
 		close(conn);
 		return totalContents;
 	}
+	public Board selectOneBoard(int no) {
+		Connection conn = getConnection();
+		Board board = boardDao.selectOneBoard(conn, no);
+		Attachment attach = boardDao.selectOneAttachmentByBoardNo(conn,no);
+		board.setAttach(attach);
+		close(conn);
+		return board;
+	}
 
 }

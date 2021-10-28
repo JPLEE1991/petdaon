@@ -88,6 +88,7 @@ public class BoardDao {
 			  while(rset.next()) { // 테이블 record 1 -> VO객체 1 BoardExt board = new
 				  
 				  BoardExt board = new BoardExt(); 
+				  board.setNo(rset.getInt("no"));
 				  board.setAddress(rset.getString("address"));
 				  board.setAnimalType(rset.getString("animal_type"));
 				  board.setEnrollDate(rset.getDate("enroll_date"));		  
@@ -225,71 +226,88 @@ public class BoardDao {
 		return boardNo;
 	}
 
-//	public Board selectOneBoard(Connection conn, int no) {
-//		Board board = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rset = null;
-//		
-//		String query = prop.getProperty("selectOneBoard");
-//		try{
-//			//미완성쿼리문을 가지고 객체생성.
-//			pstmt = conn.prepareStatement(query);
-//			//쿼리문미완성
-//			pstmt.setInt(1, no);
-//			//쿼리문실행
-//			//완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
-//			rset = pstmt.executeQuery();
-//			
-//			if(rset.next()){
-//				board = new Board();
-//				board.setNo(rset.getInt("no"));
-//				board.setTitle(rset.getString("title"));
-//				board.setWriter(rset.getString("writer"));
-//				board.setContent(rset.getString("content"));
-//				board.setRegDate(rset.getDate("reg_date"));
-//				board.setReadCount(rset.getInt("read_count"));
-//			}
-//		}catch(Exception e){
-//			e.printStackTrace();
-//		}finally{
-//			close(rset);
-//			close(pstmt);
-//		}
-//		return board;
-//	}
+	public Board selectOneBoard(Connection conn, int no) {
+		Board board = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectOneBoard");
+		try{
+			//미완성쿼리문을 가지고 객체생성.
+			pstmt = conn.prepareStatement(query);
+			//쿼리문미완성
+			pstmt.setInt(1, no);
+			//쿼리문실행
+			//완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				board = new Board();
+				board.setBoardCode("01");
+				board.setNo(rset.getInt("no"));
+				board.setTitle(rset.getString("title"));
+				board.setWriter(rset.getString("writer"));
+				board.setPhone(rset.getString("phone"));
+				board.setEnrollDate(rset.getDate("Enroll_Date"));
+				board.setGender(rset.getString("gender"));
+				board.setWeight(rset.getInt("weight"));
+				board.setColor(rset.getString("color"));
+				board.setCharacter(rset.getString("character"));
+				board.setMissDate(rset.getDate("miss_date"));
+				board.setContent(rset.getString("content"));
+				board.setStatus(rset.getString("status"));
+				board.setDeleteYN(rset.getString("delete_YN"));
+				board.setCompleYN(rset.getString("complete_YN"));
+				board.setLatitude(rset.getDouble("latitude"));
+				board.setLongitude(rset.getDouble("longitude"));
+				board.setAddress(rset.getString("address"));
+				board.setNoticeYN(rset.getString("notice_YN"));
+				board.setAnimalType(rset.getString("animal_type"));
+				board.setBreed(rset.getString("breed"));
+				board.setAttach(null);
+								
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return board;
+	}
 
-//	public Attachment selectOneAttachmentByBoardNo(Connection conn, int boardNo) {
-//		Attachment attach = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rset = null;
-//		
-//		String query = prop.getProperty("selectOneAttachmentByBoardNo");
-//		
-//		try{
-//			//미완성쿼리문을 가지고 객체생성.
-//			pstmt = conn.prepareStatement(query);
-//			//쿼리문미완성
-//			pstmt.setInt(1, boardNo);
-//			//쿼리문실행
-//			//완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
-//			rset = pstmt.executeQuery();
-//			
-//			if(rset.next()){
-//				attach = new Attachment();
-//				attach.setNo(rset.getInt("no"));
-//				attach.setBoardNo(rset.getInt("board_no"));
-//				attach.setOriginalFilename(rset.getString("original_filename"));
-//				attach.setRenamedFilename(rset.getString("renamed_filename"));
-//				attach.setRegDate(rset.getDate("reg_date"));
-//			}
-//		}catch(Exception e){
-//			e.printStackTrace();
-//		}finally{
-//			close(rset);
-//			close(pstmt);
-//		}
-//		return attach;
-//	}
+	public Attachment selectOneAttachmentByBoardNo(Connection conn, int boardNo) {
+		Attachment attach = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectOneAttachmentByBoardNo");
+		
+		try{
+			//미완성쿼리문을 가지고 객체생성.
+			pstmt = conn.prepareStatement(query);
+			//쿼리문미완성
+			pstmt.setInt(1, boardNo);
+			//쿼리문실행
+			//완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				attach = new Attachment();
+				attach.setNo(rset.getInt("no"));
+				attach.setBoardCode(rset.getString("board_code"));
+				attach.setOriginalFilename(rset.getString("original_filename"));
+				attach.setRenamedFilename(rset.getString("renamed_filename"));
+				attach.setRegDate(rset.getDate("reg_date"));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return attach;
+	}
 
 //	public int updateReadCount(Connection conn, int no) {
 //		PreparedStatement pstmt = null;
