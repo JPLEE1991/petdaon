@@ -133,36 +133,40 @@ table#tbl-comment tr:hover button.btn-delete{display:inline;}
 			<th>말머리</th>		
 			<th>제목</th>	
 			<th>작성자</th>	
-			<th>작성일</th>	
+			<th>작성일</th>
+			<th>첨부파일</th>	
 			<th>조회수</th>				
 		</tr>
-	</table>
-</section>
-
 <%
-	for(BulletinBoard _board : list){
-		BoardExt board = (BoardExt) _board;
+	for(BulletinBoard board : list){		
 %>
 	<tr>
 		<td><%= board.getNo() %></td>
-		<td>
-			<a href="<%= request.getContextPath() %>/views/bulletin_board/boardView?no=<%= board.getNo() %>"><%= board.getTitle() %></a>
-		</td>
 		<td></td>
+		<td><%= board.getTitle() %></td>
+		<td><%= board.getWriter() %></td>
+		<td><%= board.getRegDate() %></td>
 		<td></td>
-		<td></td>
-		<td></td>
+		<td><%= board.getReadCount() %></td>
 	</tr>
-
 <%
 	}
-%>
+%>		
+		
+		
+	</table>
+</section>
+<br />
+
 
 <div class="btn-w">
-<a type="button" class="btn btn-outline-secondary" href="<%= request.getContextPath() %>/views/bulletin_board/boardEnroll.jsp">글쓰기</a>
+<a type="button" class="btn btn-outline-secondary" href="<%= request.getContextPath() %>/views/bulletin_board/boardForm.jsp">글쓰기</a>
 </div>
+
+<br />
+<br />
+<br />
 <br />
 <br />
 
-
-<!-- <%@ include file="/WEB-INF/views/common/footer.jsp" %> --> 
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>

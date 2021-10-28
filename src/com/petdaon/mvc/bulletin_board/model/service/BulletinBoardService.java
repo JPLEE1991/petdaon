@@ -16,7 +16,7 @@ public class BulletinBoardService {
 		Connection conn = getConnection();
 		List<BulletinBoard> list = boardDao.selectBoardList(conn, start, end);
 		close(conn);
-		return null;
+		return list;
 	}
 
 	public static int insertBoard(BulletinBoard board) {

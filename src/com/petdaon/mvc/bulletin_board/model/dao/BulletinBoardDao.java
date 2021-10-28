@@ -33,11 +33,6 @@ public class BulletinBoardDao {
 	}
 
 	public List<BulletinBoard> selectBoardList(Connection conn, int start, int end) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	public List<BulletinBoard> selectBoardLsit(Connection conn, int start, int end) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectBoardList");
@@ -51,16 +46,22 @@ public class BulletinBoardDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				// 테이블의 record 1 -> vo객체 1
-				BulletinBoard bboard = new BulletinBoard();
-				bboard.setNo(rset.getInt("no"));
-				bboard.setTitle(rset.getString("tite"));
-				bboard.setWriter(rset.getString("writer"));
-				bboard.setContent(rset.getString("content"));
-				bboard.setRegDate(rset.getDate("ENROLL_DATE"));
-				bboard.setReadCount(rset.getInt("VIEW_NUM"));
+				BulletinBoard board = new BulletinBoard();
+				board.setNo(rset.getInt("no"));
+				board.setTitle(rset.getString("title"));
+				board.setWriter(rset.getString("writer"));
+				board.setContent(rset.getString("content"));
+				board.setRegDate(rset.getDate("enroll_date"));
+				board.setReadCount(rset.getInt("scrap_num"));
+				board.setScrapCount(rset.getInt("scrap_num"));
+				board.setLikeCount(rset.getInt("like_num"));
+				board.setAnimal(rset.getString("animal_type"));
+				board.setDetail(rset.getString("detail"));
+				board.setCategory(rset.getString("category"));
+				board.setDelete(rset.getString("delete_yn"));
+				board.setNotice(rset.getString("notice_yn"));
 				
-				list.add(bboard);
+				list.add(board);
 			}
 			
 		} catch (SQLException e) {
@@ -69,8 +70,10 @@ public class BulletinBoardDao {
 			close(rset);
 			close(pstmt);
 		}
+		
 		return list;
 	}
+
 
 	public int insertBoard(Connection conn, BulletinBoard board) {
 		PreparedStatement pstmt = null;
