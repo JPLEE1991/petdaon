@@ -64,4 +64,40 @@ public class VolunteerBoardService {
 		return board;
 	}
 
+	// 담당자 이름 표기를 위한 봉사게시글 작성자 이름 조회
+	public String selectWriterName(int no) {
+		Connection conn = getConnection();
+		String name = volunteerBoardDao.selectWriterName(conn, no);
+		// 단순조회로 트랜잭션 처리하지 않음
+		close(conn);
+		return name;
+	}
+
+	// 봉사 게시글 신청인원 수 가져오기
+	public int selectApplicationCount(int no) {
+		Connection conn = getConnection();
+		int applicationCnt = volunteerBoardDao.selectApplicationCount(conn, no);
+		// 단순조회로 트랜잭션 처리하지 않음
+		close(conn);
+		return applicationCnt;
+	}
+
+	// 봉사 신청 등록
+	public int insertVolunteerApplication(String memberId, int boardNo) {
+		Connection conn = getConnection();
+		int result = 0;
+		
+		try {
+			result = volunteerBoardDao.insertVolunteerApplication(conn, memberId, boardNo);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e; //controller가 예외처리를 결정할 수 있도록 넘김.
+		} finally {
+			close(conn);
+		}
+		
+		return result;
+	}
+
 }

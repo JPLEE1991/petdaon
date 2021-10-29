@@ -57,7 +57,7 @@ public class VolunteerBoardDao {
 			pstmt.setString(15, board.getThumbnail());
 			
 			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new BoardException("봉사 게시글 등록 오류", e);
 		} finally {
@@ -108,7 +108,7 @@ public class VolunteerBoardDao {
 				list.add(board);
 			}
 			
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			throw new BoardException("승인 봉사 게시글 전체 조회 오류", e);
 		} finally {
 			close(rset);
@@ -158,7 +158,7 @@ public class VolunteerBoardDao {
 				board.setEnrollYn(rset.getString("enroll_yn"));
 				board.setThumbnail(rset.getString("thumbnail"));
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			throw new BoardException("봉사 게시글 상세보기 조회 오류", e);
 		} finally {
 			close(rset);
@@ -168,4 +168,83 @@ public class VolunteerBoardDao {
 		
 		return board;
 	}
+
+	// 담당자 이름 표기를 위한 봉사게시글 작성자 이름 조회
+	public String selectWriterName(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectWriterName");
+		String name = "";
+		
+		try {
+			// 미완성쿼리문을 가지고 객체생성.
+			pstmt = conn.prepareStatement(sql);
+			// ?값 세팅한다.
+			pstmt.setInt(1, no);
+			// 쿼리문 실행
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				name = rset.getString(1);
+			}
+			
+		} catch (Exception e) {
+			throw new BoardException("봉사 게시글 작성자 이름 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return name;
+	}
+
+	// 봉사 게시글 신청인원수 가져오기
+	public int selectApplicationCount(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectApplicationCount");
+		int applicationCnt = 0;
+		
+		try {
+			// 미완성쿼리문을 가지고 객체생성.
+			pstmt = conn.prepareStatement(sql);
+			// ?값 세팅한다.
+			pstmt.setInt(1, no);
+			// 쿼리문 실행
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				applicationCnt = rset.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			throw new BoardException("봉사 게시글 신청인원수 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return applicationCnt;
+	}
+
+	// 봉사 신청 등록
+	public int insertVolunteerApplication(Connection conn, String memberId, int boardNo) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertVolunteerApplication"); 
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			pstmt.setString(2, memberId);
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new BoardException("봉사 신청 등록 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 }

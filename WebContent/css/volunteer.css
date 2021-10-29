@@ -12,3 +12,13 @@ h4{
 .note-editor .note-editable {
     line-height: 100%;
 }
+
+.personInfo {
+	font-size: 1.1rem;
+}
+.personInfo dl {
+	margin-bottom: 0;
+}
+.personInfo dd {
+	margin-bottom: 0;
+}

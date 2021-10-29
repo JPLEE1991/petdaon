@@ -24,6 +24,7 @@
 
 	<div class="container">
 		<h3>봉사게시판</h3>
+		<%-- 로그인 한 사람만 등록하기 버튼 가능하게 이후에 수정하기 로그인안했으면 로그인 후 이용가능하는 alert창 띄우기(로그인 페이지 이동은 생략하자. 호기심에 눌렀을 수도 있으니) --%>
 		<button type="button" class="btn btn-primary" onclick="location.href='<%= request.getContextPath() %>/volunteerBoard/boardForm';">등록하기</button>
 		<div id="calendar"></div>
 	</div>

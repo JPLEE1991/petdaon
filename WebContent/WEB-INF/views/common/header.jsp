@@ -45,6 +45,18 @@
           font-weight: bold;
         }
 </style>
+<script>
+<% 
+	String msg = (String) session.getAttribute("msg");
+	// System.out.println("msg@header.jsp = " + msg);
+	if(msg != null) session.removeAttribute("msg");
+	
+%>
+<% if(msg != null) { %>
+	// 사용자 메세지 전달
+	alert("<%= msg %>");
+<% } %>
+</script>
 </head>
 <body>
   <div id="mainHeader" >
