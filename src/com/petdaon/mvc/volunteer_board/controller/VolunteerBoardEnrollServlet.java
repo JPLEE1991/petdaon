@@ -72,10 +72,16 @@ public class VolunteerBoardEnrollServlet extends HttpServlet {
 			String _deadlineDate = multipartRequest.getParameter("deadlineDate");
 			int capacity = Integer.parseInt(multipartRequest.getParameter("capacity"));
 			String place = multipartRequest.getParameter("place");
+
+			// 봉사요일 직접입력 유무 사용자 입력값 지정
+			String day = "";
 			
-			
-//			String time = multipartRequest.getParameter("time");
-//			String timeDirect = multipartRequest.getParameter("selboxDirectTime");
+			if("".equals(multipartRequest.getParameter("selboxDirectDay"))) {
+				day = multipartRequest.getParameter("day");
+			}
+			else {
+				day = multipartRequest.getParameter("selboxDirectDay");
+			}
 			
 			// 봉사시간 직접입력 유무 사용자 입력값 지정
 			String time = "";
@@ -85,20 +91,6 @@ public class VolunteerBoardEnrollServlet extends HttpServlet {
 			}
 			else {
 				time = multipartRequest.getParameter("selboxDirectTime");
-			}
-			
-			
-//			String day = multipartRequest.getParameter("day");
-//			String dayDirect = multipartRequest.getParameter("selboxDirectDay");
-			
-			// 봉사요일 직접입력 유무 사용자 입력값 지정
-			String day = "";
-			
-			if("".equals(multipartRequest.getParameter("selboxDirectDay"))) {
-				day = multipartRequest.getParameter("day");
-			}
-			else {
-				day = multipartRequest.getParameter("selboxDirectDay");
 			}
 			
 			String contents = multipartRequest.getParameter("contents");
@@ -132,10 +124,10 @@ public class VolunteerBoardEnrollServlet extends HttpServlet {
 			
 			// 2. 업무로직
 			int result = volunteerBoardService.insertVolunteerBoard(board);
-			//String msg = (result > 0) ? "봉사 게시글 등록 완료" : "봉사 게시글 등록 실패";	
+			String msg = (result > 0) ? "봉사 게시글 등록 완료! 관리자 승인 후 게시글이 등록됩니다." : "봉사 게시글 등록 실패";
 			
 			// 3. 응답처리 : redirect
-			//request.getSession().setAttribute("msg", msg);
+			request.getSession().setAttribute("msg", msg);
 			String location = request.getContextPath() + "/volunteerBoard/boardList";
 			response.sendRedirect(location);
 			

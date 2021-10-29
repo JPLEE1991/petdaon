@@ -10,26 +10,26 @@ public class VolunteerBoard implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private int no;
-	private String title;
-	private String centerName;
-	private String content;
-	private Date startDate;
-	private Date endDate;
-	private String email;
-	private String phone;
-	private String approvalYn;
-	private String deleteYn;
-	private int capacity;
-	private String place;
-	private Date deadlineDate;
-	private Date regDate;
-	private String time;
-	private String day;
-	private String boardCode;
-	private String writer;
-	private String enrollYn;
-	private String thumbnail;
+	private int no;					// 글번호
+	private String title;			// 봉사게시글 제목
+	private String centerName;		// 센터명
+	private String content;			// 봉사게시글 내용
+	private Date startDate;			// 봉사 시작일
+	private Date endDate;			// 봉사 종료일
+	private String email;			// 이메일
+	private String phone;			// 휴대폰번호
+	private String approvalYn;		// 관리자 승인여부 승인(Y) 미승인(N) 승인보류(W)
+	private String deleteYn;		// 삭제여부
+	private int capacity;			// 모집인원
+	private String place;			// 장소
+	private Date deadlineDate;		// 신청마감일
+	private Date regDate;			// 봉사게시글 등록일
+	private String time;			// 봉사시간
+	private String day;				// 봉사요일
+	private String boardCode;		// 게시판코드
+	private String writer;			// 작성자
+	private String enrollYn;		// 신청자 접수취소여부
+	private String thumbnail;		// 썸네일사진경로
 	
 	public VolunteerBoard() {
 		super();

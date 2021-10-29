@@ -6,35 +6,21 @@
 <%-- <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script> --%>
 
 <%-- 썸머노트를 위해 추가해야할 부분 --%>
-<link href="<%=request.getContextPath()%>/css/summernote/summernote-bs4.css" rel="stylesheet"> 
-<script src="<%=request.getContextPath()%>/js/summernote/summernote-bs4.js"></script>
+<%-- <link href="<%=request.getContextPath()%>/css/summernote/summernote-bs4.css" rel="stylesheet"> 
+<script src="<%=request.getContextPath()%>/js/summernote/summernote-bs4.js"></script> --%>
+<%-- 위 두줄 대신 사용함. 아래 cdn방식으로 하니 css 문제 안생김 --%>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 <script src="<%=request.getContextPath()%>/js/summernote/lang/summernote-ko-KR.js"></script>
 <%-- --%>
 
 <script>
-// 봉사시간/봉사요일 직접입력
+// 봉사요일/봉사시간 직접입력
 	$(function(){
     //직접입력 인풋박스 기존에는 숨어있다가
-	$("#selboxDirectTime").hide();
 	$("#selboxDirectDay").hide();
+	$("#selboxDirectTime").hide();
     
-	// 봉사시간
-	$("#time").change(function() {
-		// 직접입력을 누를 때 나타남
-		if($("#time").val() == "directTime") {
-			$("#selboxDirectTime").show();
-			// 직접입력 시 required 속성 추가하기
-			$("#selboxDirectTime").attr("required" , true);
-		}
-		else {
-			$("#selboxDirectTime").hide();
-			// 값 초기화
-			$("#selboxDirectTime").val('');
-			// required 속성 없애기
-			$("#selboxDirectTime").attr("required" , false);
-		}	
-	})
-	
 	// 봉사요일
 	$("#day").change(function() {
 		// 직접입력을 누를 때 나타남
@@ -50,6 +36,23 @@
 			$("#selboxDirectDay").val('');
 			// required 속성 없애기
 			$("#selboxDirectDay").attr("required" , false);
+		}	
+	})
+	
+	// 봉사시간
+	$("#time").change(function() {
+		// 직접입력을 누를 때 나타남
+		if($("#time").val() == "directTime") {
+			$("#selboxDirectTime").show();
+			// 직접입력 시 required 속성 추가하기
+			$("#selboxDirectTime").attr("required" , true);
+		}
+		else {
+			$("#selboxDirectTime").hide();
+			// 값 초기화
+			$("#selboxDirectTime").val('');
+			// required 속성 없애기
+			$("#selboxDirectTime").attr("required" , false);
 		}	
 	})
 });
@@ -82,7 +85,9 @@ $(() => {
 </script>
 
 	<div class="container">
-		<h3>봉사 등록</h3>
+		<h3 class="d-inline-block">봉사 등록</h3>
+		<!-- <span class="small text-danger">* 관리자 승인 후 게시글이 등록됩니다.</span> -->
+		<span class="small text-danger">* 관리자 게시물 검토 후 연락을 드리며 승인 후 게시글이 등록됩니다.</span>
 		<form
 			name="volunteerBoardEnrollFrm"
 			action="<%=request.getContextPath() %>/volunteerBoard/boardEnroll"
@@ -157,22 +162,7 @@ $(() => {
 							<input type="text" placeholder="장소 입력" class="form-control" name="place" id="place">
 						</div>
 					</div>
-					
-					<!-- 봉사시간 -->
-					<div class="mb-2 row">
-						<label for="time" class="col-sm-2 col-form-label">봉사시간</label>
-						<div class="col-sm-5">
-							<select class="form-select" name="time" id="time" aria-label="Default select example">
-							  <option value="" selected>봉사시간</option>
-							  <option value="시간협의">시간협의</option>
-							  <option value="directTime">직접입력</option>
-							</select>
-						</div>
-						<div class="col-sm-5">
-							<input type="text" placeholder="예시) 13시 00분 ~ 17시 00분" class="form-control" name="selboxDirectTime" id="selboxDirectTime">
-						</div>
-					</div>
-					
+
 					<!-- 봉사요일 -->
 					<div class="mb-2 row">
 						<label for="day" class="col-sm-2 col-form-label">봉사요일</label>
@@ -187,6 +177,21 @@ $(() => {
 						</div>
 						<div class="col-sm-5">
 							<input type="text" placeholder="직접 입력" class="form-control" name="selboxDirectDay" id="selboxDirectDay">
+						</div>
+					</div>
+					
+					<!-- 봉사시간 -->
+					<div class="mb-2 row">
+						<label for="time" class="col-sm-2 col-form-label">봉사시간</label>
+						<div class="col-sm-5">
+							<select class="form-select" name="time" id="time" aria-label="Default select example">
+							  <option value="" selected>봉사시간</option>
+							  <option value="시간협의">시간협의</option>
+							  <option value="directTime">직접입력</option>
+							</select>
+						</div>
+						<div class="col-sm-5">
+							<input type="text" placeholder="예시) 13시 00분 ~ 17시 00분" class="form-control" name="selboxDirectTime" id="selboxDirectTime">
 						</div>
 					</div>
 							

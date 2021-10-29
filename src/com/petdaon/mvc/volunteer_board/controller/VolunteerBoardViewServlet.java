@@ -38,8 +38,18 @@ public class VolunteerBoardViewServlet extends HttpServlet {
 			return;
 		}
 		
+		// 봉사 게시글 담당자 이름 가져오기
+		String name = volunteerBoardService.selectWriterName(no);
+		//System.out.println(name);
+		
+		// 봉사 게시글 신청인원 수 가져오기
+		int applicationCnt = volunteerBoardService.selectApplicationCount(no);
+		System.out.println(applicationCnt);
+		
 		// 3. view단 처리
 		request.setAttribute("board", board);
+		request.setAttribute("name", name);
+		request.setAttribute("applicationCnt", applicationCnt);
 		request
 			.getRequestDispatcher("/WEB-INF/views/volunteer_board/volunteerBoardView.jsp")
 			.forward(request, response);
