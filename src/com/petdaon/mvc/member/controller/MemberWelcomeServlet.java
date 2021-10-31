@@ -1,31 +1,27 @@
 package com.petdaon.mvc.member.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 /**
- * logout.
- * 
- * @author dbwld
- *
+ * Servlet implementation class MemberWelcomeServlet
  */
-@SuppressWarnings("serial")
-@WebServlet("/member/memberLogout")
-public class MemberLogoutServlet extends HttpServlet {
+@WebServlet("/member/welcome")
+public class  MemberWelcomeServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getSession(true).invalidate();
-
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request
-		.getRequestDispatcher("/WEB-INF/views/member/memberLogin.jsp")
+		.getRequestDispatcher("/WEB-INF/views/member/welcome.jsp")
 		.forward(request, response);
 	}
-	
+
 }

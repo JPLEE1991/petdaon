@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
+//import com.google.gson.Gson;
 import com.petdaon.mvc.volunteer_board.model.service.VolunteerBoardService;
 import com.petdaon.mvc.volunteer_board.model.vo.VolunteerBoard;
 
@@ -43,7 +43,7 @@ public class VolunteerBoardListServlet extends HttpServlet {
 		
 		response.setContentType("application/json; charset=utf-8"); // json이라는 것을 헤더에 명시한다.
 
-		new Gson().toJson(list, response.getWriter());
+//		new Gson().toJson(list, response.getWriter());
 	}
 	
 
