@@ -15,6 +15,8 @@ import com.petdaon.mvc.member.model.vo.Member;
  *
  */
 public class MemberService {
+	public static final String MEMBER_ROLE = "M";
+    public static final String ADMIN_ROLE = "A";
 
 	private MemberDao memberDao = new MemberDao();
 

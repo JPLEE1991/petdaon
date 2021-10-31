@@ -16,7 +16,7 @@ import com.petdaon.mvc.member.model.vo.Member;
 /**
  * Servlet Filter implementation class EncodingFilter
  */
-@WebFilter("/*")
+//@WebFilter("/*") // 수업에서 배운 LoginFilter 이용하기 위해 주석처리함
 public class AuthFilter implements Filter {
 	private String exceptUrls = "/member/memberLoginForm,/member/memberLogin,/member/memberEnroll,/member/agreeForm,/member/memberIdValidate";
   

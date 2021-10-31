@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="com.petdaon.mvc.common.Constants,
+				com.petdaon.mvc.member.model.vo.Member"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,9 +64,23 @@
   <div id="mainHeader" >
     <div class="container">
       <h2>펫다온 Petdaon</h2>
-      <div id="login">
-        <a href="<%= request.getContextPath() %>/member/memberLogin">로그인</a>
-        <a href="<%= request.getContextPath() %>/member/memberEnroll">회원가입</a>
+       <div id="login">
+      	<%
+      	Member _member = (Member)request.getSession(true).getAttribute(Constants.SESSION_KEY);
+      	%>
+      	<%
+      	if (_member == null) {
+      	%>
+        <a href="<%= request.getContextPath() %>/member/memberLoginForm">로그인</a>
+        <a href="<%= request.getContextPath() %>/member/agreeForm">회원가입</a>
+        <%
+      	} else {
+        %>
+        <a href="<%= request.getContextPath() %>/member/memberLogout">로그아웃</a>
+        <%
+      	}
+        %>
+        <a href="<%= request.getContextPath() %>/member/memberList">회원관리</a>
       </div>
     </div>
   </div>
