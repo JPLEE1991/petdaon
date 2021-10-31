@@ -68,6 +68,7 @@
 				    minute: '2-digit',
 				    hour12: false
 				  } */
+				height: 650
 			});
   			// 캘린더 랜더링
 			calendar.render();

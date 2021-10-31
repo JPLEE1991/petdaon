@@ -1,12 +1,22 @@
+<%@page import="com.petdaon.mvc.common.vo.BoardComment"%>
+<%@page import="com.petdaon.mvc.volunteer_board.model.service.VolunteerBoardService"%>
+<%@page import="com.petdaon.mvc.volunteer_board.model.vo.VolunteerApplicationExt"%>
+<%@page import="java.util.List"%>
 <%@page import="com.petdaon.mvc.volunteer_board.model.vo.VolunteerBoard"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <%
-
+	// 봉사 게시글
 	VolunteerBoard board = (VolunteerBoard) request.getAttribute("board");
+	// 봉사 게시글 담당자 이름 가져오기
 	String name = (String) request.getAttribute("name");
+	// 승인상태인 봉사 게시글 신청인원 수 - 모집인원 초과여부 확인을 위해 가져옴
 	int applicationCnt = (int) request.getAttribute("applicationCnt");
+	// 접수상태인 신청자 리스트
+	List<VolunteerApplicationExt> applicationList = (List<VolunteerApplicationExt>) request.getAttribute("applicationList");
+	// 댓글(문의/답변)목록 가져오기
+	List<BoardComment> commentList = (List<BoardComment>) request.getAttribute("commentList");
 
 	/* 로그인 기능 구현되면 주석 해제 수정할것 고치기 */
 	/* boolean editable = loginMember != null && (
@@ -120,12 +130,13 @@
     			<div class="row">
 				    <div class="col-sm-12">
 						<!-- Button trigger modal -->
-						<button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+						<button type="button" id="triggerModal" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="applicationModal()">
 						  신청하기
 						</button>
 						<!-- Modal -->
 						<%-- Modal을 이용한 봉사신청폼 작성 --%>
 						<form
+							id="applicationForm"
 							name="volunteerApplicationEnrollFrm"
 							action="<%=request.getContextPath() %>/volunteerApplication/applicationEnroll"
 							method="post">
@@ -224,10 +235,131 @@
 		  	<%= board.getContent() %>
 		  </div>
 		  
-		  <div class="tab-pane fade" id="nav-comment" role="tabpanel" aria-labelledby="nav-comment-tab">문의답변</div>
+		  <!-- 문의답변 -->
+		  <div class="tab-pane fade" id="nav-comment" role="tabpanel" aria-labelledby="nav-comment-tab">
+		  	<h5 class="my-3">문의/답변</h5>
+		  	<!-- 댓글작성 폼 -->
+		  	<form 
+				action="<%= request.getContextPath() %>/volunteerBoard/boardCommentEnroll" 
+				name="volunteerBoardCommentFrm" 
+				method="POST">
+				<input type="hidden" name="commentLevel" value="1" />
+				<%-- 로그인 기능 구현되면 수정하기 value부분에 테스트로 honggd 넣음--%>
+				<%-- <input type="hidden" name="writer" value="<%= loginMember != null ? loginMember.getMemberId() : "" %>" /> --%>
+				<input type="hidden" name="writer" value="honggd" />
+				<input type="hidden" name="boardNo" value="<%= board.getNo() %>" />
+				<input type="hidden" name="commentRef" value="0" />
+				
+				<div class="row my-2">
+					<div class="col-md-11">
+						<textarea class="form-control" placeholder="문의를 남겨주세요." id="floatingTextarea" name="content"></textarea>
+					</div>
+					<div class="col-md-1">
+						<button class="btn btn-primary h-100">등록</button>
+					</div>
+				</div>
+			</form>
+			<hr />
+			
+<%
+if(commentList != null && !commentList.isEmpty()){ // isEmpty()는 객체가 null로 되어있어 비는 것이 아닌 값이 존재하지 않는 상태이다.
+	for(BoardComment bc : commentList){
+		/* 로그인 기능 구현되면 수정할 부분 수정하고 넣기 */
+		/* boolean removable = 
+				loginMember != null && 
+				(
+				  loginMember.getMemberId().equals(bc.getWriter())
+				  || MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())
+				); */
+		
+		if(bc.getCommentLevel() == 1){
+%>
+			<%-- 댓글 --%>
+			<div class="row level1 h-100">
+				<div class="col-md-12">
+					<span class="comment-writer"><%= bc.getWriter() %></span>
+					<span class="comment-date small"><%= bc.getRegDate() %></span>
+				</div>
+				<div class="col-md-12 comment-content bg-light text-dark">
+					<%-- 댓글 내용 --%>
+					<span><%= bc.getContent() %></span>
+					<button type="button" class="btn btn-reply btn-info float-right btn-sm" value="<%= bc.getNo() %>">답글</button>
+				</div>
+			</div>
+<%
+		}
+		else {
+%>
+			<%-- 대댓글(답글) --%>
+			<div class="row level2">
+				<div class="col-md-12">
+					<span class="comment-writer"><%= bc.getWriter() %></span>
+					<span class="comment-date small"><%= bc.getRegDate() %></span>
+				</div>
+				<div class="col-md-12 comment-content bg-secondary text-white">
+					<%-- 댓글 내용 --%>
+					<div class="pl-5"><%= bc.getContent() %></div>
+				</div>
+			</div>
+<%
+		}
+	}
+}
+%>
+			
+		  </div>
 		  
+		  <!-- 신청현황 -->
 		  <div class="tab-pane fade" id="nav-status" role="tabpanel" aria-labelledby="nav-status-tab">
 		  	<p class="text-start small">* 신청자의 전화번호와 이메일은 본 게시물을 작성한 담당자만 조회가 가능합니다.</p>
+		  	
+		  	<!-- 테이블 -->
+		  	
+		  	<div class="table-responsive-xl">
+			  	<table class="table">
+				  <thead>
+				    <tr class="table-secondary">
+				      <th scope="col">번호</th>
+				      <th scope="col">이름</th>
+				      <th scope="col">휴대폰</th>
+				      <th scope="col">이메일</th>
+				      <th scope="col">등록일</th>
+				      <th scope="col">승인여부</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+<%
+if(applicationList != null && !applicationList.isEmpty()) { // isEmpty()는 객체가 null로 되어있어 비는 것이 아닌 값이 존재하지 않는 상태이다.
+	int cnt = 0;
+	for(VolunteerApplicationExt va : applicationList) {
+%>				    
+				    <tr>
+				      <th scope="row"><%= ++cnt %></th>
+				      <td><%= va.getMemberName() %></td>
+				      <td><%= va.getPhone() %></td>
+				      <td><%= va.getEmail() %></td>
+				      <td><%= va.getRegDate() %></td>
+				      <td>
+				      	<span class="bg-primary text-white small p-1 rounded">
+				      	<%= VolunteerBoardService.APPROVAL_YES.equals(va.getApprovalYn()) ? "승인" : "미승인" %>
+				      	</span>
+				      </td>
+				    </tr>
+<%
+	}
+}
+else {
+%>
+					<tr>
+				      <td colspan="6" class="text-center">신청한 자원봉사자가 없습니다.</td>
+				    </tr>
+<%
+}
+%>
+				  </tbody>
+				</table>
+			</div>
+		  	
 		  </div>
 		
 		</div>
@@ -235,4 +367,52 @@
 	
     </div>
     <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<script>
+/**
+ * 신청하기 모달 트리거 누를 때 loginMember null (로그인 하지 않은 경우) alert창 띄움 "로그인후 이용할 수 있습니다."
+ */
+<%-- const applicationModal = () => {
+	// 로그인 기능 구현되면 변경하기 주석된 코드로 바꿀 것 임의값 "신사임당" 집어넣은 상태
+	<% if(loginMember == null) {%>
+	//로그인 하지 않았을 경우 발생
+	alert("로그인후 이용할 수 있습니다.");
+	// 모달창 숨기기(로그인 기능 구현되면 테스트 해보기 문제 있을 수도 있음)
+	$('#applicationForm').hide();
+	// 백그라운드 남아있는것 제거
+	$('.modal-backdrop').remove();
+<% } else { %>
+	$('#applicationForm').show();
+<%
+	}
+%>
+} --%>
+
+
+/**
+* volunteerApplicationEnrollFrm 검사
+*/
+function volunteerApplicationValidate(e){
+	// 이미 신청한 경우 신청버튼 누를 시 '이미 신청하신 상태입니다.' alert창 띄우기
+<%
+if(applicationList != null && !applicationList.isEmpty()) { // isEmpty()는 객체가 null로 되어있어 비는 것이 아닌 값이 존재하지 않는 상태이다.
+	for(VolunteerApplicationExt va : applicationList) {
+		// 로그인 기능 구현되면 변경하기 주석된 코드로 바꿀 것 임의값 honggd 집어넣은 상태
+		// 로그인 유무는 이 제출폼 나오기 전에 검사하였으므로 로그인 loginMember null여부 검사하지 않음
+		//if(loginMember.getMemberId().equals(va.getApplicant())){
+		if("honggd".equals(va.getApplicant())){
+%>
+			alert("이미 신청하신 상태입니다.");
+			return false;
+<%
+		}
+	}
+}
+%>
+	return true;
+}
+
+$(() => {
+	$(document.volunteerApplicationEnrollFrm).submit(volunteerApplicationValidate);
+});
+</script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

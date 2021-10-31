@@ -14,7 +14,7 @@ public class VolunteerApplication implements Serializable{
 	private String approvalYn;		// 봉사신청 승인여부
 	private String applicationYn;	// 봉사신청상태
 	private Date regDate;			// 봉사신청등록일
-	private String boardNo;			// 봉사게시글번호
+	private int boardNo;			// 봉사게시글번호
 	private String boardCode;		// 게시판코드
 	private String applicant;		// 신청자아이디
 	
@@ -22,7 +22,7 @@ public class VolunteerApplication implements Serializable{
 		super();
 	}
 
-	public VolunteerApplication(int no, String approvalYn, String applicationYn, Date regDate, String boardNo,
+	public VolunteerApplication(int no, String approvalYn, String applicationYn, Date regDate, int boardNo,
 			String boardCode, String applicant) {
 		super();
 		this.no = no;
@@ -66,11 +66,11 @@ public class VolunteerApplication implements Serializable{
 		this.regDate = regDate;
 	}
 
-	public String getBoardNo() {
+	public int getBoardNo() {
 		return boardNo;
 	}
 
-	public void setBoardNo(String boardNo) {
+	public void setBoardNo(int boardNo) {
 		this.boardNo = boardNo;
 	}
 
