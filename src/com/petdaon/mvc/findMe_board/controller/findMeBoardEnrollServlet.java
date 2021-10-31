@@ -110,7 +110,7 @@ public class findMeBoardEnrollServlet extends HttpServlet {
 								missDate,content,"완료","N","N",
 								latclick,lngclick,paddress,"N",animalType,
 								breed,null);
-		System.out.println("findMeBoardEnrollServlet board" +board);
+		System.out.println("findMeBoardEnrollServlet attach 세팅 전 board" +board);
 		
 		if(multipartRequest.getFile("upFile") != null) {
 			Attachment attach = new Attachment();
@@ -119,7 +119,7 @@ public class findMeBoardEnrollServlet extends HttpServlet {
 			board.setAttach(attach);
 		}
 		
-		System.out.println("board@servlet = " + board);
+		System.out.println("@findMeBoardEnrollServlet attach 세팅 후= " + board);
 		
 		// 2. 업무로직
 		int result = boardService.insertBoard(board);
