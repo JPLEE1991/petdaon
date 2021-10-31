@@ -1,7 +1,6 @@
 package com.petdaon.mvc.member.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,23 +8,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * logout.
- * 
- * @author dbwld
- *
+ * Servlet implementation class AgreeFormServlet
  */
-@SuppressWarnings("serial")
-@WebServlet("/member/memberLogout")
-public class MemberLogoutServlet extends HttpServlet {
+@WebServlet("/member/agreeForm")
+public class  AgreeFormServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getSession(true).invalidate();
-
+		// view단 처리
 		request
-		.getRequestDispatcher("/WEB-INF/views/member/memberLogin.jsp")
+		.getRequestDispatcher("/WEB-INF/views/member/agreeForm.jsp")
 		.forward(request, response);
 	}
-	
+
 }
+
+
+
+
+
+
+
+	
