@@ -11,7 +11,7 @@ public class VolunteerApplicationExt extends VolunteerApplication implements Ser
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private String name;	// 이름
+	private String memberName;	// 이름
 	private String phone;	// 휴대폰
 	private String email;	// 이메일
 	
@@ -19,25 +19,26 @@ public class VolunteerApplicationExt extends VolunteerApplication implements Ser
 		super();
 	}
 	
-	public VolunteerApplicationExt(int no, String approvalYn, String applicationYn, Date regDate, String boardNo,
+	public VolunteerApplicationExt(int no, String approvalYn, String applicationYn, Date regDate, int boardNo,
 			String boardCode, String applicant, String name, String phone, String email) {
 		super(no, approvalYn, applicationYn, regDate, boardNo, boardCode, applicant);
-		this.name = name;
+		this.memberName = name;
 		this.phone = phone;
 		this.email = email;
 	}
 
-	public String getName() {
-		return name;
+	public String getMemberName() {
+		return memberName;
 	}
-
-	public void setName(String name) {
-		this.name = name;
+	
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
-
+	
 	public String getPhone() {
 		return phone;
 	}
+
 
 	public void setPhone(String phone) {
 		this.phone = phone;
@@ -53,7 +54,7 @@ public class VolunteerApplicationExt extends VolunteerApplication implements Ser
 
 	@Override
 	public String toString() {
-		return "VolunteerApplicationExt [name=" + name + ", phone=" + phone + ", email=" + email + ", toString()=" + super.toString() + "]";
+		return "VolunteerApplicationExt [name=" + memberName + ", phone=" + phone + ", email=" + email + ", toString()=" + super.toString() + "]";
 	}
 	
 }

@@ -8,7 +8,9 @@ import static com.petdaon.mvc.common.JdbcTemplate.rollback;
 import java.sql.Connection;
 import java.util.List;
 
+import com.petdaon.mvc.common.vo.BoardComment;
 import com.petdaon.mvc.volunteer_board.model.dao.VolunteerBoardDao;
+import com.petdaon.mvc.volunteer_board.model.vo.VolunteerApplicationExt;
 import com.petdaon.mvc.volunteer_board.model.vo.VolunteerBoard;
 
 public class VolunteerBoardService {
@@ -21,10 +23,17 @@ public class VolunteerBoardService {
 	
 	public static final String APPROVAL_YES = "Y";
 	public static final String APPROVAL_NO = "N";
+	public static final String APPROVAL_WAIT = "W";
 	public static final String DELETE_YES = "Y";
 	public static final String DELETE_NO = "N";
 	public static final String ENROLL_YES = "Y";
 	public static final String ENROLL_NO = "N";
+	
+	//봉사신청관련 추가
+	public static final String APPLICATION_YES = "Y";	// 봉사신청상태 - 신청
+	public static final String APPLICATION_NO = "N";	// 봉사신청상태 - 취소
+	
+	
 	
 	private VolunteerBoardDao volunteerBoardDao = new VolunteerBoardDao();
 
@@ -98,6 +107,39 @@ public class VolunteerBoardService {
 		}
 		
 		return result;
+	}
+
+	// 신청자 리스트 가져오기(이름, 이메일, 휴대폰 정보까지 가져와야 하므로 VolunteerApplicationExt 이용)
+	public List<VolunteerApplicationExt> selectVolunteerApplicationList(int no) {
+		Connection conn = getConnection();
+		List<VolunteerApplicationExt> applicationList = volunteerBoardDao.selectVolunteerApplicationList(conn, no);
+		// 단순조회로 트랜잭션 처리하지 않음
+		close(conn);
+		return applicationList;
+	}
+
+	// 댓글(문의/답변) 등록
+	public int insertVolunteerBoardComment(BoardComment bc) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			result = volunteerBoardDao.insertVolunteerBoardComment(conn, bc);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e; //controller가 예외처리를 결정할 수 있도록 넘김.
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	// 댓글(문의/답변)목록 가져오기
+	public List<BoardComment> selectCommentList(int no) {
+		Connection conn = getConnection();
+		List<BoardComment> commentList = volunteerBoardDao.selectCommentList(conn, no);
+		close(conn);
+		return commentList;
 	}
 
 }

@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.petdaon.mvc.common.vo.BoardComment;
 import com.petdaon.mvc.volunteer_board.model.exception.BoardException;
+import com.petdaon.mvc.volunteer_board.model.vo.VolunteerApplicationExt;
 import com.petdaon.mvc.volunteer_board.model.vo.VolunteerBoard;
 
 
@@ -245,6 +247,124 @@ public class VolunteerBoardDao {
 		}
 		
 		return result;
+	}
+
+	// 신청자 리스트 가져오기(이름, 이메일, 휴대폰 정보까지 가져와야 하므로 VolunteerApplicationExt 이용)
+	public List<VolunteerApplicationExt> selectVolunteerApplicationList(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectVolunteerApplicationList");
+		List<VolunteerApplicationExt> applicationList = new ArrayList<>();
+		
+		// 1.PreparedStatment객체 생성 & 미완성쿼리 값대입
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				// 테이블 record 1 -> VO객체 1
+				VolunteerApplicationExt application = new VolunteerApplicationExt();
+				application.setNo(rset.getInt("no"));
+				application.setApprovalYn(rset.getString("approval_yn"));
+				application.setApplicationYn(rset.getString("application_yn"));
+				application.setRegDate(rset.getDate("reg_date"));
+				application.setBoardNo(rset.getInt("board_no"));
+				application.setBoardCode(rset.getString("board_code"));
+				application.setApplicant(rset.getString("applicant"));
+				application.setMemberName(rset.getString("member_name"));
+				application.setPhone(rset.getString("phone"));
+				application.setEmail(rset.getString("email"));
+				
+				//신청자 리스트에 추가한다.
+				applicationList.add(application);
+			}
+			
+		} catch (Exception e) {
+			throw new BoardException("신청현황 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return applicationList;
+	
+	}
+
+	// 댓글(문의/답변) 등록
+	// dao에서 commentRef필드는 setObject를 사용할 것. int, null 모두 ?에 설정가능
+	// - 0이면 null이 대입
+	// - n이면 n이 대입
+	public int insertVolunteerBoardComment(Connection conn, BoardComment bc) {
+		PreparedStatement pstmt = null;
+		//insert into board_comment values(seq_board_comment_no.nextval, ?, ?, ?, ?, default, default, ?, ?)
+		//? 순서 각각 writer, comment_level, content, comment_ref, board_code, board_no
+		String sql = prop.getProperty("insertVolunteerBoardComment");
+		int result = 0;
+		
+		try {
+			//미완성쿼리문을 가지고 객체생성.
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, bc.getWriter());
+			pstmt.setInt(2, bc.getCommentLevel());
+			pstmt.setString(3, bc.getContent());
+			pstmt.setObject(4, bc.getCommentRef() == 0 ? null : bc.getCommentRef());
+			pstmt.setString(5, bc.getBoardCode());
+			pstmt.setInt(6, bc.getBoardNo());
+			
+			//쿼리문실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
+			//DML은 executeUpdate()
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BoardException("문의/답변 등록 오류!", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	// 댓글(문의/답변)목록 가져오기
+	public List<BoardComment> selectCommentList(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCommentList");
+		List<BoardComment> commentList = new ArrayList<>();
+		
+		try {
+			// 미완성 쿼리 값 대입
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			// 쿼리문 실행
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				BoardComment bc = new BoardComment();
+				bc.setNo(rset.getInt("no"));
+				bc.setWriter(rset.getString("writer"));
+				bc.setCommentLevel(rset.getInt("comment_level"));
+				bc.setContent(rset.getString("content"));
+				bc.setCommentRef(rset.getInt("comment_ref"));
+				bc.setRegDate(rset.getDate("reg_date"));
+				bc.setDeleteYn(rset.getString("delete_yn"));
+				bc.setBoardCode(rset.getString("board_code"));
+				bc.setBoardNo(rset.getInt("board_no"));
+				
+				//코멘트리스트에 추가한다.
+				commentList.add(bc);
+			}
+			
+		} catch (SQLException e) {
+			throw new BoardException("문의/답변 조회 오류!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return commentList;
 	}
 
 }
