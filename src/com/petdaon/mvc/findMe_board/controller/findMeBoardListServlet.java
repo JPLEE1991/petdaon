@@ -27,7 +27,7 @@ public class findMeBoardListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int cPage = 1;
-		int numPerPage = 10;
+		int numPerPage = 6;
 		try {
 			cPage = Integer.parseInt(request.getParameter("cPage"));
 		} catch(NumberFormatException e) {

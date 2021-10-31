@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+img{
+	width:16px
+}
+
+#photo{
+	text-align: center;
+}
+label,p {
+	font-weight: bold;
+}
+
+#pname, #latclick, #lngclick, #paddress, #fulladdress{
+	visibility: hidden;
+}

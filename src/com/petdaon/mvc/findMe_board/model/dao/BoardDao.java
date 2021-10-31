@@ -91,7 +91,10 @@ public class BoardDao {
 				  board.setNo(rset.getInt("no"));
 				  board.setAddress(rset.getString("address"));
 				  board.setAnimalType(rset.getString("animal_type"));
-				  board.setEnrollDate(rset.getDate("enroll_date"));		  
+				  board.setBreed(rset.getString("breed"));
+				  board.setMissDate(rset.getDate("miss_date"));		  
+				  board.setCharacter(rset.getString("character"));
+				  board.setStatus(rset.getString("status"));
 				  board.setBoardCommentCount(rset.getInt("bc_count"));
 				  
 				  
@@ -105,7 +108,6 @@ public class BoardDao {
 					  attach.setRenamedFilename(rset.getString("renamed_filename"));
 					  attach.setRegDate(rset.getDate("enroll_date"));
 					  board.setAttach(attach); 
-					  System.out.println("boardDao board22: "+board);
 				  }
 				  
 				  list.add(board); 
