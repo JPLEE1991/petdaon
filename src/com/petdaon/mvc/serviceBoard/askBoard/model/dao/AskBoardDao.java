@@ -86,4 +86,57 @@ public class AskBoardDao {
 		}
 		return totalContents;
 	}
+
+	public int insertAskBoard(Connection conn, AskBoard askBoard) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertAskBoard");
+		int result = 0;
+			
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, askBoard.getWriter());
+			pstmt.setString(2, askBoard.getInquiryTitle());
+			pstmt.setString(3, askBoard.getInquiryContent());
+				
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public AskBoard selectOneAskBoard(Connection conn, int inquiryNo) {
+		AskBoard askBoard = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectOneAskBoard");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, inquiryNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				askBoard = new AskBoard();
+				askBoard.setInquiryNo(rset.getInt("inquiry_no"));
+				askBoard.setBoardCode(rset.getString("board_code"));
+				askBoard.setWriter(rset.getString("writer"));
+				askBoard.setStatus(rset.getString("status"));
+				askBoard.setInquiryTitle(rset.getString("inquiry_title"));
+				askBoard.setInquiryContent(rset.getString("inquiry_content"));
+				askBoard.setEnrollDate(rset.getDate("enroll_date"));
+				askBoard.setAnswer(rset.getString("answer"));
+				askBoard.setAnswerDate(rset.getDate("answer_date"));
+				askBoard.setAdminId(rset.getString("admin_id"));
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return askBoard;
+	}
 }

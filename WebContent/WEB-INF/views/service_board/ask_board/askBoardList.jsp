@@ -17,20 +17,20 @@
 
 <style>
 h2 {padding:30px; margin:0 auto; text-align:center;}
+.card {border-radius:.8rem;}
+#breadcrumb {border:0; margin:0 auto; background-color:#ffd749; height:300px;}
+#breadcrumb nav {padding:30px 15px; font-size:18px;}
+#breadcrumb nav li a.nav-link {color:#212529;}
+#asklist-container {height:700px;}
+#asklist {height:899px; border:0; margin:0 auto; background-color:white; padding:15px 30px; top:-28.5%;}
+.table tbody tr:hover {background-color:none; cursor:pointer;}
 .table td {border-top:0px; padding:30px 10px; text-align:center;}
 .table td:last-child {font-size:13px; vertical-align:middle; color:#efbc1f;}
-.table tbody tr:hover {background-color:#FAFAFA;}
-.card {border-radius:.8rem;}
-#breadcrumb {border:0; margin:0 auto; background-color:#FFD749; height:300px;}
-#breadcrumb nav {padding:30px 15px; font-size:18px;}
-#breadcrumb nav li a.nav-link {color:black;}
-#asklist-container {height:700px;}
-#asklist {border:0; margin:0 auto; background-color:white; padding:15px 30px; top:-29.5%;}
-#inquirycontent {width:300px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin:0 auto; opacity:.5;}
+#inquirycontent {width:300px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin:0 auto; color:#8e929f;}
 #btn {text-align:center; padding:30px 0;}
-#btn span.cPage {color:black; padding:6px 12px; background-color:#FFD749; border-radius:15%;}
-#btn a {color:black; text-decoration:none; padding:6px 12px; background-color:#eeeeee; border-radius:15%;}
-#btn a:hover {background-color:#FFD749;}
+#btn span.cPage {color:#212529; display:inline-block; width:35px; height:35px; line-height:35px; vertical-align:middle; background-color:#ffd749; border-radius:15%;}
+#btn a {color:#212529; text-decoration:none; display:inline-block; width:35px; height:35px; line-height:35px; vertical-align:middle; background-color:#eceef2; border-radius:15%;}
+#btn a:hover {background-color:#ffd749;}
 </style>
 	
 	<div class="container">
@@ -40,7 +40,7 @@ h2 {padding:30px; margin:0 auto; text-align:center;}
 			
 			<!-- 사용자경로 -->
 			<div id="breadcrumb" class="card col-11 col-xxl-10 position-relative">
-				<nav class="navbar navbar justify-content-start">
+				<nav class="navbar justify-content-start">
 					<li class="nav-item">
 				       <a class="nav-link" href="<%= request.getContextPath() %>/serviceCenter">고객센터</a>
 				    </li>
@@ -54,20 +54,21 @@ h2 {padding:30px; margin:0 auto; text-align:center;}
 			<!-- 나의 문의내역 -->
 			<div id="asklist-container" class="container col-11 col-xxl-10">
 				<div id="asklist" class="card col-11 position-absolute start-50 translate-middle-x">
-					<table class="table table-hover">
+					<table class="table">
 						<tbody>
 						    <%
 								for(AskBoard askBoard : list) {
 							%>
-							<tr>
+							<tr id="ask" data-toggle="modal" data-target="#modal">
+							<%-- <tr onClick="location.href='<%= request.getContextPath() %>/serviceCenter/askBoard/askBoardView?inquiryNo=<%= askBoard.getInquiryNo() %>'"> --%>
 								<td>문의번호 : <%= askBoard.getInquiryNo() %></td>
 								<td><%= askBoard.getInquiryTitle() %></td>
 								<td><p class="d-none d-sm-block d-sm-none d-md-block d-md-none d-lg-block" id="inquirycontent"><%= askBoard.getInquiryContent() %></p></td>
 								<td>
 									<%=
-										(askBoard.getStatus() == "D") ? "접수" :
-										(askBoard.getStatus() == "C") ? "접수취소" :
-										(askBoard.getStatus() == "I") ? "처리중" : "처리완료"
+										askBoard.getStatus().equals("D") ? "접수" :
+										askBoard.getStatus().equals("C") ? "접수취소" :
+										askBoard.getStatus().equals("I") ? "처리중" : "처리완료"
 									%>
 									<%-- <select class="status">
 			            				<option
@@ -97,8 +98,48 @@ h2 {padding:30px; margin:0 auto; text-align:center;}
 			<div>
 			    <div id="btn"><%= request.getAttribute("pagebar") %></div>
 			</div>
+
+<%
+	AskBoard askBoard = (AskBoard) request.getAttribute("askBoard");
+%>
+			<div id="modal" class="modal fade">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title">Modal title</h4>
+			      </div>
+			      <div class="modal-body">
+			        <p>One fine body&hellip;</p>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-primary">Save changes</button>
+			      </div>
+			    </div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
 			
 		</div>
 	</div>
+	
+	<br/><br/><br/><br/><br/><br/>
+	
+	<script>
+	
+	<%-- $("#ask").on('click', function(){
+		$.ajax({
+			url : "<%= request.getContextPath() %>/serviceCenter/askBoard/askBoardView",
+			data: "inquiryNo=<%= askBoard.getInquiryNo() %>",
+			method: "GET",
+			success : function(result){
+				$("#modal").modal('show');
+				console.log(result);
+			},
+			error: console.log
+		});
+	}); --%>
+	
+	</script>
 	
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

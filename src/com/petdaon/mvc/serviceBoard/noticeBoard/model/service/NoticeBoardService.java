@@ -24,4 +24,20 @@ public class NoticeBoardService {
 		close(conn);
 		return totalContents;
 	}
+
+	public NoticeBoard selectOneNoticeBoard(int no) {
+		Connection conn = getConnection();
+		NoticeBoard noticeBoard = noticeBoardDao.selectOneNoticeBoard(conn, no);
+		close(conn);
+		return noticeBoard;
+	}
+
+	public int updateViewNum(int no) {
+		Connection conn = getConnection();
+		int result = noticeBoardDao.updateViewNum(conn, no);
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
 }
