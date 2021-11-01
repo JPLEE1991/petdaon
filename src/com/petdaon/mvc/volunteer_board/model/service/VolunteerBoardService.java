@@ -142,4 +142,76 @@ public class VolunteerBoardService {
 		return commentList;
 	}
 
+	// 댓글(문의/답변) 삭제(삭제여부 삭제상태로 변경)
+	public int deleteVolunteerBoardComment(int no) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			result = volunteerBoardDao.deleteVolunteerBoardComment(conn, no);
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}
+		return result;
+	}
+
+	// 봉사신청 승인여부 변경
+	public int updateVolunteerApplicationApproval(String approvalStatus, int no) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			result = volunteerBoardDao.updateVolunteerApplicationApproval(conn, approvalStatus, no);
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}
+		return result;
+	}
+
+	// 게시물 삭제 - 삭제여부 변경
+	public int deleteVolunteerBoard(int no) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			result = volunteerBoardDao.deleteVolunteerBoard(conn, no);
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}
+		return result;
+	}
+
+	// 썸네일 제거 - null 처리
+	public int deleteThumbnail(VolunteerBoard board) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			result = volunteerBoardDao.deleteThumbnail(conn, board);
+			// 썸네일 제거 - null 처리
+			board.setThumbnail("");
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}
+		return result;
+	}
+
+	// 게시물 수정
+	public int updateVolunteerBoard(VolunteerBoard board) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			result = volunteerBoardDao.updateVolunteerBoard(conn, board);
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}
+		return result;
+	}
+
 }

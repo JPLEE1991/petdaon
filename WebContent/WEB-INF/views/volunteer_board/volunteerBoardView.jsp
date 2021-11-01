@@ -1,3 +1,7 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="com.petdaon.mvc.member.model.service.MemberService"%>
 <%@page import="com.petdaon.mvc.common.vo.BoardComment"%>
 <%@page import="com.petdaon.mvc.volunteer_board.model.service.VolunteerBoardService"%>
 <%@page import="com.petdaon.mvc.volunteer_board.model.vo.VolunteerApplicationExt"%>
@@ -18,15 +22,21 @@
 	// 댓글(문의/답변)목록 가져오기
 	List<BoardComment> commentList = (List<BoardComment>) request.getAttribute("commentList");
 
-	/* 로그인 기능 구현되면 주석 해제 수정할것 고치기 */
-	/* boolean editable = loginMember != null && (
-			  loginMember.getMemberId().equals(board.getWriter())
-			  || MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())
-			); */
-			
-	/* 코멘트 기능 추가할때 넣기 */
-	/* List<BoardComment> commentList = (List<BoardComment>) request.getAttribute("commentList"); */
-
+	/* 관리자 or 게시글 작성자일 경우 */
+	boolean editable = _member != null && (
+			  _member.getMemberId().equals(board.getWriter())
+			  || MemberService.ADMIN_ROLE.equals(_member.getMemberRole())
+			);
+	
+	/* 관리자일 경우 */
+	boolean adminEditable = _member != null && MemberService.ADMIN_ROLE.equals(_member.getMemberRole());
+	
+	// 날짜 비교하기 위한 준비
+	Date date = new Date();
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	Calendar cal = Calendar.getInstance();
+	String today = sdf.format(cal.getTime());
+	String deadline = sdf.format(board.getDeadlineDate());
 %>
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -34,7 +44,16 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/volunteer.css" />
     
     <div class="container">
-    	<h3>봉사 게시글 상세조회</h3>
+    	<div class="row">
+    		<div class="col-md-9">
+		    	<h3>봉사 게시글 상세조회</h3>
+    		</div>
+    		<div class="col-md-3">
+		    	<%-- 게시글 수정은 관리자 or 게시글 작성자 가능 / 게시글 삭제는 관리자만 가능 --%>
+		    	<% if(adminEditable) {%><button type="button" class="btn btn-danger btn-sm float-right ml-2" onclick="deleteBoard()">삭제</button><%} %>    		
+		    	<% if(editable) {%><button type="button" class="btn btn-primary btn-sm float-right" onclick="updateBoard()">수정</button><%} %>
+    		</div>
+    	</div>
     	<div class="row">
     	
     		<div class="col-md-5 text-center">
@@ -130,9 +149,16 @@
     			<div class="row">
 				    <div class="col-sm-12">
 						<!-- Button trigger modal -->
+<%-- 마감기간 지날 시 신청기간이 지났습니다 띄움 --%>
+<% if(today.compareTo(deadline) <= 0) {%>
 						<button type="button" id="triggerModal" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="applicationModal()">
 						  신청하기
 						</button>
+<% } else { %>
+						<div class="my-2">
+							<span class="bg-primary text-white small p-1 rounded">신청기간이 지났습니다.</span>
+						</div>
+<% } %>
 						<!-- Modal -->
 						<%-- Modal을 이용한 봉사신청폼 작성 --%>
 						<form
@@ -141,9 +167,13 @@
 							action="<%=request.getContextPath() %>/volunteerApplication/applicationEnroll"
 							method="post">
 							<%-- hidden으로 봉사신청 테이블 insert를 위한 신청자아이디, 게시글 번호 받아오기 --%>
-							<%-- 로그인 구현 되면 변경하기(value부분 임의값 집어넣음) --%>
-							<%-- <input type="hidden" name="memberId" value="<%= loginMember.getMemberId() %>" /> --%>
-							<input type="hidden" name="memberId" value="honggd" />
+<% 
+	if(_member != null) {
+%>
+							<input type="hidden" name="memberId" value="<%= _member.getMemberId() %>" />
+<% 
+	} 
+%>
 							<input type="hidden" name="boardNo" value="<%= board.getNo() %>" />
 							
 							<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -154,13 +184,11 @@
 							        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							      </div>
 							      <div class="modal-body">
-									<%-- 로그인 구현 되면 변경하기(value부분 임의값 집어넣음) --%>
 							        <!-- 이름 -->
 							        <div class="mb-2 row">
 										<label for="memberName" class="col-sm-2 col-form-label">이름</label>
 										<div class="col-sm-10">
-											<%-- <input type="text" class="form-control" name="memberName" id="memberName" value="<%= loginMember.getMemberName() %>" readonly> --%>
-											<input type="text" class="form-control" name="memberName" id="memberName" value="홍길동" readonly>
+											<input type="text" class="form-control" name="memberName" id="memberName" value="<%= _member != null ? _member.getMemberName() : "" %>" readonly>
 										</div>
 									</div>
 									
@@ -168,8 +196,7 @@
 							        <div class="mb-2 row">
 										<label for="phone" class="col-sm-2 col-form-label">휴대폰</label>
 										<div class="col-sm-10">
-											<%-- <input type="tel" class="form-control" name="phone" id="phone" value="<%= loginMember.getPhone() %>" readonly> --%>
-											<input type="tel" class="form-control" name="phone" id="phone" value="01012341234" readonly>
+											<input type="tel" class="form-control" name="phone" id="phone" value="<%= _member != null ? _member.getPhone() : "" %>" readonly>
 										</div>
 									</div>
 									
@@ -177,11 +204,10 @@
 							        <div class="mb-2 row">
 										<label for="email" class="col-sm-2 col-form-label">이메일</label>
 										<div class="col-sm-10">
-											<%-- <input type="email" class="form-control" name="email" id="email" value="<%= loginMember.getEmail() %>" readonly> --%>
-											<input type="email" class="form-control" name="email" id="email" value="honggd@naver.com" readonly>
+											<input type="email" class="form-control" name="email" id="email" value="<%= _member != null ? _member.getEmail() : "" %>" readonly>
 										</div>
 									</div>
-									
+							
 									<span class="small">휴대폰·이메일을 변경하시려면 회원 정보 변경 후 신청해주세요.</span>
 									
 							      </div>
@@ -244,9 +270,7 @@
 				name="volunteerBoardCommentFrm" 
 				method="POST">
 				<input type="hidden" name="commentLevel" value="1" />
-				<%-- 로그인 기능 구현되면 수정하기 value부분에 테스트로 honggd 넣음--%>
-				<%-- <input type="hidden" name="writer" value="<%= loginMember != null ? loginMember.getMemberId() : "" %>" /> --%>
-				<input type="hidden" name="writer" value="honggd" />
+				<input type="hidden" name="writer" value="<%= _member != null ? _member.getMemberId() : "" %>" />
 				<input type="hidden" name="boardNo" value="<%= board.getNo() %>" />
 				<input type="hidden" name="commentRef" value="0" />
 				
@@ -265,25 +289,39 @@
 if(commentList != null && !commentList.isEmpty()){ // isEmpty()는 객체가 null로 되어있어 비는 것이 아닌 값이 존재하지 않는 상태이다.
 	for(BoardComment bc : commentList){
 		/* 로그인 기능 구현되면 수정할 부분 수정하고 넣기 */
-		/* boolean removable = 
-				loginMember != null && 
+		boolean removable = 
+				_member != null && 
 				(
-				  loginMember.getMemberId().equals(bc.getWriter())
-				  || MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())
-				); */
+				  _member.getMemberId().equals(bc.getWriter())
+				  || MemberService.ADMIN_ROLE.equals(_member.getMemberRole())
+				);
 		
 		if(bc.getCommentLevel() == 1){
 %>
 			<%-- 댓글 --%>
 			<div class="row level1 h-100">
 				<div class="col-md-12">
-					<span class="comment-writer"><%= bc.getWriter() %></span>
+					<span class="comment-writer"><%= VolunteerBoardService.DELETE_NO.equals(bc.getDeleteYn()) ? bc.getWriter() : "삭제" %></span>
 					<span class="comment-date small"><%= bc.getRegDate() %></span>
 				</div>
 				<div class="col-md-12 comment-content bg-light text-dark">
 					<%-- 댓글 내용 --%>
+<%-- 삭제된 댓글인 경우 처리 --%>
+<% if(VolunteerBoardService.DELETE_NO.equals(bc.getDeleteYn())) { %>
 					<span><%= bc.getContent() %></span>
-					<button type="button" class="btn btn-reply btn-info float-right btn-sm" value="<%= bc.getNo() %>">답글</button>
+<% if(removable){ %><button type="button" class="btn btn-delete btn-danger float-right btn-sm ml-2" value="<%= bc.getNo() %>">삭제</button><% } %>
+<%-- 작성자와 관리자만 답글 버튼 보일 수 있게 함 --%>
+<% if(editable) { %><button type="button" class="btn btn-reply btn-primary float-right btn-sm" value="<%= bc.getNo() %>">답글</button><% } %>
+					
+<% 
+	} 
+	else {
+%>
+					<span>삭제된 문의입니다.</span>
+<%
+	}
+%>
+					
 				</div>
 			</div>
 <%
@@ -293,12 +331,23 @@ if(commentList != null && !commentList.isEmpty()){ // isEmpty()는 객체가 nul
 			<%-- 대댓글(답글) --%>
 			<div class="row level2">
 				<div class="col-md-12">
-					<span class="comment-writer"><%= bc.getWriter() %></span>
+					<span class="comment-writer"><%= VolunteerBoardService.DELETE_NO.equals(bc.getDeleteYn()) ? bc.getWriter() : "삭제" %></span>
 					<span class="comment-date small"><%= bc.getRegDate() %></span>
 				</div>
 				<div class="col-md-12 comment-content bg-secondary text-white">
 					<%-- 댓글 내용 --%>
-					<div class="pl-5"><%= bc.getContent() %></div>
+<%-- 삭제된 댓글인 경우 처리 --%>
+<% if(VolunteerBoardService.DELETE_NO.equals(bc.getDeleteYn())) { %>
+					<span class="pl-5"><%= bc.getContent() %></span>
+<% if(removable){ %><button type="button" class="btn btn-delete btn-danger float-right btn-sm ml-2" value="<%= bc.getNo() %>">삭제</button><% } %>
+<% 
+	} 
+	else {
+%>
+					<span class="pl-5">삭제된 답변입니다.</span>
+<%
+	}
+%>
 				</div>
 			</div>
 <%
@@ -335,14 +384,52 @@ if(applicationList != null && !applicationList.isEmpty()) { // isEmpty()는 객�
 %>				    
 				    <tr>
 				      <th scope="row"><%= ++cnt %></th>
+<%-- 관리자나 게시글 작성자만 신청자의 개인정보 확인 가능 --%>				      
+<% if(editable) {%>
 				      <td><%= va.getMemberName() %></td>
 				      <td><%= va.getPhone() %></td>
 				      <td><%= va.getEmail() %></td>
+<% } else { %>
+					  <td><%= va.getMemberName().charAt(0) %>*<%= va.getMemberName().charAt(va.getMemberName().length() -1) %></td>
+				      <td><%= va.getPhone().substring(0, 3) %>-****-<%= va.getPhone().substring(va.getPhone().length() - 4, va.getPhone().length()) %></td>
+				      <td><%= va.getEmail().substring(0, 2) %>****@<%= va.getEmail().substring(va.getEmail().indexOf("@") + 1, va.getEmail().indexOf("@") + 3) %>******</td>
+<% } %>
 				      <td><%= va.getRegDate() %></td>
 				      <td>
+<%-- 봉사 게시글 작성자만 승인여부 권한 부여 --%>
+<% if(_member != null && _member.getMemberId().equals(board.getWriter())) {%>
+<%-- 승인 클릭 시 승인하시겠습니까? 물어보고 확인 누르면 승인 상태 변함 --%>
+<%-- 반대로 승인 상태에서 미승인 누르면 미승인 하시겠습니까? 물어보고 확인 누르면 미승인 상태로 변함 --%>
+<%-- 이미 상태인것을 선택할 시에는 이미 승인 상태입니다. 이미 미승인 상태입니다 alert창 --%>
+<%-- 승인상태(N/Y) 와 댓글번호 파라미터로 보내서 ?값 두개에다 넣기 --%>
+	<% if(VolunteerBoardService.APPROVAL_YES.equals(va.getApprovalYn())) {%>
+						<%-- 승인 여부를 위한 폼 태그 --%>
+						<form
+							name="volunteerApplicationApprovalFrm"
+							action="<%=request.getContextPath() %>/volunteerApplication/applicationApproval"
+							method="post">
+   							<input type="hidden" name="no" value="<%= va.getNo() %>"/>
+   							<input type="hidden" name="boardNo" value="<%= board.getNo() %>"/>
+							<button type="button" class="application-yes btn btn-primary btn-sm already" value="승인">승인</button>
+							<button type="submit" class="application-no btn btn-outline-primary btn-sm" name="approvalStatus" value="<%= VolunteerBoardService.APPROVAL_NO %>">미승인</button>
+						</form>
+	<% } else { %>
+						<form
+							name="volunteerApplicationApprovalFrm"
+							action="<%=request.getContextPath() %>/volunteerApplication/applicationApproval"
+							method="post">
+   							<input type="hidden" name="no" value="<%= va.getNo() %>"/>
+   							<input type="hidden" name="boardNo" value="<%= board.getNo() %>"/>
+							<button type="submit" class="application-yes btn btn-outline-primary btn-sm" name="approvalStatus" value="<%= VolunteerBoardService.APPROVAL_YES %>">승인</button>
+							<button type="button" class="application-no btn btn-primary btn-sm already" value="미승인">미승인</button>
+						</form>
+	<% } %>
+<% } else { %>
+				      
 				      	<span class="bg-primary text-white small p-1 rounded">
 				      	<%= VolunteerBoardService.APPROVAL_YES.equals(va.getApprovalYn()) ? "승인" : "미승인" %>
 				      	</span>
+<% } %>
 				      </td>
 				    </tr>
 <%
@@ -366,16 +453,127 @@ else {
 
 	
     </div>
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<%-- 댓글삭제를 위한 폼 --%>
+<form 
+   action="<%= request.getContextPath() %>/volunteerBoard/boardCommentDelete" 
+   name="volunteerBoardCommentDelFrm"
+   method="POST">
+   <input type="hidden" name="no" />
+   <input type="hidden" name="boardNo" value="<%= board.getNo() %>"/>
+</form>
+
+<% if(adminEditable) {%>
+<%-- 게시글 삭제를 위한 폼 --%>
+<form action="<%= request.getContextPath() %>/volunteerBoard/boardDelete" name="deleteVolunteerBoardFrm">
+	<input type="hidden" name="no" value="<%= board.getNo() %>" />
+</form>
+    
 <script>
+
 /**
- * 신청하기 모달 트리거 누를 때 loginMember null (로그인 하지 않은 경우) alert창 띄움 "로그인후 이용할 수 있습니다."
+ * 삭제할 때 저장된 첨부파일이 있다면, 파일삭제!
+ * - java.io.File API
+ */
+//봉사 게시글 삭제 (삭제여부 변경 - 기존 이미지 파일은 삭제하기)
+const deleteBoard = () => {
+	// 수정은 괜찮은데 삭제는 되돌릴 수 없으므로 삭제기능에 confirm은 필수이다.
+	if(confirm("정말 이 게시물을 삭제하시겠습니까?")){
+		$(document.deleteVolunteerBoardFrm).submit();
+	}
+}
+</script>
+<% } %>
+
+<script>
+<% if(editable){ %>
+// 봉사게시글 수정
+// 실행코드가 한줄인경우 화살표함수 안에서 중괄호를 생략할 수 있다!
+const updateBoard = 
+() => location.href = "<%= request.getContextPath() %>/volunteerBoard/boardUpdate?no=<%= board.getNo() %>";
+<% } %>
+
+/**
+ * 이미 승인 or 미승인 상태일 시 동일한 요구 클릭 시
+ */
+$(".already").click(function(e){
+	alert(`이미 \${$(this).val()} 상태입니다.`);
+});
+
+
+/**
+ * 댓글 삭제
+ */
+$(".btn-delete").click(function(e){
+   //console.log(this);
+   //console.log($(this).val());
+   
+   if(confirm("해당 댓글을 삭제하시겠습니까?")){
+      var $frm = $(document.volunteerBoardCommentDelFrm);
+      var no = $(this).val();
+      $frm.find("[name=no]").val(no);
+      $frm.submit();
+   }
+});
+
+
+/**
+ * 댓글 답글
+ */
+$(".btn-reply").click((e) => {
+	const commentRef = $(e.target).val();
+	const div = `<form 
+		action="<%= request.getContextPath() %>/volunteerBoard/boardCommentEnroll" 
+		name="volunteerBoardCommentFrm2"
+		method="POST">
+		<input type="hidden" name="commentLevel" value="2" />
+		<input type="hidden" name="writer" value="<%= _member != null ? _member.getMemberId() : "" %>" />
+		<input type="hidden" name="boardNo" value="<%= board.getNo() %>" />
+		<input type="hidden" name="commentRef" value="\${commentRef}" />
+		
+		<div class="row my-2">
+			<div class="col-md-11">
+				<textarea class="form-control" id="floatingTextarea" name="content"></textarea>
+			</div>
+			<div class="col-md-1">
+				<button class="btn btn-primary h-100">등록</button>
+			</div>
+		</div>
+	</form>`;
+	
+	const $parent = $(e.target).parent().parent();
+	$(div).insertAfter($parent);
+	$parent.parent().find("form[name=volunteerBoardCommentFrm2]").submit((e) => {
+<% if(_member == null) {%>
+			//로그인 하지 않았을 경우 발생
+			loginAlert();
+			return false; // return false없으면 loginAlert()띄우고 그냥 제출되버림 꼭 쓰기!
+<% } %>
+
+			// 내용검사
+			const $textarea = $("[name=content]", e.target);	
+			
+			if(!/^(.|\n)+$/.test($textarea.val())){
+				alert("댓글 내용을 작성해주세요.");
+				$textarea.focus();
+				return false;
+			}
+		})
+		.find("[name=content]")
+		.focus();
+	
+	// 현재버튼의 handler 제거
+	$(e.target).off('click'); // 답글버튼 계속 누를때마다 폼 추가되는 것 막기 위해 핸들러 제거함
+});
+
+
+/**
+ * 신청하기 모달 트리거 누를 때 _member null (로그인 하지 않은 경우) alert창 띄움 "로그인후 이용할 수 있습니다."
  */
 <%-- const applicationModal = () => {
-	// 로그인 기능 구현되면 변경하기 주석된 코드로 바꿀 것 임의값 "신사임당" 집어넣은 상태
-	<% if(loginMember == null) {%>
+	<% if(_member == null) {%>
 	//로그인 하지 않았을 경우 발생
-	alert("로그인후 이용할 수 있습니다.");
+	loginAlert();
 	// 모달창 숨기기(로그인 기능 구현되면 테스트 해보기 문제 있을 수도 있음)
 	$('#applicationForm').hide();
 	// 백그라운드 남아있는것 제거
@@ -386,6 +584,38 @@ else {
 	}
 %>
 } --%>
+const applicationModal = () => {
+	<% if(_member == null) {%>
+	//로그인 하지 않았을 경우 발생
+	loginAlert();
+	// 모달창 숨기기(로그인 기능 구현되면 테스트 해보기 문제 있을 수도 있음)
+	$('#applicationForm').hide();
+	// 백그라운드 남아있는것 제거
+	$('.modal-backdrop').remove();
+	var el = document.body
+	el.style = null;
+	$('.modal-open').css({
+		'overflow' : 'visible'
+	});
+<% } else if(board.getCapacity() <= applicationCnt){ %>
+	alert("모집인원이 마감되었습니다.");
+	// 모달창 숨기기(로그인 기능 구현되면 테스트 해보기 문제 있을 수도 있음)
+	$('#applicationForm').hide();
+	// 백그라운드 남아있는것 제거
+	$('.modal-backdrop').remove();
+	var el = document.body
+	el.style = null;
+	$('.modal-open').css({
+		'overflow' : 'visible'
+	});
+<%
+	} else {
+%>
+	$('#applicationForm').show();
+<%
+	}
+%>
+}
 
 
 /**
@@ -396,10 +626,7 @@ function volunteerApplicationValidate(e){
 <%
 if(applicationList != null && !applicationList.isEmpty()) { // isEmpty()는 객체가 null로 되어있어 비는 것이 아닌 값이 존재하지 않는 상태이다.
 	for(VolunteerApplicationExt va : applicationList) {
-		// 로그인 기능 구현되면 변경하기 주석된 코드로 바꿀 것 임의값 honggd 집어넣은 상태
-		// 로그인 유무는 이 제출폼 나오기 전에 검사하였으므로 로그인 loginMember null여부 검사하지 않음
-		//if(loginMember.getMemberId().equals(va.getApplicant())){
-		if("honggd".equals(va.getApplicant())){
+		if(_member != null && _member.getMemberId().equals(va.getApplicant())){
 %>
 			alert("이미 신청하신 상태입니다.");
 			return false;
@@ -414,5 +641,30 @@ if(applicationList != null && !applicationList.isEmpty()) { // isEmpty()는 객�
 $(() => {
 	$(document.volunteerApplicationEnrollFrm).submit(volunteerApplicationValidate);
 });
+
+
+$(document.volunteerBoardCommentFrm).submit((e) => {
+<% if(_member == null) {%>
+	//로그인 하지 않았을 경우 발생
+	loginAlert();
+	return false; // return false없으면 loginAlert()띄우고 그냥 제출되버림 꼭 쓰기!
+<% } %>
+
+	// 내용검사
+	// const textarea = $("[name=content]", document.volunteerBoardCommentFrm);	
+	const $textarea = $("[name=content]", e.target);	
+	
+	if(!/^(.|\n)+$/.test($textarea.val())){
+		alert("문의/답변 내용을 작성해주세요.");
+		$textarea.focus();
+		return false;
+	}
+});
+
+const loginAlert = () => {
+	alert("로그인후 이용할 수 있습니다.");
+}
+
+
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

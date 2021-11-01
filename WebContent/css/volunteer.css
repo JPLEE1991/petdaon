@@ -41,6 +41,14 @@ button.btn-reply{
 	visibility: hidden;
 }
 
-.level1:hover button.btn-reply{
+button.btn-delete{
+	visibility: hidden;
+}
+
+.level1:hover button.btn-reply, .level1:hover button.btn-delete{
+	visibility: visible;
+}
+
+.level2:hover button.btn-delete{
 	visibility: visible;
 }

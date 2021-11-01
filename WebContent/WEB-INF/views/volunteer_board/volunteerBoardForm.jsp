@@ -98,7 +98,7 @@ $(() => {
 				<!-- 이미지 미리보기 작업 중 -->
 				<div class="col-md-4">
 					<!-- 봉사 게시글 썸네일 이미지 -->
-					<img src="<%= request.getContextPath() %>/images/blank-profile-640.png" class="img-thumbnail" id="img-thumbnail" alt="봉사게시판 썸네일 사진" onchange="setThumbnail(this);">
+					<img src="<%= request.getContextPath() %>/images/blank-volunteer-640.jpg" class="img-thumbnail" id="img-thumbnail" alt="봉사게시판 썸네일 사진" onchange="setThumbnail(this);">
 					<input class="form-control" type="file" name="thumbnail" id="thumbnail" onchange="setThumbnail(this);">	
 				</div>
 				
@@ -111,11 +111,11 @@ $(() => {
 						</div>
 					</div>
 					
-					<!-- 작성자 임시 지정. 로그인 기능 구현되면 value값 loginMember.getMemberId() 로 변경하기. -->
+					<!-- 작성자 -->
 					<div class="mb-2 row">
 						<label for="writer" class="col-sm-2 col-form-label">작성자</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="writer" id="writer" value="honggd" readonly>
+							<input type="text" class="form-control" name="writer" id="writer" value="<%= _member.getMemberId() %>" readonly>
 						</div>
 					</div>
 					
@@ -197,13 +197,6 @@ $(() => {
 							
 				</div>
 				
-				
-				<%-- 내용 썸머노트 사용 전-->
-				<!-- <div class="col-md-12">
-					<label for="contents" class="col-form-label">내용</label>
-					<textarea class="form-control" placeholder="내용 입력" aria-label="With textarea" name="contents" id="contents" cols="20" rows="10"></textarea>
-				</div> --%>
-					
 				<!-- 내용 -->
 				<div class="col-md-12">
 					<label for="contents" class="col-form-label">내용</label>
@@ -218,7 +211,7 @@ $(() => {
 			<div class="row">
 				<!-- 이름. 이름부분 로그인 기능 구현되면 값 가져오기 -->
 				<div class="col-sm-4">
-					<input type="text" class="form-control" name="name" id="name" value="홍길동" readonly>
+					<input type="text" class="form-control" name="name" id="name" value="<%= _member.getMemberName() %>" readonly>
 				</div>
 				
 				<!-- 휴대폰 -->
@@ -294,7 +287,7 @@ function setThumbnail(input){
 	
 	// 파일 고르지 않으면 이미지 속성 초기화
 	else if(input.files.length == 0) {
-		$("#img-thumbnail").attr("src", "<%= request.getContextPath() %>/images/blank-profile-640.png");
+		$("#img-thumbnail").attr("src", "<%= request.getContextPath() %>/images/blank-volunteer-640.jpg");
 	}
 }
 
