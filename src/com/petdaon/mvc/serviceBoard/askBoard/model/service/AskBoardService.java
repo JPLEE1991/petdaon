@@ -9,6 +9,8 @@ import com.petdaon.mvc.serviceBoard.askBoard.model.vo.AskBoard;
 
 public class AskBoardService {
 	
+	public static final String STATUS_DEFAULT = "D";
+	
 	private AskBoardDao askBoardDao = new AskBoardDao();
 	
 	public List<AskBoard> selectAskBoardList(int start, int end) {
@@ -23,5 +25,22 @@ public class AskBoardService {
 		int totalContents = askBoardDao.selectTotalContents(conn);
 		close(conn);
 		return totalContents;
+	}
+
+	public int insertAskBoard(AskBoard askBoard) {
+		Connection conn = getConnection();
+		int result = askBoardDao.insertAskBoard(conn, askBoard);
+		if(result > 0) commit(conn);
+		else rollback(conn);
+
+		close(conn);
+		return result;
+	}
+
+	public AskBoard selectOneAskBoard(int inquiryNo) {
+		Connection conn = getConnection();
+		AskBoard askBoard = askBoardDao.selectOneAskBoard(conn, inquiryNo);
+		close(conn);
+		return askBoard;
 	}
 }

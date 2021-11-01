@@ -22,7 +22,5 @@ public class AskBoardFormServlet extends HttpServlet {
 		request
 		.getRequestDispatcher("/WEB-INF/views/service_board/ask_board/askBoardForm.jsp")
 		.forward(request, response);
-
 	}
-	
 }

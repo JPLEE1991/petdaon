@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.petdaon.mvc.serviceBoard.noticeBoard.model.exception.NoticeBoardException;
 import com.petdaon.mvc.serviceBoard.noticeBoard.model.vo.NoticeBoard;
 
 
@@ -80,5 +81,54 @@ public class NoticeBoardDao {
 			close(pstmt);
 		}
 		return totalContents;
+	}
+
+	public NoticeBoard selectOneNoticeBoard(Connection conn, int no) {
+		NoticeBoard noticeBoard = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectOneNoticeBoard");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				noticeBoard = new NoticeBoard();
+				noticeBoard.setNo(rset.getInt("no"));
+				noticeBoard.setWriter(rset.getString("writer"));
+				noticeBoard.setTitle(rset.getString("title"));
+				noticeBoard.setContent(rset.getString("content"));
+				noticeBoard.setEnrollDate(rset.getDate("enroll_date"));
+				noticeBoard.setViewNum(rset.getInt("view_num"));
+				noticeBoard.setBoardCode(rset.getString("board_code"));
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return noticeBoard;
+	}
+
+	public int updateViewNum(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateViewNum");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+				
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new NoticeBoardException("조회수1증가 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 }
