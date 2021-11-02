@@ -53,7 +53,7 @@
 					<div class="mb-2 row">
 						<label for="title" class="col-sm-2 col-form-label">제목</label>
 						<div class="col-sm-10">
-							<input type="text" placeholder="제목 입력" class="form-control" name="title" id="title" value="<%= board.getTitle() %>">
+							<input type="text" placeholder="제목 입력" class="form-control" name="title" id="title" value="<%= board.getTitle() %>" required>
 						</div>
 					</div>
 					
@@ -69,7 +69,7 @@
 					<div class="mb-2 row">
 						<label for="centerName" class="col-sm-2 col-form-label">센터명</label>
 						<div class="col-sm-10">
-							<input type="text" placeholder="센터명 입력" class="form-control" name="centerName" id="centerName" value="<%= board.getCenterName() %>">
+							<input type="text" placeholder="센터명 입력" class="form-control" name="centerName" id="centerName" value="<%= board.getCenterName() %>" required>
 						</div>
 					</div>
 					
@@ -77,11 +77,11 @@
 					<div class="mb-2 row">
 						<label for="startDate" class="col-sm-2 col-form-label">봉사 시작일</label>
 						<div class="col-sm-4">
-							<input type="date" class="form-control" name="startDate" id="startDate" value="<%= board.getStartDate() %>">
+							<input type="date" class="form-control" name="startDate" id="startDate" value="<%= board.getStartDate() %>" required>
 						</div>
 						<label for="endDate" class="col-sm-2 col-form-label">봉사 종료일</label>
 						<div class="col-sm-4">
-							<input type="date" class="form-control" name="endDate" id="endDate" value="<%= board.getEndDate() %>">
+							<input type="date" class="form-control" name="endDate" id="endDate" value="<%= board.getEndDate() %>" required>
 						</div>
 					</div>
 					
@@ -89,7 +89,7 @@
 					<div class="mb-2 row">
 						<label for="deadlineDate" class="col-sm-2 col-form-label">신청 마감일</label>
 						<div class="col-sm-10">
-							<input type="date" class="form-control" name="deadlineDate" id="deadlineDate" value="<%= board.getDeadlineDate() %>">
+							<input type="date" class="form-control" name="deadlineDate" id="deadlineDate" value="<%= board.getDeadlineDate() %>" required>
 						</div>
 					</div>
 					
@@ -97,7 +97,7 @@
 					<div class="mb-2 row">
 						<label for="capacity" class="col-sm-2 col-form-label">모집인원</label>
 						<div class="col-sm-10">
-							<input type="number" placeholder="모집인원 입력" min="0" max="100" class="form-control" name="capacity" id="capacity" value="<%= board.getCapacity() %>">
+							<input type="number" placeholder="모집인원 입력" min="0" max="100" class="form-control" name="capacity" id="capacity" value="<%= board.getCapacity() %>" required>
 						</div>
 					</div>
 					
@@ -105,7 +105,7 @@
 					<div class="mb-2 row">
 						<label for="place" class="col-sm-2 col-form-label">장소</label>
 						<div class="col-sm-10">
-							<input type="text" placeholder="장소 입력" class="form-control" name="place" id="place" value="<%= board.getPlace() %>">
+							<input type="text" placeholder="장소 입력" class="form-control" name="place" id="place" value="<%= board.getPlace() %>" required>
 						</div>
 					</div>
 
@@ -164,12 +164,12 @@
 				
 				<!-- 휴대폰 -->
 				<div class="col-sm-4">
-					<input type="tel" placeholder="(-없이)01012345678" class="form-control" name="phone" id="phone" maxlength="11" value="<%= board.getPhone() %>" <%= MemberService.ADMIN_ROLE.equals(_member.getMemberRole()) ? "" : "readonly"%>>
+					<input type="tel" placeholder="(-없이)01012345678" class="form-control" name="phone" id="phone" maxlength="11" value="<%= board.getPhone() %>" <%= MemberService.ADMIN_ROLE.equals(_member.getMemberRole()) ? "" : "readonly"%> required>
 				</div>
 				
 				<!-- 이메일 -->
 				<div class="col-sm-4">
-					<input type="email" placeholder="이메일 입력" class="form-control" name="email" id="email" value="<%= board.getEmail() %>" <%= MemberService.ADMIN_ROLE.equals(_member.getMemberRole()) ? "" : "readonly"%>>
+					<input type="email" placeholder="이메일 입력" class="form-control" name="email" id="email" value="<%= board.getEmail() %>" <%= MemberService.ADMIN_ROLE.equals(_member.getMemberRole()) ? "" : "readonly"%> required>
 				</div>
 				
 			</div>
@@ -195,6 +195,21 @@
 function boardValidate(e){
 	const $title = $("[name=title]");
 	const $contents = $("[name=contents]");
+	const $day = $("[name=day]"); // 봉사요일
+	const $time = $("[name=time]"); // 봉사시간
+	
+	// 날짜비교를 위한 설정
+	const startDate = $("[name=startDate]").val(); // 봉사시작일값
+	const startDateArr = startDate.split('-');
+	const endDate = $("[name=endDate]").val(); // 봉사종료일값
+	const endDateArr = endDate.split('-');
+	const deadlineDate = $("[name=deadlineDate]").val(); // 신청마감일값
+	const deadlineDateArr = deadlineDate.split('-');
+	
+	const startDateCompare = new Date(startDateArr[0], parseInt(startDateArr[1])-1, startDateArr[2]);
+	const endDateCompare = new Date(endDateArr[0], parseInt(endDateArr[1])-1, endDateArr[2]);
+	const deadlineDateCompare = new Date(deadlineDateArr[0], parseInt(deadlineDateArr[1])-1, deadlineDateArr[2]);
+	
 	//제목을 작성하지 않은 경우 폼제출할 수 없음.
 	if(!/^.+$/.test($title.val())){
 		alert("제목을 입력하세요.");
@@ -207,6 +222,30 @@ function boardValidate(e){
 		alert("내용을 입력하세요.");
 		return false;
 	}
+	
+	//봉사시작일이 종료일보다 늦으면 폼제출할 수 없음.
+	if(startDateCompare.getTime() >= endDateCompare.getTime()) {
+		alert("봉사 종료일보다 봉사 시작일이 앞서야 합니다.");
+		return false;
+	}
+	
+	//신청마감일이 봉사시작일보다 앞서면 폼제출할 수 없음.
+	if(startDateCompare.getTime() >= deadlineDateCompare.getTime()) {
+		alert("신청 마감일보다 봉사 시작일이 앞서야 합니다.");
+		return false;
+	}
+	
+	//봉사요일과 봉사시간 선택하지 않고 그대로 유지하면 폼제출할 수 없음.
+	if($day.val() == ""){
+		alert("봉사요일을 선택해주세요.");
+		return false;
+	}
+	
+	if($time.val() == ""){
+		alert("봉사시간을 선택해주세요.");
+		return false;
+	}
+	
 	return true;
 }
 

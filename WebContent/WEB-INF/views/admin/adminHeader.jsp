@@ -50,7 +50,7 @@ a.btn {font-weight:500;}
 					<div class="collapse category" id="board">
 						<ul>
 							<li><a href="#">게시물 목록</a></li>
-							<li><a href="#">봉사 게시글 승인</a></li>
+							<li><a href="<%= request.getContextPath() %>/admin/volunteerBoardList">봉사 게시글 승인</a></li>
 						</ul>
 					</div>
 				</li>
