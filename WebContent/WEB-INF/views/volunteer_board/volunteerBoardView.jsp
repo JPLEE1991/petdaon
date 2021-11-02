@@ -569,21 +569,9 @@ $(".btn-reply").click((e) => {
 
 /**
  * 신청하기 모달 트리거 누를 때 _member null (로그인 하지 않은 경우) alert창 띄움 "로그인후 이용할 수 있습니다."
+ * 이외에 모집인원 마감 시 alert창 띄움
+ * 모달 남아있는 css 등 제거함(제거하지 않으면 화면 동작 못함)
  */
-<%-- const applicationModal = () => {
-	<% if(_member == null) {%>
-	//로그인 하지 않았을 경우 발생
-	loginAlert();
-	// 모달창 숨기기(로그인 기능 구현되면 테스트 해보기 문제 있을 수도 있음)
-	$('#applicationForm').hide();
-	// 백그라운드 남아있는것 제거
-	$('.modal-backdrop').remove();
-<% } else { %>
-	$('#applicationForm').show();
-<%
-	}
-%>
-} --%>
 const applicationModal = () => {
 	<% if(_member == null) {%>
 	//로그인 하지 않았을 경우 발생

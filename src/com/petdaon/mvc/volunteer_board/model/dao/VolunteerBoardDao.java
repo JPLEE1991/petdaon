@@ -493,4 +493,83 @@ public class VolunteerBoardDao {
 		return result;
 	}
 
+	// 총 봉사게시글 리스트 가져오기(삭제여부, 승인여부 가리지 않고 전부 가져온다.)
+	public List<VolunteerBoard> selectAllVolunteerBoardList(Connection conn, int startRownum, int endRownum) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAllVolunteerBoardList");
+		List<VolunteerBoard> list = new ArrayList<>();
+		
+		// 1.PreparedStatment객체 생성 & 미완성쿼리 값대입
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRownum);
+			pstmt.setInt(2, endRownum);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				// 테이블 record 1 -> VO객체 1
+				VolunteerBoard board = new VolunteerBoard();
+				board.setNo(rset.getInt("no"));
+				board.setTitle(rset.getString("title"));
+				board.setCenterName(rset.getString("center_name"));
+				board.setContent(rset.getString("content"));
+				board.setStartDate(rset.getDate("start_date"));
+				board.setEndDate(rset.getDate("end_date"));
+				board.setEmail(rset.getString("email"));
+				board.setPhone(rset.getString("phone"));
+				board.setApprovalYn(rset.getString("approval_yn"));
+				board.setDeleteYn(rset.getString("delete_yn"));
+				board.setCapacity(rset.getInt("capacity"));
+				board.setPlace(rset.getString("place"));
+				board.setDeadlineDate(rset.getDate("deadline_date"));
+				board.setRegDate(rset.getDate("reg_date"));
+				board.setTime(rset.getString("time"));
+				board.setDay(rset.getString("day"));
+				board.setBoardCode(rset.getString("board_code"));
+				board.setWriter(rset.getString("writer"));
+				board.setEnrollYn(rset.getString("enroll_yn"));
+				board.setThumbnail(rset.getString("thumbnail"));
+				
+				//보드를 리스트에 추가한다.
+				list.add(board);
+			}
+			
+		} catch (Exception e) {
+			throw new BoardException("관리자 봉사 게시글 전체 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	// 총봉사게시글수 조회
+	public int selectTotalVolunteerContents(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTotalVolunteerContents");
+		int totalContents = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			// 쿼리문 실행
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				totalContents = rset.getInt(1); //1은 첫번째 컬럼값을 주세요 라는 의미이다. 또는 "별칭"으로 넣어도 된다. //1행 1열짜리 집합도 동일한 방식으로 해야한다는 것.
+			}
+			
+		} catch (Exception e) {
+			throw new BoardException("총봉사게시글수 조회 오류", e);
+		} finally {
+			// 자원반납
+			close(rset);
+			close(pstmt);
+		}
+		
+		return totalContents;
+	}
+
 }

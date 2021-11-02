@@ -214,4 +214,22 @@ public class VolunteerBoardService {
 		return result;
 	}
 
+	// 총 봉사게시글 리스트 가져오기(삭제여부, 승인여부 가리지 않고 전부 가져온다.)
+	public List<VolunteerBoard> selectAllVolunteerBoardList(int startRownum, int endRownum) {
+		Connection conn = getConnection();
+		List<VolunteerBoard> list = volunteerBoardDao.selectAllVolunteerBoardList(conn, startRownum, endRownum);
+		// 단순조회로 트랜잭션 처리하지 않음
+		close(conn);
+		return list;
+	}
+
+	// 총봉사게시글수 조회
+	public int selectTotalVolunteerContents() {
+		Connection conn = getConnection();
+		int totalContent = volunteerBoardDao.selectTotalVolunteerContents(conn);
+		// 단순조회로 트랜잭션 처리하지 않음
+		close(conn);
+		return totalContent;
+	}
+
 }
