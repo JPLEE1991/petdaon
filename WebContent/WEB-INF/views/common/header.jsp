@@ -81,6 +81,7 @@
       	}
         %>
         <a href="<%= request.getContextPath() %>/member/memberList">회원관리</a>
+        <a href="<%= request.getContextPath() %>/admin">관리자 페이지</a>
       </div>
     </div>
   </div>
