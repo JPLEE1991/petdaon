@@ -103,7 +103,6 @@ $(".enroll-btn").click(function(e){
   		},
   		error: console.log
   	}); --%>
-
 </script>
 	
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!-- 부트스트랩(CSS & JavaScript Bundle with Popper) -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 매테리얼 아이콘 -->
@@ -20,7 +21,7 @@ main, #sidebar, #sidebar a {display:flex;}
 .btn[aria-expanded="true"] i {transform:rotate(90deg);}
 .category ul li a {font-weight:300; font-size:14px;}
 a.btn {font-weight:500;}
-#title {margin:0 0 0 10px; font-weight:bold;}
+#main-title {margin:0 0 0 10px; font-weight:bold;}
 #index {height:700px; background-color:#eceef2;}
 </style>
 
@@ -73,7 +74,7 @@ a.btn {font-weight:500;}
 	    		
 	    		<!-- 상단메뉴 -->
 				<nav class="navbar bg-white">
-					<p id="title">관리자 페이지</p>
+					<p id="main-title">관리자 페이지</p>
 					<div class="dropdown">
 						<a class="btn" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-fill"></i>&nbspadmin</a>
 						<ul class="dropdown-menu dropdown-menu-end">
