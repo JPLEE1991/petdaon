@@ -1,34 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gallery</title>
+  <title>adopt</title>
 </head>
 <body>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-
-<%@ include file="/WEB-INF/views/common/header.jsp" %>
-
- <!-- Bootstrap core CSS -->
-<link href="/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
-    <!-- Favicons -->
-<link rel="apple-touch-icon" href="/docs/5.1/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="/docs/5.1/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="/docs/5.1/assets/img/favicons/manifest.json">
-<link rel="mask-icon" href="/docs/5.1/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
-<link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">
-<meta name="theme-color" content="#7952b3">
-
-
 <style>
   .bd-placeholder-img {
     font-size: 1.125rem;
@@ -64,31 +43,28 @@
   	display: inline;
   }
 </style>
-
+<style>
+  .flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: 2px solid gray;
+    list-style: none;
+    padding-left: 0;
+  }
+  .flex li {
+    /* width: 100px;
+    height: 100px; */
+    background-color: rgb(255, 255, 255);
+    margin: 5px;
+  }
+  </style>
     
   </head>
   <body>
     
+    
 <header>
-  <div class="collapse bg-dark" id="navbarHeader">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-8 col-md-7 py-4">
-          <h4 class="text-white">About</h4>
-          <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
-        </div>
-        <div class="col-sm-4 offset-md-1 py-4">
-          <h4 class="text-white">Contact</h4>
-          <ul class="list-unstyled">
-            <li><a href="#" class="text-white">Follow on Twitter</a></li>
-            <li><a href="#" class="text-white">Like on Facebook</a></li>
-            <li><a href="#" class="text-white">Email me</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  
   <div class="title">
   	<h2>입양/임보 게시판</h2>	
   </div>
@@ -101,161 +77,100 @@
   -->
 
   <!-- animal icon nav -->
-  <nav class="navbar navbar-expand-lg navbar-light container justify-content-end">
-    <div class="collapse navbar-collapse justify-content-center">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <img src="<%= request.getContextPath() %>/images/all.png" width="70"; />
-          <a class="nav-link" href="<%= request.getContextPath() %>/findMe_board/boardList">전체</a>
-        </li>
-        <li class="nav-item">
-          <img src="<%= request.getContextPath() %>/images/pet.png" width="70";/>
-          <a class="nav-link" href="#">강아지</a>
-        </li>
-        <li class="nav-item">
-          <img src="<%= request.getContextPath() %>/images/cat.png" width="70"; />
-          <a class="nav-link" href="#">고양이</a>
-        </li>
-       
-      </ul>
-    </div>
-  </nav>
-</header>
-
-<main>
-
-  <div class="album py-5 bg-light">
-    <div class="container">
-
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"></div>
-        <div class="col">
-          <div class="card shadow-sm">
-           
-
-            <div class="card-body">
-              <a href="https://www.zooseyo.com/main/main.php?"><img src="images/주세요닷컴.jpg"></a>
-              <p class="card-text">주세요 닷컴</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
-             
-                </div>
-           
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-          
-
-            <div class="card-body">
-              <a href="https://dmanimal.co.kr/"><img src="images/도그마루 보호소.jpg"></a>
-              <p class="card-text">도그마루 보호소</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
-       
-                </div>
-     
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-           
-            <div class="card-body">
-              <a href="https://www.minipetmall.co.kr/pc/review/review_030100.html"><img src="images/미니펫.jpg"></a>
-              <p class="card-text">미니펫</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
-                
-                </div>
-               
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="card shadow-sm">
-
-            <div class="card-body">
-              <a href="https://www.dog-zzang.co.kr/main/main.php?kwqy=N%25EA%25B0%2595%25EC%2595%2584%25EC%25A7%2580%25EC%259E%2585%25EC%2596%2591%25EC%2582%25AC%25EC%259D%25B4%25ED%258A%25B8"><img src="images/도그짱.jpg"></a>
-              <p class="card-text">도그짱</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
-       
-                </div>
-         
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-
-            <div class="card-body">
-              <a href="https://ulovepetshelter.co.kr/level"><img src="images/유럽펫보호소.jpg"></a>
-              <p class="card-text">유럽펫보호소</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
   
-                </div>
+  <ul class="flex flex1">
+    
+    <li>
+      <img src="images/all.png" width="120"; />
+      <a class="nav-link" href="#">전체</a>
+    
+    <li>
+      <img src="images/dog.png" width="120"; />
+      <a class="nav-link" href="#">강아지</a>
+    
+    <li>
+      <img src="images/cat.png" width="120"; />
+      <a class="nav-link" href="#">고양이</a>
+    </li>
   
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-
-            <div class="card-body">
-              <a href="https://laonshelter.co.kr/"><img src="images/라온보고서.jpg"></a>
-              <p class="card-text">라온 보고서</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
- 
-                </div>
-                
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="card shadow-sm">
-
-            <div class="card-body">
-              <a href="https://www.ijoa.co.kr/44"><img src="images/아이조아.jpg"></a>
-              <p class="card-text">아이조아</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
-                </div>
-                
-              </div>
-            </div>
-          </div>
-        </div>
+  </ul>
+  <ul class="flex flex2">
+    
+    <li>
+      <a href="https://www.zooseyo.com/main/main.php?"><img src="images/주세요닷컴.png"></a>
+          <p class="card-text">주세요 닷컴</p>
+        <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
+      <li>
       
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    
+    <li>
+      <a href="https://dmanimal.co.kr/"><img src="images/도그마루 보호소.png"></a>
+          <p class="card-text">도그마루 보호소</p>
+        <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
+    </li>
+    <li>
+      <a href="https://www.minipetmall.co.kr/pc/review/review_030100.html"><img src="images/미니펫.png"></a>
+              <p class="card-text">미니펫</p>
+        <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
+    </li>
+    <li>
+      <a href="http://www.sinsadog.com/?n_media=27758&n_query=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_rank=9&n_ad_group=grp-a001-01-000000008843986&n_ad=nad-a001-01-000000142583531&n_keyword_id=nkw-a001-01-000001647971233&n_keyword=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_campaign_type=1&n_ad_group_type=1&NaPm=ct%3Dkvhbjzts%7Cci%3D0zO0000OtC1vJWIqYuZD%7Ctr%3Dsa%7Chk%3D3af178f94964d4bf626d9034d8eb6afcd045043a"><img src="images/신사독.png"></a>
+              <p class="card-text">신사독</p>
+        <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
+    </li>
+   
+</li>
 
-</main>
+  </ul>
+  
+  <ul class="flex flex3">
+    <li>
+      <a href="https://www.dog-zzang.co.kr/main/main.php?kwqy=N%25EA%25B0%2595%25EC%2595%2584%25EC%25A7%2580%25EC%259E%2585%25EC%2596%2591%25EC%2582%25AC%25EC%259D%25B4%25ED%258A%25B8"><img src="images/도그짱.png"></a>
+      <p class="card-text">도그짱</p>
+  <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
+<li>
 
 
+<li>
+  <a href="https://ulovepetshelter.co.kr/level"><img src="images/유럽펫보호소.png"></a>
+  <p class="card-text">유럽펫보호소</p>
+  <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
+</li>
+<li>
+  <a href="https://laonshelter.co.kr/"><img src="images/라온보고서.png"></a>
+  <p class="card-text">라온 보고서</p>
+  <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
+</li>
+<li>
+  <a href="https://www.animals.or.kr/center/adopt?utm_source=naver&utm_medium=sa&utm_campaign=pc&utm_content=%EC%9E%85%EC%96%91&utm_term=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_media=122875&n_query=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_rank=6&n_ad_group=grp-a001-01-000000015617002&n_ad=nad-a001-01-000000095276356&n_keyword_id=nkw-a001-01-000002932495589&n_keyword=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_campaign_type=1&n_ad_group_type=1&NaPm=ct%3Dkvhbm47s%7Cci%3D0z40002ltC1v8SWXQvi5%7Ctr%3Dsa%7Chk%3D18ce0435e5cc56c6af092ed931d8e5ad51cc6622"><img src="images/동물 자유연대.png"></a>
+  <p class="card-text">동물 자유연대</p>
+  <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
+</li>
 
-
-
+  
+  </ul>
+  <ul class="flex flex3">
+    <li>
+      <a href="https://www.ijoa.co.kr/44"><img src="images/아이조아.png"></a>
+      <p class="card-text">아이조아</p>
+    <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
+  <li>
+  
+  
+  <li>
+  <a href="http://harishelter.com/?n_media=27758&n_query=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_rank=2&n_ad_group=grp-a001-01-000000020236437&n_ad=nad-a001-01-000000126277093&n_keyword_id=nkw-a001-01-000003541348788&n_keyword=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_campaign_type=1&n_ad_group_type=1"><img src="images/하리네 쉼터.png"></a>
+      <p class="card-text">하리네 쉼터</p>
+    <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
+  </li>
+  <li>
+  <a href="http://puppynu.co.kr/?n_media=27758&n_query=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_rank=6&n_ad_group=grp-a001-01-000000019690106&n_ad=nad-a001-01-000000122282939&n_keyword_id=nkw-a001-01-000003466012448&n_keyword=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_campaign_type=1&n_ad_group_type=1&NaPm=ct%3Dkvge0jgo%7Cci%3D0yK0000zCBXvoS%5F9iuYE%7Ctr%3Dsa%7Chk%3Da3594b4fddb7533d6318eacb060195f0cdbf4dd2"><img src="images/퍼피앤유.png"></a>
+          <p class="card-text">퍼피앤유</p>
+    <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
+</li>
+  <li>
+    <a href="http://www.babymong.co.kr/shop/main/index.php?n_media=122875&n_query=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_rank=11&n_ad_group=grp-m001-01-000001835836090&n_ad=nad-a001-01-000000131450203&n_keyword_id=nkw-m001-01-000001835836169&n_keyword=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_campaign_type=1&n_ad_group_type=1&NaPm=ct%3Dkvhboe08%7Cci%3D0zK00001tS1v1uySNvmI%7Ctr%3Dsa%7Chk%3D1cb89bb8abe39835836a5931007f97a98703875b"><img src="images/베이비 몽.png"></a>
+        <p class="card-text">베이비 몽</p>
+      <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
+    </li>
+</div>
 <!-- <%@ include file="/WEB-INF/views/common/footer.jsp" %> --> 
