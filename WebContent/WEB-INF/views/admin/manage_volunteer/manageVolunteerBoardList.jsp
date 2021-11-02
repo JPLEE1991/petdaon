@@ -8,6 +8,8 @@
 %>
 <h3>글이다다다다다다</h3>
 
+	<div id="pageBar"><%= request.getAttribute("pagebar") %></div>
+
 <script>
 $(document).ready(function(){
 	$("#main-title").text('봉사 승인');
