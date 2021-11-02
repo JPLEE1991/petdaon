@@ -23,15 +23,29 @@
 <!--  -->
 
 	<div class="container">
-		<h3>봉사게시판</h3>
-		<%-- 로그인 한 사람만 등록하기 버튼 가능하게 이후에 수정하기 로그인안했으면 로그인 후 이용가능하는 alert창 띄우기(로그인 페이지 이동은 생략하자. 호기심에 눌렀을 수도 있으니) --%>
-		<button type="button" class="btn btn-primary" onclick="location.href='<%= request.getContextPath() %>/volunteerBoard/boardForm';">등록하기</button>
-		<div id="calendar"></div>
+		<div class="row">
+			<div class="col-md-12 mb-2">
+				<h3 class="float-left">봉사게시판</h3>
+				<%-- 로그인 한 사람만 등록하기 버튼 가능하게 이후에 수정하기 로그인안했으면 로그인 후 이용가능하는 alert창 띄우기(로그인 페이지 이동은 생략하자. 호기심에 눌렀을 수도 있으니) --%>
+				<button type="button" class="btn btn-primary float-right enroll-btn" onclick="location.href='<%= request.getContextPath() %>/volunteerBoard/boardForm';">등록하기</button>
+			</div>
+			<div class="col-md-12">
+				<span>따뜻한 마음을 나눌 봉사자분들의 참여를 기다립니다.</span>
+			</div>
+			<div class="col-md-12">
+				<div id="calendar"></div>
+			</div>
+		</div>
 	</div>
 	
 	<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
 <script>
+// 등록하기 버튼 클릭 시 alert창 ''
+$(".enroll-btn").click(function(e){
+	alert("봉사 등록폼을 작성하시면 관리자 게시물 검토 후 연락을 드리며 승인 후 게시글이 등록됩니다.");
+});
+
 
 	//페이지 로딩시, 봉사 게시글 전체 달력에 넣기 - 풀캘린더 이용
     $.ajax({
