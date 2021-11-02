@@ -6,6 +6,13 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<!--맵api  -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=81fc3c40931e5c23dfea9c79c1a7abc4&libraries=services"></script>
+
+<!--SNS 카카오톡 공유  -->
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/findMe_board/map.css" />
 
 <%
@@ -24,6 +31,42 @@ const deleteBoard = () => {
 		$(document.deleteBoardFrm).submit();
 	}
 };
+
+/* SNS공유  */
+//트위터 공유
+function shareTwitter() {
+    var sendText = "<%=board.getTitle()%>"; // 전달할 텍스트
+    var sendUrl = "http://192.168.0.43:9090/<%=request.getContextPath()%>"; // 전달할 URL
+    window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
+}
+//페북 공유 기능
+function shareFacebook() {
+    var sendUrl = "http://192.168.0.43:9090/<%=request.getContextPath()%>"; // 전달할 URL
+    window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+}
+//카카오 공유 기능
+function shareKakao() {
+	 
+	  // 사용할 앱의 JavaScript 키 설정
+	  Kakao.init('81fc3c40931e5c23dfea9c79c1a7abc4');
+	 
+	  // 카카오링크 버튼 생성
+	  Kakao.Link.createDefaultButton({
+	    container: '#btnKakao', // 카카오공유버튼ID
+	    objectType: 'feed',
+	    content: {
+	      title: "<%=board.getTitle()%>", // 보여질 제목
+	      description: "<%=board.getContent()%>", // 보여질 설명
+	      //local 서버 내에 있는 이미지라 링크가 걸리지 않음. 임의 이미지 링크 걸어놓음.
+	      imageUrl: "https://i.ytimg.com/vi/1aDQnoGS_2c/maxresdefault.jpg", // 콘텐츠 URL
+	      link: {
+	         mobileWebUrl: 'http://localhost:9090',
+	         webUrl: 'http://localhost:9090'
+	      }
+	    }
+	  });
+	}
+
 </script>
 
 
@@ -36,7 +79,17 @@ img {
     width: 100%;
     border-radius: 15px;
 }
+
+
+/* SNS공유 */
+.link-icon { position: relative; display: inline-block; width: auto;    font-size: 14px; font-weight: 500; color: #333; margin-right: 10px; padding-top: 50px; width:40px }
+.link-icon.twitter { background-image: url(<%=request.getContextPath()%>/images/icon-twitter.png); background-repeat: no-repeat; }
+.link-icon.facebook { background-image: url(<%=request.getContextPath()%>/images/icon-facebook.png); background-repeat: no-repeat; } 
+.link-icon.kakao { background-image: url(<%=request.getContextPath()%>/images/icon-kakao.png); background-repeat: no-repeat; }
+
+
 </style>
+
 <div class="container">
 	<h2>나를 찾아줘</h2>
 <hr class="my-3" />
@@ -64,8 +117,7 @@ img {
 			    </div>
 			</div>
 		
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=81fc3c40931e5c23dfea9c79c1a7abc4
-	&libraries=services"></script>
+
 	
 	
 	<script>
@@ -285,7 +337,8 @@ img {
 	
 	
 		<div class="row">
-			<div class="col-6 mr-3">
+		<!-- 이미지칸  -->
+			<div class="col-6 mr-3 align-self-center">
 			<!--이미지 불러오기  -->
 <% 	if(board.getAttach() != null){ %>
 				<%-- 첨부파일이 있을경우만, 이미지와 함께 original파일명 표시 --%>
@@ -295,60 +348,82 @@ img {
 <% } %>		
 			</div>
 			
-			<div class="col-6 row justify-content-center align-self-center">
-				<table class="table">
-				  <thead>
-				    <tr>
-				      <th colspan="4" style="text-align: center"><%= board.getTitle() %></th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				  	<tr>
-				      <th scope="row">상태</th>
-				      <td><%= board.getStatus() %></td>
-				      <th>완료여부</td>
-				      <td><%= board.getCompleYN()=="Y"?"완료":"진행중" %></td>
-				    </tr>
-				    <tr>
-				      <th scope="row">작성자</th>
-				      <td colspan="3"><%= board.getWriter() %></td>
-				    </tr>				  
-				    <tr>
-				      <th scope="row">연락처</th>
-				      <td colspan="3"><%= board.getPhone() %></td>
-				    </tr>
-				    <tr>
-				      <th scope="row">분류</th>
-				      <td><%= board.getAnimalType() %></td>
-				      <th>종</td>
-				      <td><%= board.getBreed() %></td>
-				    </tr>
-				    <tr>
-				      <th scope="row">성별</th>
-				      <td><%= board.getGender() %></td>
-				      <th>몸무게</td>
-				      <td><%= board.getWeight() %> kg</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">털색</th>
-				      <td colspan="3"><%= board.getColor() %></td>
-				    </tr>
-				   	<tr>
-				      <th scope="row">특징</th>
-				      <td colspan="3"><%= board.getCharacter() %></td>
-				    </tr>
-				    <tr>
-				      <td colspan="4" ><%= board.getContent() %></th>
-				    </tr>		
-				  </tbody>
-				</table>
-			<button type="button" class="btn btn-primary btn-lg" onclick="updateBoard()">수정</button>
-			
-			<button type="button" class="btn btn-primary btn-lg" onclick="deleteBoard()">삭제</button>
-			
+		<!-- 내용 및 공유 버튼 칸  -->
+			<div class="col-6 row">
+				<div class="">
+					<table class="table">
+					  <thead>
+					    <tr>
+					      <th colspan="4" style="text-align: center"><%= board.getTitle() %></th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  	<tr>
+					      <th scope="row">상태</th>
+					      <td><%= board.getStatus() %></td>
+					      <th>완료여부</td>
+					      <td><%= "Y".equals(board.getCompleYN())? "완료":"진행중" %></td>
+					    </tr>
+					    <tr>
+					      <th scope="row">작성자</th>
+					      <td colspan="3"><%= board.getWriter() %></td>
+					    </tr>				  
+					    <tr>
+					      <th scope="row">연락처</th>
+					      <td colspan="3"><%= board.getPhone() %></td>
+					    </tr>
+					    <tr>
+					      <th scope="row">분류</th>
+					      <td><%= board.getAnimalType() %></td>
+					      <th>종</td>
+					      <td><%= board.getBreed() %></td>
+					    </tr>
+					    <tr>
+					      <th scope="row">성별</th>
+					      <td><%= board.getGender() %></td>
+					      <th>몸무게</td>
+					      <td><%= board.getWeight() %> kg</td>
+					    </tr>
+					    <tr>
+					      <th scope="row">털색</th>
+					      <td colspan="3"><%= board.getColor() %></td>
+					    </tr>
+					   	<tr>
+					      <th scope="row">특징</th>
+					      <td colspan="3"><%= board.getCharacter() %></td>
+					    </tr>
+					    <tr>
+					      <td colspan="4" ><%= board.getContent() %></th>
+					    </tr>		
+					  </tbody>
+					</table>
+				</div>
+				<!-- SNS 공유버튼 모음  -->
+				<div class="row text-center" style="float: none; margin 0 auto">
+					<div>
+						<a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();"></a>
+						<a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();"></a>    
+						<a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();"></a>   			
+					</div>
+				</div>
+				<!-- /SNS공유 버튼 모음 -->
+				
+			<!-- 게시글 삭제 폼 전송  -->
+			<form action="<%= request.getContextPath() %>/findMe_board/boardDelete" name="deleteBoardFrm">
+				<input type="hidden" name="no" value="<%=board.getNo() %>" />
+			</form>
 			
 			</div>
+	      <hr class="my-3" />
+			
+			<br />
+			<div class="btn_container text-center">
+				<button type="button" class="btn btn-primary btn-lg" onclick="updateBoard()">수정</button>
+				<button type="button" class="btn btn-primary btn-lg" onclick="deleteBoard()">삭제</button>			
+			</div>
 
+
+<!--테스트  -->
 		</div>
 		<br />
 		<br />
@@ -370,7 +445,3 @@ img {
 		<br />
 		<br />
 		<br />
-
-</div>
-
-

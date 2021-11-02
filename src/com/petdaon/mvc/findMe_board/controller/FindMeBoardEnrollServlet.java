@@ -22,7 +22,7 @@ import com.petdaon.mvc.findMe_board.model.vo.Board;
  * Servlet implementation class BoardEnrollServlet
  */
 @WebServlet("/findMe_board/boardEnroll")
-public class findMeBoardEnrollServlet extends HttpServlet {
+public class FindMeBoardEnrollServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BoardService boardService = new BoardService();
 	
@@ -86,6 +86,7 @@ public class findMeBoardEnrollServlet extends HttpServlet {
 		String _missDate = multipartRequest.getParameter("missDate");
 		String content = multipartRequest.getParameter("content");
 		String status = multipartRequest.getParameter("status");
+		String completeYN = multipartRequest.getParameter("complete_yn");
 	
 		String _latclick = multipartRequest.getParameter("latclick");
 		String _lngclick = multipartRequest.getParameter("lngclick");
@@ -105,9 +106,9 @@ public class findMeBoardEnrollServlet extends HttpServlet {
 		System.out.println("missDate: "+missDate);
 				
 		
-		Board board = new Board("01",0,title,"kh1231",phone,
+		Board board = new Board("01",0,title,writer,phone,
 								enrollDate,gender,weight,color,character,
-								missDate,content,"완료","N","N",
+								missDate,content,status,"N",completeYN,
 								latclick,lngclick,paddress,"N",animalType,
 								breed,null);
 		System.out.println("findMeBoardEnrollServlet attach 세팅 전 board" +board);

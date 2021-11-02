@@ -10,7 +10,7 @@ public class Attachment implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private int no;
+	private int no; //Service에서 boardNo(게시글번호) 받는 변수.
 	private String boardCode;
 	private String originalFilename;
 	private String renamedFilename;
@@ -18,7 +18,6 @@ public class Attachment implements Serializable {
 	
 	public Attachment() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Attachment(int no, String boardCode, String originalFilename, String renamedFilename, Date regDate) {

@@ -13,25 +13,21 @@
 <%
 	Board board = (Board) request.getAttribute("board");
 %>
-
 <script>
 
 /**
  * selected animayType,Breed,Gender 값 불러오기
  */
-	$(document).ready(function(){
-		$('#animalType').val('<%= board.getAnimalType() %>').prop("selected",true);
-		$('#breed').val('<%= board.getBreed() %>').prop("selected",true);
-		$('#gender').val('<%= board.getGender() %>').prop("selected",true);
-	});
+
 	
 
 
-
+	//동물 분류 변경시 나오게끔
+	var dog = ["닥스훈트","달마시안","도베르만","리트리버","닥스훈트","말라뮤트","말티즈","믹스견","비글","사모예드","셰퍼드","스피츠","시바","시베리안허스키","아메리칸불독","진도견","치와와","푸들","기타"];
+	var cat = ["노르웨이숲","데본렉스","러시안블루","리그돌-라가머핀","맹크스","먼치킨","메인쿤","믹스","발리네즈","버만","벵갈","봄베이","기타"];
+	var etc = ["모든 동물"];
+	
  	function showBreed(e){
-		var dog = ["닥스훈트","달마시안","도베르만","리트리버","닥스훈트","말라뮤트","말티즈","믹스견","비글","사모예드","셰퍼드","스피츠","시바","시베리안허스키","아메리칸불독","진도견","치와와","푸들","기타"];
-		var cat = ["노르웨이숲","데본렉스","러시안블루","리그돌-라가머핀","맹크스","먼치킨","메인쿤","믹스","발리네즈","버만","벵갈","봄베이","기타"];
-		var etc = ["모든 동물"];
 		var target = document.getElementById("breed");
 		
 		if($("#animalType").val()=="강아지")
@@ -50,7 +46,37 @@
 			target.appendChild(opt);
 		}
 	}; 
-	
+	//
+	$(document).ready(function(){
+
+		var target = document.getElementById("breed");
+		
+		if($("#animalType").val()=="강아지")
+			var d = dog;				
+		else if($("#animalType").val()=="고양이")
+			var d = cat;		
+		else
+			var d = etc;
+				
+		target.options.length = 0;
+		
+		for(x in d){
+			var opt = document.createElement("option");
+			opt.value = d[x];
+			opt.innerHTML = d[x];
+			target.appendChild(opt);
+		}
+		
+		
+		$('#animalType').val('<%= board.getAnimalType() %>').prop("selected",true);
+		$('#breed').val('<%= board.getBreed() %>').prop("selected",true);
+		$('#gender').val('<%= board.getGender() %>').prop("selected",true);
+		$('#status').val('<%=board.getStatus()%>').prop("selected",true);
+		
+		$('#fulladdress').val('<%= board.getGender() %>').prop("selected",true);
+		
+		
+	});
 
 
 /**
@@ -83,8 +109,8 @@
 <!--  -->
 <!--Form 제출  -->
 <form
-	name="findMeBoardEnrollFrm"
-	action="<%=request.getContextPath() %>/findMe_board/boardEnroll"
+	name="findMeUpdateFrm"
+	action="<%=request.getContextPath() %>/findMe_board/boardUpdate"
 	method="post"
 	enctype="multipart/form-data">
 	
@@ -94,22 +120,20 @@
 			<!--이미지 업로드  -->
 
 			
+			<div id="photo">
 <%
 	Attachment attach = board.getAttach();
 	if(board.getAttach() != null){ 
 %>
 				<%-- 첨부파일이 있을경우만, 이미지와 함께 original파일명 표시 --%>
+				<img id="profile" alt="첨부파일" src="<%= request.getContextPath() %>/upload/findMe_board/<%= board.getAttach().getRenamedFilename() %>" style="width:100px"/>
 				<span id="fname"><%= attach.getOriginalFilename() %></span>			
 				<br />
 				<input type="checkbox" name="delFile" id="delFile" value="<%= attach.getNo() %>"/>
 				<label for="delFile">기존파일삭제</label>
-				<img alt="첨부파일" src="<%= request.getContextPath() %>/upload/findMe_board/<%= board.getAttach().getRenamedFilename() %>" >
 <% } else { %>
-				<img class="" src="<%= request.getContextPath() %>/images/findMe_sampleImg.png" alt=""/>
+				<img id="profile" class="" src="<%= request.getContextPath() %>/images/findMe_sampleImg.png" style="width:100px" alt=""/>
 <% } %>	
-			
-			<div id="photo">
-				<img id="profile" src="<%= request.getContextPath() %>/images/findMe_sampleImg.png" alt="대표 사진" style="width:100px"/>					
 				<br />
 				<input 
 					type="file" 
@@ -122,9 +146,18 @@
 		    <!-- 제목  -->
 
 		    
-			      <label for="title" class="col-form-label" >제목</label>
-					<div class="">
-					  <input type="text" placeholder="제목 입력" class="form-control" name="title" id="title" value="<%= board.getTitle()%>">
+					<div class="row">
+					  <div class="col-8">
+					      <label for="title" class="col-form-label" >제목</label>
+						  <input type="text" placeholder="제목 입력" class="form-control" name="title" id="title" value="<%= board.getTitle()%>">					  	
+					  </div>
+					  <div class="col-4">
+					      <label for="completeYN" class="col-form-label" >완료여부</label>					  
+						  <select class="form-select" name="complete_yn" id="complete_yn">
+						  	<option value="진행중">진행중</option>
+						  	<option value="완료">완료</option>
+						  </select>					  
+					  </div>
 				    </div>    
 		    	<br />
 		    	<br />
@@ -219,7 +252,7 @@
 			    <div id="menu_wrap" class="bg_white">
 			        <div class="option">
 			            <div style="">
-			                    키워드 : <input type="text" value="서울역" id="keyword" size="15"> 
+			                    키워드 : <input type="text" value="<%= board.getAddress() %>" id="keyword" size="15"> 
 			            <button onclick="searchPlaces(); return false;">검색하기</button> 
 			            </div>
 			        </div>
@@ -443,9 +476,9 @@
 	    <div>
 		    <input type="text" id="fulladdress" name="fulladdress" style="width:90%;" disabled> 
 		    <input type="text" id="pname" name="pname" value="">   
-		    <input type="text" id="paddress" name="paddress" value="">  
-		    <input type="text" id="latclick" name="latclick" value=""> 
-		    <input type="text" id="lngclick" name="lngclick" value=""> 
+		    <input type="text" id="paddress" name="paddress" value="<%=board.getAddress()%>">  
+		    <input type="text" id="latclick" name="latclick" value="<%=board.getLatitude()%>"> 
+		    <input type="text" id="lngclick" name="lngclick" value="<%=board.getLongitude()%>"> 
 	    </div>
 				
 				
@@ -474,6 +507,7 @@
 	  
 	  
 	    <!-- Submit button -->
+	    <input type="hidden" name="no" value="<%=board.getNo() %>" />
 	    <button type="submit" class="btn btn-primary btn-block mb-2">저장</button>
 </form>   
 
