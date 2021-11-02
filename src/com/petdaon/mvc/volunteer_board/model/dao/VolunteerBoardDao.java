@@ -367,4 +367,130 @@ public class VolunteerBoardDao {
 		return commentList;
 	}
 
+	// 댓글(문의/답변) 삭제(삭제여부 삭제상태로 변경)
+	public int deleteVolunteerBoardComment(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("deleteVolunteerBoardComment");
+		
+		try {
+			// 미완성 쿼리 값 대입
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			// 쿼리문 실행
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BoardException("문의/답변 삭제 오류!", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	// 봉사신청 승인여부 변경
+	public int updateVolunteerApplicationApproval(Connection conn, String approvalStatus, int no) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateVolunteerApplicationApproval");
+		
+		try {
+			// 미완성 쿼리 값 대입
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, approvalStatus);
+			pstmt.setInt(2, no);
+			// 쿼리문 실행
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BoardException("봉사신청 승인여부 변경 오류!", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	// 게시물 삭제 - 삭제여부 변경
+	public int deleteVolunteerBoard(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("deleteVolunteerBoard");
+		
+		try {
+			// 미완성 쿼리 값 대입
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			// 쿼리문 실행
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BoardException("봉사게시글 삭제 오류!", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	// 썸네일 제거 - null 처리
+	public int deleteThumbnail(Connection conn, VolunteerBoard board) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("deleteThumbnail");
+		
+		try {
+			// 미완성 쿼리 값 대입
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, board.getNo());
+			// 쿼리문 실행
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BoardException("썸네일 삭제 오류!", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	// 봉사 게시물 수정
+	public int updateVolunteerBoard(Connection conn, VolunteerBoard board) {
+		PreparedStatement pstmt = null;
+		// update volunteer set title = ?, center_name = ?, content = ?, start_date = ?, end_date = ?, email = ?, phone = ?, capacity = ?, place = ?, deadline_date = ?, time = ?, day = ?, thumbnail = ? where no = ?
+		// ? 순서 각각 title, center_name, content, start_date, end_date, 
+		// email, phone, capacity, place, deadline_date, time, day, thumbnail, no
+		String sql = prop.getProperty("updateVolunteerBoard"); 
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, board.getTitle());
+			pstmt.setString(2, board.getCenterName());
+			pstmt.setString(3, board.getContent());
+			pstmt.setDate(4, board.getStartDate());
+			pstmt.setDate(5, board.getEndDate());
+			pstmt.setString(6, board.getEmail());
+			pstmt.setString(7, board.getPhone());
+			pstmt.setInt(8, board.getCapacity());
+			pstmt.setString(9, board.getPlace());
+			pstmt.setDate(10, board.getDeadlineDate());
+			pstmt.setString(11, board.getTime());
+			pstmt.setString(12, board.getDay());
+			pstmt.setString(13, board.getThumbnail());
+			pstmt.setInt(14, board.getNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new BoardException("봉사 게시글 수정 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 }
