@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class findMeBoardFormServlet
  */
 @WebServlet("/findMe_board/boardForm")
-public class findMeBoardFormServlet extends HttpServlet {
+public class FindMeBoardFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 

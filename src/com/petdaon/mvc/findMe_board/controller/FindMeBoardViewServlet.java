@@ -17,7 +17,7 @@ import com.petdaon.mvc.findMe_board.model.vo.Board;
  * Servlet implementation class findMeBoardViewServlet
  */
 @WebServlet("/findMe_board/boardView")
-public class findMeBoardViewServlet extends HttpServlet {
+public class FindMeBoardViewServlet extends HttpServlet {
 	BoardService boardService = new BoardService();
 	private static final long serialVersionUID = 1L;
 

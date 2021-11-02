@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import com.petdaon.mvc.common.vo.Attachment;
@@ -35,49 +36,10 @@ public class BoardDao {
 		}
 	}
 
-	
-//	  public List<Board> selectBoardList(Connection conn, int start, int end) {
-//	  PreparedStatement pstmt = null; ResultSet rset = null; String sql =
-//	  prop.getProperty("selectBoardList"); List<Board> list = new ArrayList<>();
-//	  
-//	  try { 
-//		  pstmt = conn.prepareStatement(sql); 
-//		  pstmt.setInt(1, start);
-//		  pstmt.setInt(2, end);
-//		  
-//		  rset = pstmt.executeQuery();
-//	  
-//		  while(rset.next()) { // 테이블 record 1 -> VO객체 1 BoardExt board = new
-//			  
-//			  BoardExt board = new BoardExt(); 
-//			  
-//			  board.setNo(rset.getInt("no"));
-//			  board.setTitle(rset.getString("title"));
-//			  board.setWriter(rset.getString("writer"));
-//			  board.setContent(rset.getString("content"));
-//			  board.setEnrollDate(rset.getDate("enroll_date"));		  
-//			  board.setBoardCommentCount(rset.getInt("bc_count"));
-//			  
-//			  if(rset.getInt("attach_no") != 0) { Attachment attach = new Attachment();
-//			  attach.setNo(rset.getInt("attach_no"));
-//			  attach.setBoardNo(rset.getInt("board_no"));
-//			  attach.setOriginalFilename(rset.getString("original_filename"));
-//			  attach.setRenamedFilename(rset.getString("renamed_filename"));
-//			  attach.setRegDate(rset.getDate("attach_reg_date"));
-//			  
-//			  board.setAttach(attach); }
-//			  
-//		  list.add(board); }
-//	  
-//	  
-//	  } catch (SQLException e) { e.printStackTrace(); } finally { close(rset);
-//	  close(pstmt); } return list; }
-	
 	  public List<Board> selectBoardList(Connection conn, int start, int end) {
 		  PreparedStatement pstmt = null; 
 		  ResultSet rset = null; 
 		  String sql = prop.getProperty("selectBoardList"); List<Board> list = new ArrayList<>();
-		  System.out.println("boardDao board00 ");
 		  try { 
 			  pstmt = conn.prepareStatement(sql); 
 			  pstmt.setInt(1, start);
@@ -89,6 +51,7 @@ public class BoardDao {
 				  
 				  BoardExt board = new BoardExt(); 
 				  board.setNo(rset.getInt("no"));
+				  board.setWriter(rset.getString("writer"));
 				  board.setAddress(rset.getString("address"));
 				  board.setAnimalType(rset.getString("animal_type"));
 				  board.setBreed(rset.getString("breed"));
@@ -96,6 +59,7 @@ public class BoardDao {
 				  board.setCharacter(rset.getString("character"));
 				  board.setStatus(rset.getString("status"));
 				  board.setBoardCommentCount(rset.getInt("bc_count"));
+				  board.setCompleYN(rset.getString("complete_yn"));
 				  
 				  
 				  System.out.println("boardDao board.getAttach(): "+board.getAttach());
@@ -332,111 +296,132 @@ public class BoardDao {
 //		return result;
 //	}
 
-//	public Attachment selectOneAttachment(Connection conn, int no) {
-//		Attachment attach = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rset = null;
-//		
-//		String query = prop.getProperty("selectOneAttachment");
-//		try{
-//			//미완성쿼리문을 가지고 객체생성.
-//			pstmt = conn.prepareStatement(query);
-//			//쿼리문미완성
-//			pstmt.setInt(1, no);
-//			//쿼리문실행
-//			//완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
-//			rset = pstmt.executeQuery();
-//			
-//			if(rset.next()){
-//				attach = new Attachment();
-//				attach.setNo(rset.getInt("no"));
-//				attach.setBoardNo(rset.getInt("board_no"));
-//				attach.setOriginalFilename(rset.getString("original_filename"));
-//				attach.setRenamedFilename(rset.getString("renamed_filename"));
-//				attach.setRegDate(rset.getDate("reg_date"));
-//			}
-//		}catch(Exception e){
-//			e.printStackTrace();
-//		}finally{
-//			close(rset);
-//			close(pstmt);
-//		}
-//		return attach;
-//	}
+	public Attachment selectOneAttachment(Connection conn, int no) {
+		Attachment attach = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectOneAttachment");
+		try{
+			//미완성쿼리문을 가지고 객체생성.
+			pstmt = conn.prepareStatement(sql);
+			//쿼리문미완성
+			pstmt.setInt(1, no);
+			//쿼리문실행
+			//완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				attach = new Attachment();
+				attach.setNo(rset.getInt("board_no"));
+				attach.setOriginalFilename(rset.getString("original_filename"));
+				attach.setRenamedFilename(rset.getString("renamed_filename"));
+				System.out.println("@BoardDao getRenamedFilename: "+attach.getRenamedFilename());
+				attach.setRegDate(rset.getDate("reg_date"));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return attach;
+	}
 
-//    public int deleteBoard(Connection conn, int no) {
-//		int result = 0;
-//		PreparedStatement pstmt = null;
-//		String query = prop.getProperty("deleteBoard"); 
-//		
-//		try {
-//			//미완성쿼리문을 가지고 객체생성.
-//			pstmt = conn.prepareStatement(query);
-//			//쿼리문미완성
-//			pstmt.setInt(1, no);
-//			
-//			//쿼리문실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
-//			//DML은 executeUpdate()
-//			result = pstmt.executeUpdate();
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			close(pstmt);
-//		}
-//
-//		
-//		return result;
-//	}
+    public int deleteBoard(Connection conn, int no) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("deleteBoard"); 
+		
+		try {
+			//미완성쿼리문을 가지고 객체생성.
+			pstmt = conn.prepareStatement(query);
+			//쿼리문미완성
+			pstmt.setInt(1, no);
+			
+			//쿼리문실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
+			//DML은 executeUpdate()
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
 
-//	public int updateBoard(Connection conn, Board board) {
-//		int result = 0;
-//		PreparedStatement pstmt = null;
-//		String query = prop.getProperty("updateBoard"); 
-//		
-//		try {
-//			//미완성쿼리문을 가지고 객체생성.
-//			pstmt = conn.prepareStatement(query);
-//			//쿼리문미완성
-//			pstmt.setString(1, board.getTitle());
-//			pstmt.setString(2, board.getContent());
-//			pstmt.setInt(3, board.getNo());
-//			
-//			//쿼리문실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
-//			//DML은 executeUpdate()
-//			result = pstmt.executeUpdate();
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			close(pstmt);
-//		}
-//
-//		
-//		return result;
-//	}
-//
-//	public int deleteAttachment(Connection conn, int no) {
-//		int result = 0;
-//		PreparedStatement pstmt = null;
-//		String query = prop.getProperty("deleteAttachment"); 
-//		try {
-//			//미완성쿼리문을 가지고 객체생성.
-//			pstmt = conn.prepareStatement(query);
-//			//쿼리문미완성
-//			pstmt.setInt(1, no);
-//			
-//			//쿼리문실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
-//			//DML은 executeUpdate()
-//			result = pstmt.executeUpdate();
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			close(pstmt);
-//		}
-//		return result;
-//	}
+		
+		return result;
+	}
+
+	public int updateBoard(Connection conn, Board board) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateBoard"); 
+		
+		try {
+			//미완성쿼리문을 가지고 객체생성.
+/**
+ * updateBoard = update FIND_ME_BOARD 
+ * 				set title=?,phone=?,gender=?,weight=?,color=?,
+ * 				character=?,miss_date=?,content=?,status=?,complete_yn=?,
+ * 				latitude=?,longitude=?,address=?,animal_type=?,breed=? 
+ * 				where no= ? 			
+ */
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, board.getTitle());
+			pstmt.setString(2, board.getPhone());
+			pstmt.setString(3, board.getGender());
+			pstmt.setInt(4, board.getWeight());
+			pstmt.setString(5, board.getColor());
+			
+			pstmt.setString(6, board.getCharacter());
+			pstmt.setDate(7, board.getMissDate());
+			pstmt.setString(8, board.getContent());
+			pstmt.setString(9, board.getStatus());
+			pstmt.setString(10, board.getCompleYN());
+			
+			pstmt.setDouble(11, board.getLatitude());
+			pstmt.setDouble(12, board.getLongitude());
+			pstmt.setString(13, board.getAddress());
+			pstmt.setString(14, board.getAnimalType());
+			pstmt.setString(15, board.getBreed());
+			
+			pstmt.setInt(16,board.getNo());
+
+			System.out.println("@BoardDao board: " + board);
+			result = pstmt.executeUpdate();
+			System.out.println("@BoardDao result: " + result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		
+		return result;
+	}
+
+	public int deleteAttachment(Connection conn, int no) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("deleteAttachment"); 
+		try {
+			//미완성쿼리문을 가지고 객체생성.
+			pstmt = conn.prepareStatement(query);
+			//쿼리문미완성
+			pstmt.setInt(1, no);
+			
+			//쿼리문실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
+			//DML은 executeUpdate()
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 //
 //	public List<BoardComment> selectCommentList(Connection conn, int no) {
 //		PreparedStatement pstmt = null;
@@ -512,5 +497,115 @@ public class BoardDao {
 //		}
 //		return result;
 //	}
+
+	
+	public List<Board> searchBoard(Connection conn, Map<String, Object> param) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		List<Board> list = new ArrayList<>();
+		String sql = null;
+		String searchType = (String) param.get("searchType");
+		System.out.println("BoardDao searchType: "+searchType);
+		switch(searchType) {
+		case "writer":
+			sql = prop.getProperty("searchBoardByMemberId");
+			param.put("searchKeyword", "%" + param.get("searchKeyword") + "%"); 
+			break;
+		case "animalType":
+			sql = prop.getProperty("searchBoardByAnimalType");
+			param.put("searchKeyword", "%" + param.get("searchKeyword") + "%");
+			break;
+		case "gender":
+			sql = prop.getProperty("searchBoardByGender");
+			break;
+		}
+		System.out.println("sql@dao = " + sql);
+		
+		try {
+			// 1. PreparedStatement객체 생성 & 미완성쿼리 값대입
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, (String) param.get("searchKeyword"));
+			pstmt.setInt(2, (int) param.get("start"));
+			pstmt.setInt(3, (int) param.get("end"));
+			
+			// 2. 쿼리실행 및 ResultSet처리
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				  BoardExt board = new BoardExt(); 
+				  board.setNo(rset.getInt("no"));
+				  board.setWriter(rset.getString("writer"));
+				  board.setAddress(rset.getString("address"));
+				  board.setAnimalType(rset.getString("animal_type"));
+				  board.setBreed(rset.getString("breed"));
+				  board.setMissDate(rset.getDate("miss_date"));		  
+				  board.setCharacter(rset.getString("character"));
+				  board.setStatus(rset.getString("status"));
+				  board.setCompleYN(rset.getString("complete_yn"));
+				  
+				  
+				  System.out.println("boardDao board.getAttach(): "+board.getAttach());
+
+				  if(rset.getInt("attach_no") != 0) { 
+					  Attachment attach = new Attachment();
+					  attach.setNo(rset.getInt("no"));
+					  attach.setBoardCode(rset.getString("board_code"));
+					  attach.setOriginalFilename(rset.getString("original_filename"));
+					  attach.setRenamedFilename(rset.getString("renamed_filename"));
+					  attach.setRegDate(rset.getDate("enroll_date"));
+					  board.setAttach(attach); 
+				  }
+				  
+				  list.add(board); 
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// 3. 자원반납
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public int searchBoardCount(Connection conn, Map<String, Object> param) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int totalContents = 0;
+		
+		String sql = null;
+		String searchType = (String) param.get("searchType");
+		switch(searchType) {
+		case "writer":
+			sql = prop.getProperty("searchBoardCountByMemberId");
+			param.put("searchKeyword", "%" + param.get("searchKeyword") + "%"); 
+			break;
+		case "animayType":
+			sql = prop.getProperty("searchBoardCountByAnimalType");
+			param.put("searchKeyword", "%" + param.get("searchKeyword") + "%");
+			break;
+		case "gender":
+			sql = prop.getProperty("searchBoardCountByGender");
+			break;
+		}
+		System.out.println("@BoardDao searchBoardCount searchType: "+searchType);
+		System.out.println("sql@dao = " + sql);
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, (String) param.get("searchKeyword"));
+			rset = pstmt.executeQuery();
+			if(rset.next())
+				totalContents = rset.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return totalContents;
+	}
+	 
 
 }

@@ -39,7 +39,12 @@
 /**
 * 유효성 검사
 */
-
+$(document.findMeBoardEnrollFrm).submit(e => {
+    if($(username).val() == '' || $(content).val() == ''){
+      alert("이름과 내용을 작성해주세요.");
+      e.preventDefault();
+    }
+  });
 
 	$(() => {
 		$(document.findMeBoardEnrollFrm).submit(boardValidate);
@@ -73,7 +78,8 @@
 	enctype="multipart/form-data">
 	
 	<div class="container">
-		
+			<!-- 작성자: 로그인member  -->
+			<input type="hidden" name="writer" value="<%=_member.getMemberId()%>"/>
 			<!--이미지 업로드  -->
 			<div id="photo">
 				<img id="profile" src="<%= request.getContextPath() %>/images/findMe_sampleImg.png" alt="대표 사진" style="width:100px"/>					

@@ -19,7 +19,7 @@ import oracle.security.o3logon.b;
  * Servlet implementation class findMeBoardListServlet
  */
 @WebServlet("/findMe_board/boardList")
-public class findMeBoardListServlet extends HttpServlet {
+public class FindMeBoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private BoardService boardService = new BoardService();
