@@ -24,6 +24,18 @@ a.btn {font-weight:500;}
 #main-title {margin:0 0 0 10px; font-weight:bold;}
 #index {height:700px; background-color:#eceef2;}
 </style>
+<script>
+<% 
+	String msg = (String) session.getAttribute("msg");
+	// System.out.println("msg@adminHeader.jsp = " + msg);
+	if(msg != null) session.removeAttribute("msg");
+	
+%>
+<% if(msg != null) { %>
+	// 사용자 메세지 전달
+	alert("<%= msg %>");
+<% } %>
+</script>
 
 	<main>
 	

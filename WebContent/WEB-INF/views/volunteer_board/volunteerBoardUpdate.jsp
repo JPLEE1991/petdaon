@@ -26,7 +26,7 @@
 
 	<div class="container">
 		<h3 class="d-inline-block">봉사 수정</h3>
-		<span class="small text-danger">* 담당자 정보 변경은 관리자에게 문의하세요.</span>
+		<span class="small text-danger">* 담당자 정보 변경과 게시물 삭제는 관리자에게 문의하세요.</span>
 		<form
 			name="volunteerBoardUpdateFrm"
 			action="<%=request.getContextPath() %>/volunteerBoard/boardUpdate"
@@ -224,14 +224,14 @@ function boardValidate(e){
 	}
 	
 	//봉사시작일이 종료일보다 늦으면 폼제출할 수 없음.
-	if(startDateCompare.getTime() >= endDateCompare.getTime()) {
-		alert("봉사 종료일보다 봉사 시작일이 앞서야 합니다.");
+	if(startDateCompare.getTime() > endDateCompare.getTime()) {
+		alert("봉사 종료일이 봉사 시작일보다 빠를 수 없습니다.")
 		return false;
 	}
 	
-	//신청마감일이 봉사시작일보다 앞서면 폼제출할 수 없음.
-	if(startDateCompare.getTime() >= deadlineDateCompare.getTime()) {
-		alert("신청 마감일보다 봉사 시작일이 앞서야 합니다.");
+	//신청마감일이 봉사종료일보다 늦으면 폼제출할 수 없음.
+	if(deadlineDateCompare.getTime() >= endDateCompare.getTime()) {
+		alert("봉사 종료일보다 신청 마감일이 앞서야 합니다.");
 		return false;
 	}
 	

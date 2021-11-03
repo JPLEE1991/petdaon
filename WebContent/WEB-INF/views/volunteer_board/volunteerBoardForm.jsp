@@ -92,14 +92,14 @@ function boardValidate(e){
 	}
 	
 	//봉사시작일이 종료일보다 늦으면 폼제출할 수 없음.
-	if(startDateCompare.getTime() >= endDateCompare.getTime()) {
-		alert("봉사 종료일보다 봉사 시작일이 앞서야 합니다.");
+	if(startDateCompare.getTime() > endDateCompare.getTime()) {
+		alert("봉사 종료일이 봉사 시작일보다 빠를 수 없습니다.")
 		return false;
 	}
 	
-	//신청마감일이 봉사시작일보다 앞서면 폼제출할 수 없음.
-	if(startDateCompare.getTime() >= deadlineDateCompare.getTime()) {
-		alert("신청 마감일보다 봉사 시작일이 앞서야 합니다.");
+	//신청마감일이 봉사종료일보다 늦으면 폼제출할 수 없음.
+	if(deadlineDateCompare.getTime() >= endDateCompare.getTime()) {
+		alert("봉사 종료일보다 신청 마감일이 앞서야 합니다.");
 		return false;
 	}
 	
@@ -124,9 +124,10 @@ $(() => {
 </script>
 
 	<div class="container">
-		<h3 class="d-inline-block">봉사 등록</h3>
+		<h3>봉사 등록</h3>
 		<!-- <span class="small text-danger">* 관리자 승인 후 게시글이 등록됩니다.</span> -->
-		<span class="small text-danger">* 관리자 게시물 검토 후 연락을 드리며 승인 후 게시글이 등록됩니다.</span>
+		<span class="small text-danger d-block">* 관리자 게시물 검토 후 연락을 드리며 승인 후 게시글이 등록됩니다.</span>
+		<span class="small text-danger d-block">* 등록 후 담당자 정보 수정과 게시글 삭제는 관리자의 권한이 필요합니다. 관리자에게 문의해주세요.</span>
 		<form
 			name="volunteerBoardEnrollFrm"
 			action="<%=request.getContextPath() %>/volunteerBoard/boardEnroll"

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.petdaon.mvc.common.MvcUtils;
+import com.petdaon.mvc.common.MvcUtilsBootStrap;
 import com.petdaon.mvc.volunteer_board.model.service.VolunteerBoardService;
 import com.petdaon.mvc.volunteer_board.model.vo.VolunteerBoard;
 
@@ -17,7 +18,7 @@ import com.petdaon.mvc.volunteer_board.model.vo.VolunteerBoard;
  * Servlet implementation class AdiminVolunteerBoardListServlet
  */
 @WebServlet("/admin/volunteerBoardList")
-public class AdiminVolunteerBoardListServlet extends HttpServlet {
+public class AdminVolunteerBoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private VolunteerBoardService volunteerBoardService = new VolunteerBoardService();
 
@@ -54,14 +55,14 @@ public class AdiminVolunteerBoardListServlet extends HttpServlet {
 			// a.content영역
 			// 총 봉사게시글 리스트 가져오기(삭제여부, 승인여부 가리지 않고 전부 가져온다.)
 			List<VolunteerBoard> list = volunteerBoardService.selectAllVolunteerBoardList(startRownum, endRownum);
-			System.out.println("list@servlet = " + list); // 최근등록일순
+			//System.out.println("list@servlet = " + list); // 최근등록일순
 			
 			// b.pagebar영역
 			int totalContents = volunteerBoardService.selectTotalVolunteerContents(); // 총봉사게시글수
-			System.out.println("totalContents@servlet = " + totalContents); // 115
+			//System.out.println("totalContents@servlet = " + totalContents);
 			String url = request.getRequestURI(); // url은 다음번 요청에 대한 url이다. 버튼으로.. 다 링크로 만들건데 그 링크에 url에 해당하는 부분이다.
-			String pagebar = MvcUtils.getPagebar(cPage, numPerPage, totalContents, url);
-			System.out.println("pagebar@servlet = " + pagebar);
+			String pagebar = MvcUtilsBootStrap.getPagebar(cPage, numPerPage, totalContents, url);
+			//System.out.println("pagebar@servlet = " + pagebar);
 			
 			// 3.view단처리
 			request.setAttribute("list", list);

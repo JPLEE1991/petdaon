@@ -572,4 +572,27 @@ public class VolunteerBoardDao {
 		return totalContents;
 	}
 
+	// 봉사게시글 승인여부 변경
+	public int updateVolunteerBoardApproval(Connection conn, String approvalStatus, int boardNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateVolunteerBoardApproval");
+		
+		try {
+			// 미완성 쿼리 값 대입
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, approvalStatus);
+			pstmt.setInt(2, boardNo);
+			// 쿼리문 실행
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BoardException("봉사게시글 승인여부 변경 오류!", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 }
