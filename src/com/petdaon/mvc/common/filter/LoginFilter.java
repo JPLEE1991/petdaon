@@ -21,7 +21,7 @@ import com.petdaon.mvc.member.model.vo.Member;
  */
 @WebFilter({ 
 	"/volunteerBoard/boardForm",
-	"",
+	"/bulletin_board/boardForm",
 	""
 })
 public class LoginFilter implements Filter {

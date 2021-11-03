@@ -13,6 +13,7 @@ public class BulletinBoard implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private int no;
+	private String boardCode;
 	private String title;
 	private String writer;
 	private String content;
@@ -33,11 +34,12 @@ public class BulletinBoard implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public BulletinBoard(int no, String title, String writer, String content, Date regDate, int readCount,
-			int scrapCount, int likeCount, String animal, String detail, String category, String delete, String notice,
-			Attachment attach) {
+	public BulletinBoard(int no, String boardCode, String title, String writer, String content, Date regDate,
+			int readCount, int scrapCount, int likeCount, String animal, String detail, String category, String delete,
+			String notice, Attachment attach) {
 		super();
 		this.no = no;
+		this.boardCode = boardCode;
 		this.title = title;
 		this.writer = writer;
 		this.content = content;
@@ -59,6 +61,14 @@ public class BulletinBoard implements Serializable{
 
 	public void setNo(int no) {
 		this.no = no;
+	}
+
+	public String getBoardCode() {
+		return boardCode;
+	}
+
+	public void setBoardCode(String boardCode) {
+		this.boardCode = boardCode;
 	}
 
 	public String getTitle() {
@@ -167,11 +177,11 @@ public class BulletinBoard implements Serializable{
 
 	@Override
 	public String toString() {
-		return "BulletinBoard [no=" + no + ", title=" + title + ", writer=" + writer + ", content=" + content
-				+ ", regDate=" + regDate + ", readCount=" + readCount + ", scrapCount=" + scrapCount + ", likeCount="
-				+ likeCount + ", animal=" + animal + ", detail=" + detail + ", category=" + category + ", delete="
-				+ delete + ", notice=" + notice + ", attach=" + attach + "]";
+		return "BulletinBoard [no=" + no + ", boardCode=" + boardCode + ", title=" + title + ", writer=" + writer
+				+ ", content=" + content + ", regDate=" + regDate + ", readCount=" + readCount + ", scrapCount="
+				+ scrapCount + ", likeCount=" + likeCount + ", animal=" + animal + ", detail=" + detail + ", category="
+				+ category + ", delete=" + delete + ", notice=" + notice + ", attach=" + attach + "]";
 	}
 
-
+	
 }
