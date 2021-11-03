@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
+<script src="<%= request.getContextPath()%>/js/jquery-3.6.0.js"></script>
 
 <!-- header시작 -->
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
@@ -60,11 +60,10 @@
 
 /* 검색영역 css */
  	div#search-container {margin:0 0 10px 0; padding:3px; background-color: rgba(0, 188, 212, 0.3);}
-    div#search-memberId {display: <%= searchType == null || "memberId".equals(searchType) ? "inline-block" : "none" %>; }
-    div#search-memberName {display: <%= "memberName".equals(searchType) ? "inline-block" : "none" %>;}
+    div#search-memberId {display: <%= searchType == null || "writer".equals(searchType) ? "inline-block" : "none" %>; }
     div#search-gender {display: <%= "gender".equals(searchType) ? "inline-block" : "none" %>;}	
+    div#search-animalType {display: <%= "animalType".equals(searchType) ? "inline-block" : "none" %>;}
 </style>
-
 
 
 
@@ -75,22 +74,24 @@
 	        검색타입 : 
 	        <select id="searchType">
 	            <option value="memberId" <%= "memberId".equals(searchType) ? "selected" : "" %>>아이디</option>		
-	            <option value="memberName" <%= "memberName".equals(searchType) ? "selected" : "" %>>종류</option>
+	            <option value="animalType" <%= "animalType".equals(searchType) ? "selected" : "" %>>종류</option>
 	            <option value="gender" <%= "gender".equals(searchType) ? "selected" : "" %>>성별</option>
 	        </select>
 	        <div id="search-memberId" class="search-type">
 	            <form action="<%=request.getContextPath()%>/findMe_board/finder">
 	                <input type="hidden" name="searchType" value="writer"/>
-	                <input type="text" name="searchKeyword"  size="25" placeholder="검색할 아이디를 입력하세요." value="<%= "memberId".equals(searchType) ? searchKeyword : "" %>"/>
+	                <input type="text" name="searchKeyword"  size="25" placeholder="검색할 아이디를 입력하세요." value="<%= "writer".equals(searchType) ? searchKeyword : "" %>"/>
 	                <button type="submit">검색</button>			
 	            </form>	
 	        </div>
-	        <div id="search-memberName" class="search-type">
+	        <div id="search-animalType" class="search-type">
 	            <form action="<%=request.getContextPath()%>/findMe_board/finder">
 	                <input type="hidden" name="searchType" value="animalType"/>
-	                <input type="text" name="searchKeyword" size="25" placeholder="검색할 동물을 입력하세요." value="<%= "memberName".equals(searchType) ?  searchKeyword : "" %>"/>
-	                <button type="submit">검색</button>			
-	            </form>	
+	                <input type="radio" name="searchKeyword" value="강아지" <%= "animalType".equals(searchType) && "강아지".equals(searchKeyword) ? "checked" : "" %>> 강아지
+	                <input type="radio" name="searchKeyword" value="고양이" <%= "animalType".equals(searchType) && "고양이".equals(searchKeyword) ? "checked" : "" %>> 고양이
+   	                <input type="radio" name="searchKeyword" value="기타" <%= "animalType".equals(searchType) && "기타".equals(searchKeyword) ? "checked" : "" %>>기타
+	                <button type="submit">검색</button>
+	            </form>	           	
 	        </div>
 	        <div id="search-gender" class="search-type">
 	            <form action="<%=request.getContextPath()%>/findMe_board/finder">
@@ -109,7 +110,6 @@
 <%
 	for(Board board : list){
 %>
-    
 	<div class="col-md-4">	<!-- div3  -->
       
 <!--첨부 이미지가 없을 때,-->
@@ -164,11 +164,16 @@
   	
   	
 <!--글쓰기 버튼  -->
+<%
+	if(_member.getMemberId()!=null && _member.getMemberId()!=""){
+%>
 	<div>
 	    <div id="btn"><%= request.getAttribute("pagebar") %></div>
    	<input class="btn-primary float-right" type="button" value="글쓰기" id="btn-add" onclick="location.href='<%= request.getContextPath() %>/findMe_board/boardForm';" />
 	</div>
-    
+<%
+	}
+%>
     
 	
 </div><!-- div1  -->

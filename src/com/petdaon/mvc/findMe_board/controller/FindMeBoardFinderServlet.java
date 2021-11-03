@@ -27,6 +27,8 @@ public class FindMeBoardFinderServlet extends HttpServlet {
 		// 1. 사용자입력값처리 cPage numPerPage
 		String searchType = request.getParameter("searchType");
 		String searchKeyword = request.getParameter("searchKeyword");
+		System.out.println("@servlet searchType: "+searchType);
+		System.out.println("@servlet searchKeyword: "+searchKeyword);
 		
 		int cPage = 1;
 		int numPerPage = 6;

@@ -79,7 +79,7 @@ $(document.findMeBoardEnrollFrm).submit(e => {
 	
 	<div class="container">
 			<!-- 작성자: 로그인member  -->
-			<input type="hidden" name="writer" value="<%=_member.getMemberId()%>"/>
+			<input type="hidden" name="writer" value="<%= _member.getMemberId() %>" />
 			<!--이미지 업로드  -->
 			<div id="photo">
 				<img id="profile" src="<%= request.getContextPath() %>/images/findMe_sampleImg.png" alt="대표 사진" style="width:100px"/>					
