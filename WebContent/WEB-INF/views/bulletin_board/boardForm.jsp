@@ -1,23 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>enroll</title>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/bulletin_board/board.css" />
-<style>
-
-</style>
-</head>
-
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/bulletin_board/board.css" />
+
 
 <script>
 /**
 * boardEnrollFrm 유효성 검사
 */
-
 
 $(() => {
 	$(document.boardEnrollFrm).submit(boardValidate);
@@ -56,7 +46,7 @@ function boardValidate(e){
 	<tr>
 		<th>작성자</th>
 		<td>
-			<input type="text" name="writer" value="honggd" readonly/>
+			<input type="text" name="writer" value="<%= _member.getMemberId() %>" readonly/>
 		</td>
 	</tr>
 	<tr>

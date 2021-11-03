@@ -94,11 +94,13 @@ public class BulletinBoardDao {
         PreparedStatement pstmt = null;
         String sql = prop.getProperty("insertBoard");
         int result = 0;
-        
+        System.out.println("@BulletinBoardDao board.getWriter() "+board.getWriter());
         try {
+        	
+        	
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, board.getTitle());
-            pstmt.setString(2, board.getWriter());
+        	pstmt.setString(1, board.getWriter());
+            pstmt.setString(2, board.getTitle());
             pstmt.setString(3, board.getContent());
             pstmt.setString(4, board.getAnimal());
             pstmt.setString(5, board.getDetail());
