@@ -3,6 +3,8 @@ package com.petdaon.mvc.member.model.vo;
 import java.io.Serializable;
 import java.sql.Date;
 
+import com.petdaon.mvc.common.vo.Attachment;
+
 public class Member implements Serializable {
 
 	/**
@@ -147,7 +149,8 @@ public class Member implements Serializable {
 				+ ", memberRole=" + memberRole + ", birthday=" + birthday + ", email=" + email + ", phone=" + phone
 				+ ", enroll_date=" + enroll_date + ", status=" + status + ", warning_count=" + warning_count
 				+ ", photo=" + photo + ", quit_date=" + quit_date + "]";
-	} 
+	}
+
 	
 	
 	
