@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.petdaon.mvc.bulletin_board.model.service.BulletinBoardService;
 import com.petdaon.mvc.bulletin_board.model.vo.BulletinBoard;
+import com.petdaon.mvc.common.MvcUtils;
 
 /**
  * Servlet implementation class bulletinBoardListServlet
@@ -40,9 +41,15 @@ public class BulletinBoardListServlet extends HttpServlet {
 		List<BulletinBoard> list = bulletinBoardService.selectBoardList(start, end);
 		System.out.println("list@servlet = " + list);
 		
-		// b.
+		// b.pagebar영역
+		// totalContents, url 준비
+		int totalContents = bulletinBoardService.selectTotalContents();
+		String url = request.getRequestURI();
+		String pagebar = MvcUtils.getPagebar(cPage, numPerPage, totalContents, url);
+		System.out.println("pagebar@servlet = " + pagebar);
 		// view단 처리
 		request.setAttribute("list", list);
+		request.setAttribute("pagebar", pagebar);
 		request
 			.getRequestDispatcher("/WEB-INF/views/bulletin_board/boardList.jsp")
 			.forward(request, response);
