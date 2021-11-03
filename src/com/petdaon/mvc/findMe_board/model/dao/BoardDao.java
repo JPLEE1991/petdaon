@@ -62,7 +62,6 @@ public class BoardDao {
 				  board.setCompleYN(rset.getString("complete_yn"));
 				  
 				  
-				  System.out.println("boardDao board.getAttach(): "+board.getAttach());
 				  System.out.println("boardDao attach_no: "+ rset.getInt("attach_no"));
 				  if(rset.getInt("attach_no") != 0) { 
 					  Attachment attach = new Attachment();
@@ -304,6 +303,7 @@ public class BoardDao {
 		String sql = prop.getProperty("selectOneAttachment");
 		try{
 			//미완성쿼리문을 가지고 객체생성.
+			System.out.println("@BoardDao sql: "+sql);
 			pstmt = conn.prepareStatement(sql);
 			//쿼리문미완성
 			pstmt.setInt(1, no);
