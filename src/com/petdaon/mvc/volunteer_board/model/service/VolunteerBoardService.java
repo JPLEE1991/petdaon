@@ -232,4 +232,18 @@ public class VolunteerBoardService {
 		return totalContent;
 	}
 
+	// 봉사게시글 승인여부 변경
+	public int updateVolunteerBoardApproval(String approvalStatus, int boardNo) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			result = volunteerBoardDao.updateVolunteerBoardApproval(conn, approvalStatus, boardNo);
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}
+		return result;
+	}
+
 }
