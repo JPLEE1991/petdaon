@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>enroll</title>
+<title>adoptWriting</title>
 <style>
 /*게시판*/
 section#board-container{width:600px; margin:0 auto; text-align:center;}
