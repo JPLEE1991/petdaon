@@ -106,7 +106,7 @@ $(() => {
 });
 </script>
 <section id="board-container">
-<h2>입양/임보 글 작성</h2>
+<h2>입양/임보 사이트 추가</h2>
 <form
 	name="boardEnrollFrm"
 	action="<%=request.getContextPath() %>/board/boardEnroll" 
@@ -114,22 +114,19 @@ $(() => {
 	enctype="multipart/form-data">
 	<table id="tbl-board-view">
     <tr>
-        <th> 입양 자격</th>
-        <th>책임 입양이 가능한 18세 이상 신원확인 가능한 성인,경제적 능력이 있고 반려동물으 사랑하는 가정</th>
+        <th> 사이트 이름</th>
+        <td><input type="text" name="title" required></td>
     </tr>
 	<tr>
-		<th>입양을 원하시는 아이 이름</th>
+		<th>사이트 링크</th>
 		<td><input type="text" name="title" required></td>
 	</tr>
+
+	<th>사이트 사진</th>
+		<td>			
+			<input type="file" name="upFile">
 	<tr>
-		<th>입양자</th>
-		<td>
-			<input type="text" name="writer" value="" readonly/>
-		</td>
-	</tr>
-	
-	<tr>
-		<th>입양을 원하시는 이유</th>
+		<th>사이트 정보</th>
 		<td><textarea rows="5" cols="40" name="content"></textarea></td>
 	</tr>
 
