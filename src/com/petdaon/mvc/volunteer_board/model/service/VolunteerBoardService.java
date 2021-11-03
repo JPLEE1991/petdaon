@@ -7,6 +7,7 @@ import static com.petdaon.mvc.common.JdbcTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Map;
 
 import com.petdaon.mvc.common.vo.BoardComment;
 import com.petdaon.mvc.volunteer_board.model.dao.VolunteerBoardDao;
@@ -214,7 +215,7 @@ public class VolunteerBoardService {
 		return result;
 	}
 
-	// 총 봉사게시글 리스트 가져오기(삭제여부, 승인여부 가리지 않고 전부 가져온다.)
+	// 총 봉사게시글 리스트 가져오기(삭제여부 'Y'상태 제외 나머지 전부 가져온다.)
 	public List<VolunteerBoard> selectAllVolunteerBoardList(int startRownum, int endRownum) {
 		Connection conn = getConnection();
 		List<VolunteerBoard> list = volunteerBoardDao.selectAllVolunteerBoardList(conn, startRownum, endRownum);
@@ -223,7 +224,7 @@ public class VolunteerBoardService {
 		return list;
 	}
 
-	// 총봉사게시글수 조회
+	// 총봉사게시글수 조회(삭제여부 'Y'상태 제외)
 	public int selectTotalVolunteerContents() {
 		Connection conn = getConnection();
 		int totalContent = volunteerBoardDao.selectTotalVolunteerContents(conn);
@@ -244,6 +245,24 @@ public class VolunteerBoardService {
 			throw e;
 		}
 		return result;
+	}
+
+	// 검색 결과 봉사게시글(삭제여부 'Y'상태 제외)
+	public List<VolunteerBoard> searchVolunteerBoard(Map<String, Object> param) {
+		Connection conn = getConnection();
+		List<VolunteerBoard> list = volunteerBoardDao.searchVolunteerBoard(conn, param);
+		// 단순조회로 트랜잭션 처리하지 않음
+		close(conn);
+		return list;
+	}
+
+	// 검색 결과에 따른 봉사게시글수 조회 (삭제여부 'Y'상태 제외)
+	public int searchVolunteerBoardCount(Map<String, Object> param) {
+		Connection conn = getConnection();
+		int totalContent = volunteerBoardDao.selectTotalVolunteerContents(conn, param);
+		// 단순조회로 트랜잭션 처리하지 않음
+		close(conn);
+		return totalContent;
 	}
 
 }

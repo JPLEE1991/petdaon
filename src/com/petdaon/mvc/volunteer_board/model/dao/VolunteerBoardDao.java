@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import com.petdaon.mvc.common.vo.BoardComment;
@@ -493,7 +494,7 @@ public class VolunteerBoardDao {
 		return result;
 	}
 
-	// 총 봉사게시글 리스트 가져오기(삭제여부, 승인여부 가리지 않고 전부 가져온다.)
+	// 총 봉사게시글 리스트 가져오기(삭제여부 'Y'상태 제외 나머지 전부 가져온다.)
 	public List<VolunteerBoard> selectAllVolunteerBoardList(Connection conn, int startRownum, int endRownum) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -546,7 +547,7 @@ public class VolunteerBoardDao {
 		return list;
 	}
 
-	// 총봉사게시글수 조회
+	// 총봉사게시글수 조회(삭제여부 'Y'상태 제외)
 	public int selectTotalVolunteerContents(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -563,6 +564,52 @@ public class VolunteerBoardDao {
 			
 		} catch (Exception e) {
 			throw new BoardException("총봉사게시글수 조회 오류", e);
+		} finally {
+			// 자원반납
+			close(rset);
+			close(pstmt);
+		}
+		
+		return totalContents;
+	}
+	
+	// 관리자페이지 이용 - 검색 결과에 따른 총봉사게시글수 조회(삭제여부 'Y'상태 제외)
+	public int selectTotalVolunteerContents(Connection conn, Map<String, Object> param) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int totalContents = 0;
+		// sql은 일단 null로 한다. 서치타입별로 달라져야 하기 때문이다.
+		String sql = null;
+		String searchType = (String) param.get("searchType");
+		
+		// 서치타입별로 sql문과 searchKeyword 분기처리함.
+		switch(searchType) {
+		case "memberId":
+			sql = prop.getProperty("searchVolunteerBoardCountByWriter");
+			// 변수?로 따로 빼서 처리해도 되지만 아래와 같이 처리함.
+			param.put("searchKeyword", "%" + param.get("searchKeyword") + "%");
+			break;
+		case "centerName":
+			sql = prop.getProperty("searchVolunteerBoardCountByCenterName");
+			param.put("searchKeyword", "%" + param.get("searchKeyword") + "%");
+			break;
+		case "approvalStatus":
+			sql = prop.getProperty("searchVolunteerBoardCountByApprovalStatus");
+			break;
+		}
+		//System.out.println("sql@dao = " + sql);
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, (String) param.get("searchKeyword"));
+			// 쿼리문 실행
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				totalContents = rset.getInt(1); //1은 첫번째 컬럼값을 주세요 라는 의미이다. 또는 "별칭"으로 넣어도 된다. //1행 1열짜리 집합도 동일한 방식으로 해야한다는 것.
+			}
+			
+		} catch (Exception e) {
+			throw new BoardException("검색결과에 따른 총봉사게시글수 조회 오류", e);
 		} finally {
 			// 자원반납
 			close(rset);
@@ -594,5 +641,80 @@ public class VolunteerBoardDao {
 		
 		return result;
 	}
+
+	// 검색 결과 봉사게시글(삭제여부 'Y'상태 제외)
+	public List<VolunteerBoard> searchVolunteerBoard(Connection conn, Map<String, Object> param) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;	// 쿼리 결과를 담을 ResultSet
+		List<VolunteerBoard> list = new ArrayList<>();	// list만든다. 0행이 조회되도 ArrayList는 리턴되어야 한다.
+		// sql은 일단 null로 한다. 서치타입별로 달라져야 하기 때문이다.
+		String sql = null;
+		String searchType = (String) param.get("searchType");
+		
+		// 서치타입별로 sql문과 searchKeyword 분기처리함.
+		switch(searchType) {
+		case "memberId":
+			sql = prop.getProperty("searchVolunteerBoardByWriter");
+			// 변수?로 따로 빼서 처리해도 되지만 아래와 같이 처리함.
+			param.put("searchKeyword", "%" + param.get("searchKeyword") + "%");
+			break;
+		case "centerName":
+			sql = prop.getProperty("searchVolunteerBoardByCenterName");
+			param.put("searchKeyword", "%" + param.get("searchKeyword") + "%");
+			break;
+		case "approvalStatus":
+			sql = prop.getProperty("searchVolunteerBoardByApprovalStatus");
+			break;
+		}
+		//System.out.println("sql@dao = " + sql);
+		
+		// 1.PreparedStatment객체 생성 & 미완성쿼리 값대입
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, (String) param.get("searchKeyword"));
+			pstmt.setInt(2, (int) param.get("start"));
+			pstmt.setInt(3, (int) param.get("end"));
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				// 테이블 record 1 -> VO객체 1
+				VolunteerBoard board = new VolunteerBoard();
+				board.setNo(rset.getInt("no"));
+				board.setTitle(rset.getString("title"));
+				board.setCenterName(rset.getString("center_name"));
+				board.setContent(rset.getString("content"));
+				board.setStartDate(rset.getDate("start_date"));
+				board.setEndDate(rset.getDate("end_date"));
+				board.setEmail(rset.getString("email"));
+				board.setPhone(rset.getString("phone"));
+				board.setApprovalYn(rset.getString("approval_yn"));
+				board.setDeleteYn(rset.getString("delete_yn"));
+				board.setCapacity(rset.getInt("capacity"));
+				board.setPlace(rset.getString("place"));
+				board.setDeadlineDate(rset.getDate("deadline_date"));
+				board.setRegDate(rset.getDate("reg_date"));
+				board.setTime(rset.getString("time"));
+				board.setDay(rset.getString("day"));
+				board.setBoardCode(rset.getString("board_code"));
+				board.setWriter(rset.getString("writer"));
+				board.setEnrollYn(rset.getString("enroll_yn"));
+				board.setThumbnail(rset.getString("thumbnail"));
+				
+				//보드를 리스트에 추가한다.
+				list.add(board);
+			}
+			
+		} catch (Exception e) {
+			throw new BoardException("관리자 봉사 게시글 검색 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+
 
 }

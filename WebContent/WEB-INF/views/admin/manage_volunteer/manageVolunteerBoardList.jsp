@@ -6,6 +6,8 @@
 <%@ include file="/WEB-INF/views/admin/adminHeader.jsp" %>
 <%
 	List<VolunteerBoard> list = (List<VolunteerBoard>) request.getAttribute("list");
+	String searchType = request.getParameter("searchType"); // 검색한 타입 얻어옴?
+	String searchKeyword = request.getParameter("searchKeyword"); // 검색한 키워드 얻어옴?
 %>
 <style>
 form {
@@ -29,12 +31,53 @@ select option{
     white-space: nowrap;
 }
 
+div#search-memberId {display: <%= searchType == null || "memberId".equals(searchType) ? "inline-block" : "none" %>;}
+div#search-centerName{display: <%= "centerName".equals(searchType) ? "inline-block" : "none" %>;}
+div#search-approvalStatus{display: <%= "approvalStatus".equals(searchType) ? "inline-block" : "none" %>;}
+
+.form-control {
+	padding: 0;
+}
 </style>
 
 	<div class="container row" style="margin:0 auto;">
 		<div class="col-md-12">
+			<div id="search-container" class="d-flex justify-content-start">
+		        <!-- 검색타입 :  -->
+		        <select id="searchType" class="form-select form-select-sm" style="width:100px;">
+		            <option value="memberId" <%= "memberId".equals(searchType) ? "selected" : "" %>>아이디</option>		
+		            <option value="centerName" <%= "centerName".equals(searchType) ? "selected" : "" %>>센터명</option>
+		            <option value="approvalStatus" <%= "approvalStatus".equals(searchType) ? "selected" : "" %>>승인여부</option>
+		        </select>
+		        <div id="search-memberId" class="search-type">
+		            <form action="<%=request.getContextPath()%>/admin/volunteerBoardFinder">
+		                <input type="hidden" name="searchType" value="memberId"/>
+		                <%-- 사용자 입력값을 받을 부분 --%>
+		                <input type="text" class="form-control w-auto d-inline-block" name="searchKeyword"  size="25" placeholder="검색할 아이디를 입력하세요." value="<%= "memberId".equals(searchType) ? searchKeyword : "" %>"/>
+		                <button type="submit" class="btn btn-primary btn-sm">검색</button>			
+		            </form>	
+		        </div>
+		        <div id="search-centerName" class="search-type">
+		            <form action="<%=request.getContextPath()%>/admin/volunteerBoardFinder">
+		                <input type="hidden" name="searchType" value="centerName"/>
+		                <input type="text" class="form-control w-auto d-inline-block" name="searchKeyword" size="25" placeholder="검색할 센터명을 입력하세요." value="<%= "centerName".equals(searchType) ? searchKeyword : "" %>"/>
+		                <button type="submit" class="btn btn-primary btn-sm">검색</button>			
+		            </form>	
+		        </div>
+		        <div id="search-approvalStatus" class="search-type">
+		            <form action="<%=request.getContextPath()%>/admin/volunteerBoardFinder">
+		                <input type="hidden" name="searchType" value="approvalStatus"/>
+		                <input type="radio" name="searchKeyword" value="N" <%= "approvalStatus".equals(searchType) && "N".equals(searchKeyword) ? "checked" : "" %>> 미승인
+		                <input type="radio" name="searchKeyword" value="Y" <%= "approvalStatus".equals(searchType) && "Y".equals(searchKeyword) ? "checked" : "" %>> 승인
+		                <input type="radio" name="searchKeyword" value="W" <%= "approvalStatus".equals(searchType) && "W".equals(searchKeyword) ? "checked" : "" %>> 승인보류
+		                <button type="submit" class="btn btn-primary btn-sm">검색</button>
+		            </form>
+		        </div>
+		    </div>
+		</div>
+	
+		<div class="col-md-12">
 			<!-- 테이블 -->
-				  	
 		  	<div class="table-responsive-xl">
 			  	<table class="table table-ellipsis">
 				  <thead>
@@ -120,7 +163,21 @@ $(document).ready(function(){
 $(document).ready(function(){
 	$('#index').addClass('d-flex align-items-center');
 })
- 
+
+
+// 검색타입 select 바뀔때마다 이벤트 발생
+$("#searchType").change((e) => {
+	// e.target 이벤트발생객체 -> #searchType
+	const type = $(e.target).val(); // 선택된 검색타입
+	console.log(type);
+	
+	// 1. .search-type 감추기
+	$(".search-type").hide();
+	
+	// 2. #search-${type} 보여주기(display:inline-block)
+	$(`#search-\${type}`).css("display", "inline-block"); // show()로 그냥 하면 문제는 그 해당태그의 원래 display속성으로 보여주게 되서 줄바꿈이 일어나므로 show() 이용하지 않음.
+	
+});
 
 //승인여부 select 바뀔때마다 이벤트발생
 $(".approval-status").change((e) => {
