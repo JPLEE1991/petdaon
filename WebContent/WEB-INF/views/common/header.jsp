@@ -77,7 +77,7 @@
       	} else {
         %>
         <a href="<%= request.getContextPath() %>/member/memberLogout">로그아웃</a>
-        <a href="<%= request.getContextPath() %>/member/mypage">마이페이지</a>
+        <a href="<%= request.getContextPath() %>/member/myDetail">마이페이지</a>
         <%
       	}
         %>

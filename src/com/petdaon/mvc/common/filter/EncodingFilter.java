@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Servlet Filter implementation class EncodingFilter
@@ -26,7 +27,7 @@ public class EncodingFilter implements Filter {
 		// servlet 가기전!
 		// 사용자입력값 encoding처리
 		request.setCharacterEncoding("utf-8");
-		System.out.println("[utf-8 encoding처리!]");
+		System.out.println("[utf-8 encoding처리!]" + ((HttpServletRequest)request).getRequestURL());
 		
 		// pass the request along the filter chain
 		chain.doFilter(request, response);

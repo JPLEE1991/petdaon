@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
+import com.petdaon.mvc.common.vo.Attachment;
 import com.petdaon.mvc.member.model.vo.Member;
 
 public class MemberDao {
@@ -66,6 +67,7 @@ public class MemberDao {
 
 		try {
 			// 1.PreparedStatment객체 생성 및 미완성쿼리 값대입
+			System.out.println("@MemberDao sql: "+sql);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memberId);
 
@@ -230,7 +232,7 @@ public class MemberDao {
 	}
 
 	/**
-	 * 개인회원정보 수정
+	 * 관리자 회원정보 수정
 	 * @param conn
 	 * @param memberId
 	 * @return
@@ -314,28 +316,170 @@ public class MemberDao {
 	 * @param password
 	 * @return
 	 */
-	
-	public int changePwd(Connection conn, String memberId, String password) {
+	public int updatePassword(Connection conn, Member member) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("changePwd");
-		System.out.println(memberId);
+		String query = BUNDLE.getString("updatePassword");
+
 		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, memberId);
-			pstmt.setString(2, password);
-
+			//미완성쿼리문을 가지고 객체생성.
+			pstmt = conn.prepareStatement(query);
+			//쿼리문미완성
+			pstmt.setString(1, member.getPassword());
+			pstmt.setString(2, member.getMemberId());
+			
+			//쿼리문실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
+			//DML은 executeUpdate()
 			result = pstmt.executeUpdate();
-
-
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(pstmt);
 		}
+		
 		return result;
 	}
 
+	/**
+	 * 프로필사진
+	 * @param conn
+	 * @param member
+	 * @return
+	 */
+		public int insertAttachment(Connection conn, Member member) {
+			PreparedStatement pstmt = null;
+			String query = BUNDLE.getString("insertAttachment");
+			int result = 0;
 
+			try {
+				pstmt = conn.prepareStatement(query);
+				// TODO 
+//				pstmt.setString(1, member);
+//				pstmt.setString(2, member);
+				
+				result = pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+
+			return result;
+		}
+	public Attachment selectOneAttachment(Connection conn, int no) {
+		
+		return null;
+	}
+
+	/**
+	 * 개인회원정보 수정
+	 * @param conn
+	 * @param member
+	 * @return
+	 * @throws SQLException
+	 */
+	public int updateMemberview(Connection conn, Member member) throws SQLException {
+		String sql = BUNDLE.getString("updateMemberview");
+
+		PreparedStatement pstmt = null;
+
+		// 1.PreparedStatment객체 생성 및 미완성쿼리 값대입
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, member.getPhoto());
+		pstmt.setString(2, member.getPhone());
+		pstmt.setString(3, member.getEmail());
+		pstmt.setDate(4, member.getBirthday());
+		pstmt.setString(5, member.getMemberId());
+
+		// 2.실행 & ResultSet객체 리턴
+		int count = pstmt.executeUpdate();
+		
+		return count;
+	}
+
+	/**
+	 * 블랙회원 리스트 조회
+	 * @param conn
+	 * @param keyword
+	 * @param start
+	 * @param end
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Member> selectMemberBlackList(Connection conn, String keyword, int start, int end) throws SQLException {
+		List<Member>	list 	= new ArrayList<Member>();
+		
+		String sql = BUNDLE.getString("selectMemberBlackList");
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member member = null;
+
+		System.out.println("sql]" + sql);
+		
+		// 1.PreparedStatment객체 생성 및 미완성쿼리 값대입
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, keyword);
+		pstmt.setString(2, keyword);
+		pstmt.setInt(3, start);
+		pstmt.setInt(4, end);
+
+		// 2.실행 & ResultSet객체 리턴
+		rset = pstmt.executeQuery();
+
+		// 3.ResultSet -> Member
+		while (rset.next()) {
+			String memberId = rset.getString("member_id");
+			String memberName = rset.getString("member_name");
+			String password = rset.getString("password");
+			String memberRole = rset.getString("member_role");
+			Date birthday = rset.getDate("birthday");
+			String email = rset.getString("email");
+			String phone = rset.getString("phone");
+			Date enrollDate = rset.getDate("enroll_Date");
+			String status = rset.getString("status");
+			String warningcount = rset.getString("warning_count");
+			String photo = rset.getString("photo");
+			Date quitDate = rset.getDate("quit_date");
+
+			member = new Member(memberId, password, memberName, memberRole, birthday, email, phone, enrollDate, status, warningcount, photo, quitDate);
+			list.add(member);
+		}
+
+		return list;
+	}
+	
+	/**
+	 * 블랙리스트 건수 조회
+	 * @param conn
+	 * @param keyword
+	 * @return
+	 * @throws SQLException
+	 */
+	public int selectMemberBlackListCount(Connection conn, String keyword) throws SQLException {
+		String sql = BUNDLE.getString("selectMemberBlackListCount");
+		int count = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		// 1.PreparedStatment객체 생성 및 미완성쿼리 값대입
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, keyword);
+		pstmt.setString(2, keyword);
+		
+		// 2.실행 & ResultSet객체 리턴
+		rset = pstmt.executeQuery();
+		
+		// 3.ResultSet -> Member
+		if(rset.next()) {
+			count = rset.getInt(1);
+		}
+		
+		return count;
+	}
 }
+	
+	

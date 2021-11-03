@@ -17,6 +17,7 @@ Member member = (Member)request.getAttribute("member");
  */
 function fnGoList() {
 	location.href = '<%=request.getContextPath()%>/admin/adminmemberList';
+	
 }
 
 /**
@@ -27,13 +28,14 @@ function fnUpdate() {
 	
 	$('form[name=enrollFrm]')[0].action	= '<%=request.getContextPath()%>/admin/adminmemberDetail';
 	$('form[name=enrollFrm]')[0].submit();
+	alert('수정되었습니다'); 
 }
 
 /**
  * 탈퇴
  */
 function fnLeave() {
-	$('form[name=enrollFrm]')[0].action	= '<%=request.getContextPath()%>/admin/memberLeave';
+	$('form[name=enrollFrm]')[0].action	= '<%=request.getContextPath()%>/admin/adminmemberleave';
 	$('form[name=enrollFrm]')[0].submit();
 }
 
@@ -41,7 +43,7 @@ function fnLeave() {
  * 블랙리스트 등록
  */
 function fnBlack() {
-	$('form[name=enrollFrm]')[0].action	= '<%=request.getContextPath()%>/admin/memberBlack';
+	$('form[name=enrollFrm]')[0].action	= '<%=request.getContextPath()%>/member/memberBlack';
 	$('form[name=enrollFrm]')[0].submit();
 	
 }
