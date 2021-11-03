@@ -19,7 +19,11 @@ import com.petdaon.mvc.member.model.vo.Member;
 /**
  * Servlet Filter implementation class AdminFilter
  */
-@WebFilter("/admin/*")
+@WebFilter({ 
+	"/admin/memberList",
+	"",
+	""
+})
 public class AdminFilter implements Filter {
 
 	/**

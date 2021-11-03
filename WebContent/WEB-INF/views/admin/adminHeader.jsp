@@ -40,7 +40,7 @@ a.btn {font-weight:500;}
 					<a class="btn" data-bs-toggle="collapse" data-bs-target="#member" aria-expanded="false" aria-controls="member">사용자 관리&nbsp<i class="bi bi-chevron-right"></i></a>
 					<div class="collapse category" id="member">
 						<ul>
-							<li><a href="#">회원</a></li>
+							<li><a href="<%= request.getContextPath() %>/admin/adminmemberList">회원</a></li>
 							<li><a href="#">블랙리스트</a></li>
 						</ul>
 					</div>
