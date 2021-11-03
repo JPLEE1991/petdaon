@@ -1,4 +1,4 @@
-package com.petdaon.mvc.member.controller;
+package com.petdaon.mvc.admin.controller;
 
 import java.io.IOException;
 
@@ -13,8 +13,8 @@ import com.petdaon.mvc.member.model.service.MemberService;
 /**
  * Servlet implementation class MemberBlack
  */
-@WebServlet("/member/memberBlack")
-public class MemberBlackServlet extends HttpServlet {
+@WebServlet("/admin/adminmemberBlack")
+public class AdminMemberBlackServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private MemberService memberService = new MemberService();
@@ -28,7 +28,7 @@ public class MemberBlackServlet extends HttpServlet {
 		
 		memberService.blackMember(memberId);
 		
-		String url = this.getServletContext().getContextPath() + "/member/memberDetail?memberId=" + memberId;
+		String url = this.getServletContext().getContextPath() + "/admin/adminmemberDetail?memberId=" + memberId;
 		
 		System.out.println("url = " + url);
 		

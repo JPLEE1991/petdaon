@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.petdaon.mvc.common.MvcUtils;
+import com.petdaon.mvc.common.MvcUtilsBootStrap;
 import com.petdaon.mvc.common.StringUtils;
 import com.petdaon.mvc.member.model.service.MemberService;
 import com.petdaon.mvc.member.model.vo.Member;
@@ -56,23 +57,18 @@ public class AdminMemberListServlet extends HttpServlet {
 		
 		//2.업무로직
 		//a.content영역 - paging query
-		int start = cPage * numPerPage - (numPerPage - 1);
-		int end = cPage * numPerPage;
-
-		System.out.println("cPage = " + cPage);
-		System.out.println("keyword = " + keyword);
-		System.out.println("start = " + start);
-		System.out.println("end = " + end);
+		int startRownum = cPage * numPerPage - (numPerPage - 1);
+		int endRownum = cPage * numPerPage;
 		
-		List<Member> list = memberService.selectMemberList(keyword, start, end);
+		List<Member> list = memberService.selectMemberList(keyword, startRownum, endRownum);
 		
 		//b.pagebar영역 
 		//totalContents, url 준비
 		int totalContents = memberService.selectMemberListCount(keyword);
 		String url = req.getRequestURI();
-		String pagebar = MvcUtils.getPagebar(cPage, numPerPage, totalContents, url);
+		String pagebar = MvcUtilsBootStrap.getPagebar(cPage, numPerPage, totalContents, url);
 
-		System.out.println("totalContents = " + totalContents);
+	//	System.out.println("totalContents = " + totalContents);
 		
 		//3.view단 forwarding
 		req.setAttribute("list", list);

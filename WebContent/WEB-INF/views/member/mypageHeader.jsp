@@ -39,9 +39,9 @@ a.btn {font-weight:500;}
 						<a class="btn font-weight-bold" data-bs-toggle="collapse" data-bs-target="#member" aria-expanded="false" aria-controls="member">MY 정보&nbsp<i class="bi bi-chevron-right"></i></a>
 						<div class="collapse category" id="member">
 							<ul>
-								<li><a href="<%= request.getContextPath() %>/member/memberupdate">개인정보 변경</a></li>
+								<li><a href="<%= request.getContextPath() %>/member/myDetail">개인정보 변경</a></li>
 								<li><a href="<%= request.getContextPath() %>/member/updatePassword">비밀번호 변경</a></li>
-								<li><a href="#">회원 탈퇴</a></li>
+								<li><a href="<%= request.getContextPath() %>/member/memberLeave">회원 탈퇴</a></li>
 							</ul>
 						</div>
 					</li>
