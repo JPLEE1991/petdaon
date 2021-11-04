@@ -59,17 +59,17 @@
             <input type="checkbox" name="product" id="product1" value="product1" onclick="oneCheckbox(this);">  
             <h3>욕설, 비방</h3>
             <input type="checkbox" name="product" id="product1" value="product1" onclick="oneCheckbox(this);">  
-            <h3>저작권 침해 및 불법자료 유출</h3>
+            <h3>저작권 침해 및 불법자료 유출</h3>
             <input type="checkbox" name="product" id="product1" value="product1" onclick="oneCheckbox(this);"> 
-            <h3>도배성 게시글 및 댓글</h3>
+            <h3>도배성 게시글 및 댓글</h3>
             <input type="checkbox" name="product" id="product1" value="product1" onclick="oneCheckbox(this);">  
             <h3>허위사실 유포</h3>
             <input type="checkbox" name="product" id="product1" value="product1" onclick="oneCheckbox(this);">  
             <h3>불법 광고 및 홍보</h3>
             <input type="checkbox" name="product" id="product1" value="product1" onclick="oneCheckbox(this);">  
             <h3>악성코드 및 스파이웨어 유포</h3>
-            <h5>기타</h5>
-            <div>내용을 입력 해주세요.</div>
+            <h5>기타</h5>
+            <div>내용을 입력 해주세요.</div>
             <button>취소</button> <button>확인</button>
         </div>
             <h1></h1>

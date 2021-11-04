@@ -55,7 +55,7 @@
     <div class="modal">
         <div class="modal_overlay"></div>
         <div class="modal_content">
-            <h1>신고 완료</h1>
+            <h1>신고사유</h1>
             <button> OK </button>
         </div>
             <h1></h1>
