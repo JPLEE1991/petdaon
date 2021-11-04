@@ -18,12 +18,11 @@ import com.petdaon.mvc.common.StringUtils;
 import com.petdaon.mvc.member.model.service.MemberService;
 import com.petdaon.mvc.member.model.vo.Member;
 
-
 /**
- * Servlet implementation class MemberWelcomeServlet
+ * Servlet implementation class MemberDetailServlet
  */
-@WebServlet("/member/myDetail")
-public class  MemberMypageServlet extends HttpServlet {
+@WebServlet("/member/memberDetail")
+public class MemberDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private MemberService memberService = new MemberService();
 	
