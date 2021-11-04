@@ -1,30 +1,49 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%
 String resultMsg = (String)request.getAttribute("resultMsg");
 resultMsg = resultMsg == null ? "" : resultMsg;
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>로그인</title>
+
+<style>
+#div{
+	width:100px;
+	margin: 0 auto; 
+	
+}
+.col-lg-4{margin:auto}
+h1 {text-align:center}
+
+
+</style>
  <script type="text/javascript">
 	var resultMsg = '<%=resultMsg%>';
 	if (resultMsg != '') alert(resultMsg);
 	
-    function fnDoLogin() {
+    function fnDoLogin() { 
     	$('form[name=loginFrm]')[0].submit();
     }
     </script>
-</head>
 
-<style>
-.col-lg-4{margin:auto}
-</style>
-<body>
+<%
+    // 로그인 유지작업 
+    Cookie[] cookies = request.getCookies();
+    if(cookies != null ){
+        for(Cookie cookie : cookies){
+            if(cookie.getName().equals("id")){
+                /* 실행흐름이 서버에 있을 경우 서버코드로써 강제이동
+                       서버에서 클라이언트()에게 특정페이지로 이동하는 정보만 응답으로 준다.
+                   java코드로 페이지 이동 -> sendRedirect("url");
+                */
+                response.sendRedirect("index.jsp");
+            }
+        }
+    }
+%>
 
-<%@ include file="/WEB-INF/views/common/header.jsp"%>
+<br><br><br><br>
+
 <h1>로그인</h1>
 
 	<div class="login-container">
@@ -64,7 +83,5 @@ resultMsg = resultMsg == null ? "" : resultMsg;
 		</div>
 	</div>
 		
-		
-</body>
-</html>
+
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
