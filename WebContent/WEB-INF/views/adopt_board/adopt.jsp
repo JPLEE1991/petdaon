@@ -1,3 +1,4 @@
+<%@ include file="/WEB-INF/views/common/header.jsp" %>    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -172,5 +173,10 @@
         <p class="card-text">베이비 몽</p>
       <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
     </li>
+    <script src = "../petdaon/WepContent/WEB-INF/views/adopt_board/adoptWriting.jsp"></script>
+</div>
+<div class="btn-w">
+<input type="button" class="btn btn-outline-secondary" value="입양/임보페이지 추가" id="btn-add" onclick="location.href='<%= request.getContextPath() %>/adopt_board/adoptForm';" />
+
 </div>
 <!-- <%@ include file="/WEB-INF/views/common/footer.jsp" %> --> 

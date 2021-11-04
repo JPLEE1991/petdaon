@@ -1,4 +1,4 @@
-
+<%@ include file="/WEB-INF/views/common/header.jsp" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -139,7 +139,7 @@ $(() => {
 </table>
 </form>
 </section>
-
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
 <!-- 
 <form name="listFrm" action="">
