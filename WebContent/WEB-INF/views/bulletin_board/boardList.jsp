@@ -72,10 +72,10 @@
 %>
 	<tr>
 		<td><%= board.getNo() %></td>
+		<td><%= board.getDetail() %></td>
 		<td>
 			<a href="<%= request.getContextPath() %>/bulletin_board/boardView?no=<%= board.getNo() %>"><%= board.getTitle() %></a>
 		</td>
-		<td><%= board.getTitle() %></td>
 		<td><%= board.getWriter() %></td>
 		<td><%= board.getRegDate() %></td>
 		<td>
@@ -95,7 +95,9 @@
 %>			
 	</table>
 	
-	<div id='pageBar'><%= request.getAttribute("pageBar") %></div>
+	<div id='pageBar'>
+		<%= request.getAttribute("pagebar") %>
+	</div>
 </section>
 <br />
 

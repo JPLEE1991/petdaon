@@ -20,7 +20,7 @@ import com.petdaon.mvc.common.MvcUtils;
 public class BulletinBoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private BulletinBoardService bulletinBoardService = new BulletinBoardService(); 
+	private BulletinBoardService boardService = new BulletinBoardService(); 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -29,24 +29,31 @@ public class BulletinBoardListServlet extends HttpServlet {
 		int cPage = 1;
 		int numPerPage = 10;
 		try {
-			cPage = Integer.parseInt(request.getParameter("cPage"));			
+			cPage = Integer.parseInt(request.getParameter("cPage"));
 		} catch(NumberFormatException e) {
-			
+			// 처리코드 없음.
 		}
+		System.out.println("cPage = " + cPage);
+		
+		// a.content영역 paging처리
+		int startRownum = cPage * numPerPage - (numPerPage - 1);
+		int endRownum = cPage * numPerPage;
 		
 		// 2. 업무로직
-		// a.content영역 paging처리
-		int start = cPage * numPerPage - (numPerPage - 1);
-		int end = cPage * numPerPage;
-		List<BulletinBoard> list = bulletinBoardService.selectBoardList(start, end);
+		List<BulletinBoard> list = boardService.selectBoardList(startRownum, endRownum);
 		System.out.println("list@servlet = " + list);
 		
 		// b.pagebar영역
 		// totalContents, url 준비
-		int totalContents = bulletinBoardService.selectTotalContents();
+		int totalContents = boardService.selectTotalContents(); //총게시물수
+		System.out.println("totalContents@servlet = " + totalContents); //12
 		String url = request.getRequestURI();
+		System.out.println(url);
 		String pagebar = MvcUtils.getPagebar(cPage, numPerPage, totalContents, url);
 		System.out.println("pagebar@servlet = " + pagebar);
+		
+		
+	
 		// view단 처리
 		request.setAttribute("list", list);
 		request.setAttribute("pagebar", pagebar);
