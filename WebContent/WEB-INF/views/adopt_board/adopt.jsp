@@ -84,7 +84,7 @@
   <ul class="flex flex1">
     
     <li>
-      <img src="/images/all.png" width="120"; />
+      <img src="images/all.png" width="120"; />
       <a class="nav-link" href="#">전체</a>
     
     <li>
@@ -100,26 +100,26 @@
   <ul class="flex flex2">
     
     <li>
-      <a href="https://www.zooseyo.com/main/main.php?"><img src="주세요닷컴.png"></a>
+      <a href="https://www.zooseyo.com/main/main.php?"><img src="images/주세요닷컴.png"></a>
           <p class="card-text">주세요 닷컴</p>
-        <button type="button" class="btn btn-sm btn-outline-secondary">9776</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
       <li>
       
     
     <li>
-      <a href="https://dmanimal.co.kr/"><img src="도그마루 보호소.png"></a>
+      <a href="https://dmanimal.co.kr/"><img src="images/도그마루 보호소.png"></a>
           <p class="card-text">도그마루 보호소</p>
-        <button type="button" class="btn btn-sm btn-outline-secondary">9523</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
     </li>
     <li>
-      <a href="https://www.minipetmall.co.kr/pc/review/review_030100.html"><img src="미니펫.png"></a>
+      <a href="https://www.minipetmall.co.kr/pc/review/review_030100.html"><img src="images/미니펫.png"></a>
               <p class="card-text">미니펫</p>
-        <button type="button" class="btn btn-sm btn-outline-secondary">8924</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
     </li>
     <li>
-      <a href="http://www.sinsadog.com/?n_media=27758&n_query=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_rank=9&n_ad_group=grp-a001-01-000000008843986&n_ad=nad-a001-01-000000142583531&n_keyword_id=nkw-a001-01-000001647971233&n_keyword=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_campaign_type=1&n_ad_group_type=1&NaPm=ct%3Dkvhbjzts%7Cci%3D0zO0000OtC1vJWIqYuZD%7Ctr%3Dsa%7Chk%3D3af178f94964d4bf626d9034d8eb6afcd045043a"><img src="신사독.png"></a>
+      <a href="http://www.sinsadog.com/?n_media=27758&n_query=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_rank=9&n_ad_group=grp-a001-01-000000008843986&n_ad=nad-a001-01-000000142583531&n_keyword_id=nkw-a001-01-000001647971233&n_keyword=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_campaign_type=1&n_ad_group_type=1&NaPm=ct%3Dkvhbjzts%7Cci%3D0zO0000OtC1vJWIqYuZD%7Ctr%3Dsa%7Chk%3D3af178f94964d4bf626d9034d8eb6afcd045043a"><img src="images/신사독.png"></a>
               <p class="card-text">신사독</p>
-        <button type="button" class="btn btn-sm btn-outline-secondary">8414</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
     </li>
    
 </li>
@@ -128,57 +128,56 @@
   
   <ul class="flex flex3">
     <li>
-      <a href="https://www.dog-zzang.co.kr/main/main.php?kwqy=N%25EA%25B0%2595%25EC%2595%2584%25EC%25A7%2580%25EC%259E%2585%25EC%2596%2591%25EC%2582%25AC%25EC%259D%25B4%25ED%258A%25B8"><img src="도그짱.png"></a>
+      <a href="https://www.dog-zzang.co.kr/main/main.php?kwqy=N%25EA%25B0%2595%25EC%2595%2584%25EC%25A7%2580%25EC%259E%2585%25EC%2596%2591%25EC%2582%25AC%25EC%259D%25B4%25ED%258A%25B8"><img src="images/도그짱.png"></a>
       <p class="card-text">도그짱</p>
-  <button type="button" class="btn btn-sm btn-outline-secondary">7931</button>
+  <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
 <li>
 
 
 <li>
-  <a href="https://ulovepetshelter.co.kr/level"><img src="유럽펫보호소.png"></a>
+  <a href="https://ulovepetshelter.co.kr/level"><img src="images/유럽펫보호소.png"></a>
   <p class="card-text">유럽펫보호소</p>
-  <button type="button" class="btn btn-sm btn-outline-secondary">6231</button>
+  <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
 </li>
 <li>
-  <a href="https://laonshelter.co.kr/"><img src="라온보고서.png"></a>
+  <a href="https://laonshelter.co.kr/"><img src="images/라온보고서.png"></a>
   <p class="card-text">라온 보고서</p>
-  <button type="button" class="btn btn-sm btn-outline-secondary">5932</button>
+  <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
 </li>
 <li>
-  <a href="https://www.animals.or.kr/center/adopt?utm_source=naver&utm_medium=sa&utm_campaign=pc&utm_content=%EC%9E%85%EC%96%91&utm_term=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_media=122875&n_query=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_rank=6&n_ad_group=grp-a001-01-000000015617002&n_ad=nad-a001-01-000000095276356&n_keyword_id=nkw-a001-01-000002932495589&n_keyword=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_campaign_type=1&n_ad_group_type=1&NaPm=ct%3Dkvhbm47s%7Cci%3D0z40002ltC1v8SWXQvi5%7Ctr%3Dsa%7Chk%3D18ce0435e5cc56c6af092ed931d8e5ad51cc6622"><img src="동물 자유연대.png"></a>
+  <a href="https://www.animals.or.kr/center/adopt?utm_source=naver&utm_medium=sa&utm_campaign=pc&utm_content=%EC%9E%85%EC%96%91&utm_term=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_media=122875&n_query=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_rank=6&n_ad_group=grp-a001-01-000000015617002&n_ad=nad-a001-01-000000095276356&n_keyword_id=nkw-a001-01-000002932495589&n_keyword=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_campaign_type=1&n_ad_group_type=1&NaPm=ct%3Dkvhbm47s%7Cci%3D0z40002ltC1v8SWXQvi5%7Ctr%3Dsa%7Chk%3D18ce0435e5cc56c6af092ed931d8e5ad51cc6622"><img src="images/동물 자유연대.png"></a>
   <p class="card-text">동물 자유연대</p>
-  <button type="button" class="btn btn-sm btn-outline-secondary">4432</button>
+  <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
 </li>
 
   
   </ul>
   <ul class="flex flex3">
     <li>
-      <a href="https://www.ijoa.co.kr/44"><img src="아이조아.png"></a>
+      <a href="https://www.ijoa.co.kr/44"><img src="images/아이조아.png"></a>
       <p class="card-text">아이조아</p>
-    <button type="button" class="btn btn-sm btn-outline-secondary">3321</button>
+    <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
   <li>
   
   
   <li>
-  <a href="http://harishelter.com/?n_media=27758&n_query=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_rank=2&n_ad_group=grp-a001-01-000000020236437&n_ad=nad-a001-01-000000126277093&n_keyword_id=nkw-a001-01-000003541348788&n_keyword=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_campaign_type=1&n_ad_group_type=1"><img src="하리네 쉼터.png"></a>
+  <a href="http://harishelter.com/?n_media=27758&n_query=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_rank=2&n_ad_group=grp-a001-01-000000020236437&n_ad=nad-a001-01-000000126277093&n_keyword_id=nkw-a001-01-000003541348788&n_keyword=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_campaign_type=1&n_ad_group_type=1"><img src="images/하리네 쉼터.png"></a>
       <p class="card-text">하리네 쉼터</p>
-    <button type="button" class="btn btn-sm btn-outline-secondary">2936</button>
+    <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
   </li>
   <li>
-  <a href="http://puppynu.co.kr/?n_media=27758&n_query=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_rank=6&n_ad_group=grp-a001-01-000000019690106&n_ad=nad-a001-01-000000122282939&n_keyword_id=nkw-a001-01-000003466012448&n_keyword=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_campaign_type=1&n_ad_group_type=1&NaPm=ct%3Dkvge0jgo%7Cci%3D0yK0000zCBXvoS%5F9iuYE%7Ctr%3Dsa%7Chk%3Da3594b4fddb7533d6318eacb060195f0cdbf4dd2"><img src="퍼피앤유.png"></a>
+  <a href="http://puppynu.co.kr/?n_media=27758&n_query=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_rank=6&n_ad_group=grp-a001-01-000000019690106&n_ad=nad-a001-01-000000122282939&n_keyword_id=nkw-a001-01-000003466012448&n_keyword=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_campaign_type=1&n_ad_group_type=1&NaPm=ct%3Dkvge0jgo%7Cci%3D0yK0000zCBXvoS%5F9iuYE%7Ctr%3Dsa%7Chk%3Da3594b4fddb7533d6318eacb060195f0cdbf4dd2"><img src="images/퍼피앤유.png"></a>
           <p class="card-text">퍼피앤유</p>
-    <button type="button" class="btn btn-sm btn-outline-secondary">2597</button>
+    <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
 </li>
   <li>
-    <a href="http://www.babymong.co.kr/shop/main/index.php?n_media=122875&n_query=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_rank=11&n_ad_group=grp-m001-01-000001835836090&n_ad=nad-a001-01-000000131450203&n_keyword_id=nkw-m001-01-000001835836169&n_keyword=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_campaign_type=1&n_ad_group_type=1&NaPm=ct%3Dkvhboe08%7Cci%3D0zK00001tS1v1uySNvmI%7Ctr%3Dsa%7Chk%3D1cb89bb8abe39835836a5931007f97a98703875b"><img src="베이비 몽.png"></a>
+    <a href="http://www.babymong.co.kr/shop/main/index.php?n_media=122875&n_query=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_rank=11&n_ad_group=grp-m001-01-000001835836090&n_ad=nad-a001-01-000000131450203&n_keyword_id=nkw-m001-01-000001835836169&n_keyword=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_campaign_type=1&n_ad_group_type=1&NaPm=ct%3Dkvhboe08%7Cci%3D0zK00001tS1v1uySNvmI%7Ctr%3Dsa%7Chk%3D1cb89bb8abe39835836a5931007f97a98703875b"><img src="images/베이비 몽.png"></a>
         <p class="card-text">베이비 몽</p>
-      <button type="button" class="btn btn-sm btn-outline-secondary">2489</button>
+      <button type="button" class="btn btn-sm btn-outline-secondary">조회수</button>
     </li>
     <script src = "../petdaon/WepContent/WEB-INF/views/adopt_board/adoptWriting.jsp"></script>
 </div>
 <div class="btn-w">
-<br>
 <input type="button" class="btn btn-outline-secondary" value="입양/임보페이지 추가" id="btn-add" onclick="location.href='<%= request.getContextPath() %>/adopt_board/adoptForm';" />
 
 </div>

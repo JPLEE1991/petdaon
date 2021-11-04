@@ -32,7 +32,7 @@ public class MemberEnrollServlet extends HttpServlet {
 		.forward(req, res);
 	}
 	
-	@Override 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String memberId = req.getParameter("memberId");
 		String memberName = req.getParameter("memberName");
@@ -43,7 +43,7 @@ public class MemberEnrollServlet extends HttpServlet {
 		String status = Constants.STATUS_Y;
 		String photo = req.getParameter("photo");
 		String quitdate = req.getParameter("guitdate");
-		//멤버 파라미터 값 가져오기
+		
 		
 		Member member = new Member(memberId, password, memberName, memberRole, null, email, phone, null, status, quitdate, photo, null);
 		

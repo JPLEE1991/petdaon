@@ -9,11 +9,11 @@ Member member = (Member)request.getAttribute("member");
 %>
 
 <script type="text/javascript">
-function fnUpdate() {    //업데이트 
+function fnUpdate() {
 	$('#uploadForm').submit();
 }
 
-function fnDelPhoto() {   //사진삭제
+function fnDelPhoto() {
 	$('input[name=delPhoto]').val('Y');
 	$('#uploadForm').submit();
 }
@@ -27,11 +27,11 @@ function fnDelPhoto() {   //사진삭제
 		<%--이미지 업로드 --%>  
 			<div id="photo">
 				<%
-				if (StringUtils.isEmpty(member.getPhoto())) {   //멤버사진값 없을시에 기본사진
+				if (StringUtils.isEmpty(member.getPhoto())) { 
 				%>
 				<img id="profile" src="<%= request.getContextPath() %>/images/findMe_sampleImg.png" alt="대표 사진" style="width:100px"/>
 				<%
-				} else {   //그 외(사진있을시) 사진을 가져옴
+				} else {
 				%>		
 				<img id="profile" src="<%= request.getContextPath() %><%=member.getPhoto() %>" alt="대표 사진" style="width:100px"/>
 				<%  

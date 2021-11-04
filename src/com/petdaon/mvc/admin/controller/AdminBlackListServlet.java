@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.petdaon.mvc.common.MvcUtils;
-import com.petdaon.mvc.common.MvcUtilsBootStrap;
 import com.petdaon.mvc.common.StringUtils;
 import com.petdaon.mvc.member.model.service.MemberService;
 import com.petdaon.mvc.member.model.vo.Member;
@@ -71,7 +70,7 @@ public class AdminBlackListServlet extends HttpServlet {
 		//totalContents, url 준비
 		int totalContents = memberService.selectMemberBlackListCount(keyword);
 		String url = req.getRequestURI();
-		String pagebar = MvcUtilsBootStrap.getPagebar(cPage, numPerPage, totalContents, url);
+		String pagebar = MvcUtils.getPagebar(cPage, numPerPage, totalContents, url);
 
 		System.out.println("totalContents = " + totalContents);
 		

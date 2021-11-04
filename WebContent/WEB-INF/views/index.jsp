@@ -20,10 +20,9 @@
 }
 .overlay {
   position: absolute; 
-  bottom: 7em; 
+  bottom: 5.8em; 
   background: rgba(0, 0, 0, 0.5); /* Black see-through */
   width: 100%;
-  transition: .5s ease;
   opacity:0;
   color: white;
   font-size: 15px;
@@ -39,9 +38,9 @@
   top: 1vh;
   right: 10px;
   background: rgba(255, 0, 0, 0.5); /* Black see-through */
-  width: 15%;
+  width: 25%;
   color: white;
-  font-size: .6vw; 
+  font-size: .5vw; 
   text-align: center;
   border-radius: 5px;
 }
@@ -69,12 +68,14 @@ h5{
 	font-size: 100%;
 	margin: 1px;
 }
+/* +더 보기  */
 .moreView{
 	font-size: .7vw;
 	text-align: right;
 	color: gray;
 	
 }
+/* 공지사항,임보입양 +더 보기  */
 .notice_adopt{
 	font-size: .7vw;
 	float: right;
@@ -82,11 +83,11 @@ h5{
 	color: gray;
 }
 td{
-	font-size: .8vw;
+	width: "100%";
+	font-size: .6vw;
 }
-.volunteerList{
-	margin: auto;
-}
+
+
 </style>
 <div class="container">
 <!--서블릿에서 리스트 불러오기  -->
@@ -215,7 +216,7 @@ td{
 	<hr />
 		<div class="row justify-content-center">
 			<!-- 공지사항 게시물  목록-->
-			<div class="col-5">
+			<div class="col">
 				<table class="table">
 				  <thead>
 				    <tr>
@@ -230,21 +231,20 @@ td{
 				  <tbody>
 	<% for(NoticeBoard noticeBoard : noticeList){ %>
 					  	<tr>
-	
-					      <td><%= noticeBoard.getTitle() %></td>
 					      <td>
-			      			<span class="" onclick="<%= request.getContextPath() %>/serviceCenter/noticeBoard/noticeBoardView?no=<%= noticeBoard.getNo() %>">>
-					     	 	<%= noticeBoard.getContent() %>
-			      			</span>
+					     	<a class="notice-content" href="<%= request.getContextPath() %>/serviceCenter/noticeBoard/noticeBoardView?no=<%= noticeBoard.getNo() %>">
+						      	<%= noticeBoard.getTitle() %>
+			      			</a>
 					      </td>
+					      <td style="text-align: right"><%= noticeBoard.getEnrollDate() %></td>
 					    </tr>
 	<% } %>					    				  	
 				  </tbody>
 				</table>
 			</div>
-			<div class="col-1"></div>
+			<div class="col-md-1"></div>
 			<!-- 입양임보 게시물  목록-->
-			<div class="col-5">
+			<div class="col">
 				<table class="table">
 				  <thead>
 				    <tr>
