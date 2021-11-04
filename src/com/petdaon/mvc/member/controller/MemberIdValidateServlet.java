@@ -38,7 +38,7 @@ public class MemberIdValidateServlet extends HttpServlet {
 		String memberId = req.getParameter("memberId");
 		Member member = memberService.selectOneMember(memberId);
 		
-		String result = "O";
+		String result = "O"; 
 		if (member != null) result = "X";
 		
 		res.getOutputStream().write(result.getBytes());

@@ -33,7 +33,7 @@ public class  MemberMypageServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		//view단 처리
+		//멤버값을 세션에서 가져온다
 		Member	sessionObj	= (Member)req.getSession(true).getAttribute(Constants.SESSION_KEY);
 		
 		String memberId = sessionObj.getMemberId();
