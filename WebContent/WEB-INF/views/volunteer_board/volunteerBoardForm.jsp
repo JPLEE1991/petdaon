@@ -266,7 +266,7 @@ $(() => {
 				
 			</div>
 			
-			<div class="row">
+			<div class="row mt-2 mb-5">
 			
 				<div class="d-flex justify-content-center my-3">
 					<button type="button" class="col-sm-2 btn btn-secondary btn-lg mx-3" onclick="history.back()">취소</button>
@@ -276,9 +276,6 @@ $(() => {
 			</div>
 		</form>
 	</div>
-
-
-	<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
 <script>
 <!-- 써머노트 웹 에디터 로딩 -->
@@ -295,7 +292,7 @@ $(document).ready(function() {
 	          ['style', ['style']],
 	          ['fontsize', ['fontsize']],
 	          ['font', ['bold', 'underline', 'clear']],
-	          ['color', ['color']],
+	          ['color', ['forecolor','color']],
 	          ['para', ['ul', 'ol', 'paragraph']],
 	          ['table', ['table']],
 	          ['insert', ['link']],
