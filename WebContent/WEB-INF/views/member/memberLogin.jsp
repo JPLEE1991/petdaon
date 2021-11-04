@@ -5,11 +5,7 @@
 String resultMsg = (String)request.getAttribute("resultMsg");
 resultMsg = resultMsg == null ? "" : resultMsg;
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>로그인</title>
+
 <style>
 #div{
 	width:100px;
@@ -29,8 +25,7 @@ h1 {text-align:center}
     	$('form[name=loginFrm]')[0].submit();
     }
     </script>
-</head>
-<body>
+
 <%
     // 로그인 유지작업 
     Cookie[] cookies = request.getCookies();
@@ -47,7 +42,7 @@ h1 {text-align:center}
     }
 %>
 
-<br><br><br><br><br><br><br><br>
+<br><br><br><br>
 
 <h1>로그인</h1>
 
@@ -88,7 +83,5 @@ h1 {text-align:center}
 		</div>
 	</div>
 		
-		
-</body>
-</html>
+
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class AgreeFormServlet
+ * 회원가입 동의
+ * 
  */
 @WebServlet("/member/agreeForm")
 public class  AgreeFormServlet extends HttpServlet {

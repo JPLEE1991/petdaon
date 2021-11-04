@@ -32,12 +32,12 @@ public class MemberLeaveServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		HttpSession	session	= req.getSession(true);
 		
-		// get member in session
+		// 세션의 멤버를 가져옴
 		Member	member	= (Member)session.getAttribute(Constants.SESSION_KEY);
 		String memberId = member.getMemberId();
 		
 		memberService.leaveMember(memberId);	// 탈퇴
-		session.invalidate();					// 로그인정보 제거.
+		session.invalidate();					// 로그인정보 제거
 		
 		// 메인으로 이동.
 		String url = this.getServletContext().getContextPath() + "/index.jsp";

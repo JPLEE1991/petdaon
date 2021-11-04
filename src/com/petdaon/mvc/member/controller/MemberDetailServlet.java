@@ -19,7 +19,9 @@ import com.petdaon.mvc.member.model.service.MemberService;
 import com.petdaon.mvc.member.model.vo.Member;
 
 /**
- * Servlet implementation class MemberDetailServlet
+ * 회원상세정보
+ * @author dbwld
+ *
  */
 @WebServlet("/member/memberDetail")
 public class MemberDetailServlet extends HttpServlet {
@@ -32,7 +34,7 @@ public class MemberDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		//view단 처리
+		//세션에 담긴 정보를 가져옴
 		Member	sessionObj	= (Member)req.getSession(true).getAttribute(Constants.SESSION_KEY);
 		
 		String memberId = sessionObj.getMemberId();
