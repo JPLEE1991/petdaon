@@ -82,7 +82,6 @@
 	            <form action="<%=request.getContextPath()%>/findMe_board/finder">
 	                <input type="text" name="searchKeyword"  size="25" placeholder="검색할 아이디를 입력하세요." value="<%= "writer".equals(searchType) ? searchKeyword : "" %>" class=""/>
 	                <button type="submit" class="btn btn-primary">검색</button>			
-	         
 	                <input type="hidden" name="searchType" value="writer"/>
 	            </form>	
 	        </div>
@@ -92,7 +91,7 @@
 	                <input type="radio" name="searchKeyword" value="강아지" <%= "animalType".equals(searchType) && "강아지".equals(searchKeyword) ? "checked" : "" %>> 강아지
 	                <input type="radio" name="searchKeyword" value="고양이" <%= "animalType".equals(searchType) && "고양이".equals(searchKeyword) ? "checked" : "" %>> 고양이
    	                <input type="radio" name="searchKeyword" value="기타" <%= "animalType".equals(searchType) && "기타".equals(searchKeyword) ? "checked" : "" %>>기타
-	                <button type="submit" class="btn-primary">검색</button>
+	                <button type="submit" class="btn btn-primary">검색</button>
 	            </form>	           	
 	        </div>
 	        <div id="search-gender" class="search-type">
@@ -166,13 +165,13 @@
   	
   	
 <!--글쓰기 버튼  -->
+	<div>
+   	<input class="btn btn-primary float-right" type="button" value="글쓰기" id="btn-add" onclick="location.href='<%= request.getContextPath() %>/findMe_board/boardForm';" />
+	    <div id="btn"><%= request.getAttribute("pagebar") %></div>
+	</div>
 <%
 	if(_member.getMemberId()!=null && _member.getMemberId()!=""){
 %>
-	<div>
-	    <div id="btn"><%= request.getAttribute("pagebar") %></div>
-   	<input class="btn-primary float-right" type="button" value="글쓰기" id="btn-add" onclick="location.href='<%= request.getContextPath() %>/findMe_board/boardForm';" />
-	</div>
 <%
 	}
 %>
@@ -197,6 +196,7 @@ $("#searchType").change((e) => {
 </script>
 
  
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
 <%-- <%@ include file="/WEB-INF/views/common/footer.jsp" %> --%>
   
