@@ -1,12 +1,15 @@
-<%@page import="com.petdaon.mvc.member.model.vo.Member,
-				com.petdaon.mvc.common.StringUtils"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/member/mypageHeader.jsp" %>
-    
+<%@page import="com.petdaon.mvc.member.model.vo.Member,
+				com.petdaon.mvc.common.StringUtils"%>
 <%
 Member member = (Member)request.getAttribute("member");
 %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 
 <script type="text/javascript">
 function fnUpdate() {
@@ -19,23 +22,25 @@ function fnDelPhoto() {
 }
 
 </script>
+</head>
+<body>
 	
-
-<div class="container">
+	<%@ include file="/WEB-INF/views/member/mypageHeader.jsp" %>
+	
+	<div class="container">
 		
-		<form id="uploadForm" action="<%= request.getContextPath() %>/member/myDetail" method="post" enctype="multipart/form-data">
-		<%--이미지 업로드 --%>  
+		<form id="uploadForm" action="<%= request.getContextPath() %>/member/memberupdate" method="post" enctype="multipart/form-data">
+			<!--이미지 업로드  -->
 			<div id="photo">
 				<%
-				if (StringUtils.isEmpty(member.getPhoto())) { 
+				if (StringUtils.isEmpty(member.getPhoto())) {
 				%>
 				<img id="profile" src="<%= request.getContextPath() %>/images/findMe_sampleImg.png" alt="대표 사진" style="width:100px"/>
 				<%
 				} else {
 				%>		
 				<img id="profile" src="<%= request.getContextPath() %><%=member.getPhoto() %>" alt="대표 사진" style="width:100px"/>
-				<%  
-				
+				<%
 				}
 				%>			
 				<br />
@@ -71,6 +76,5 @@ function fnDelPhoto() {
 			<button type="submit" class="btn btn-info btn-lg btn-block" onclick="javascript:fnDelPhoto(); return false;">사진삭제</button>
 		</form>
 	</div>
-	
-	<br><br><br><br><br>
-	<%@ include file="/WEB-INF/views/member/mypageFooter.jsp" %>
+</body>
+</html>

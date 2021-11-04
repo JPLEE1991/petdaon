@@ -72,6 +72,7 @@ public class AdminMemberListServlet extends HttpServlet {
 		
 		//3.view단 forwarding
 		req.setAttribute("list", list);
+		req.setAttribute("keyword", keyword);
 		req.setAttribute("pagebar", pagebar);
 		req
 			.getRequestDispatcher("/WEB-INF/views/admin/adminmemberList.jsp")

@@ -77,11 +77,18 @@
       	} else {
         %>
         <a href="<%= request.getContextPath() %>/member/memberLogout">로그아웃</a>
-        <a href="<%= request.getContextPath() %>/member/myDetail">마이페이지</a>
         <%
+        	if ("A".equals(_member.getMemberRole())) {
+        %>
+        	<a href="<%= request.getContextPath() %>/admin">관리자 페이지</a>        
+        <%
+        	} else {
+        %>
+        	<a href="<%= request.getContextPath() %>/member/myDetail">마이페이지</a>      
+        <%
+        	}
       	}
         %>
-        <a href="<%= request.getContextPath() %>/admin">관리자 페이지</a>
       </div>
     </div>
   </div>
