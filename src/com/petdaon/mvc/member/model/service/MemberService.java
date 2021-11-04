@@ -1,13 +1,20 @@
 package com.petdaon.mvc.member.model.service;
 
 
+import static com.petdaon.mvc.common.JdbcTemplate.close;
+import static com.petdaon.mvc.common.JdbcTemplate.commit;
+import static com.petdaon.mvc.common.JdbcTemplate.getConnection;
+import static com.petdaon.mvc.common.JdbcTemplate.rollback;
 import static com.petdaon.mvc.common.JdbcTemplate.*;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Map;
 
+import com.petdaon.mvc.common.vo.Attachment;
 import com.petdaon.mvc.member.model.dao.MemberDao;
 import com.petdaon.mvc.member.model.vo.Member;
+import com.petdaon.mvc.volunteer_board.model.vo.VolunteerBoard;
  
 /**
  * 
@@ -94,6 +101,7 @@ public class MemberService {
 		return count;
 	}
 	
+	
 	/**
 	 * 개인회원정보 상세
 	 * @param memberId
@@ -118,7 +126,7 @@ public class MemberService {
 	}
 	
 	/**
-	 * 개인회원정보 수정
+	 * 관리자 회원정보 수정
 	 * @param memberId
 	 * @return
 	 */
@@ -195,7 +203,186 @@ public class MemberService {
 	
 	
 	}
-
-
+	/**
+	 * 비밀번호변경
+	 * @param member
+	 * @return
+	 */
+    public int updatePassword(Member member) {
+    	Connection conn = getConnection();
+		int count = 0;
+		
+		try {
+			count =  memberDao.updatePassword(conn, member);
+			commit(conn);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			rollback(conn);
+			
+		} finally {
+			close(conn);
+		}
+		
+		return count;
+	
+	}
+    
+	
+	public Attachment selectOneAttachment(int no) {
+		Connection conn = getConnection();
+		Attachment attach = memberDao.selectOneAttachment(conn, no);
+		close(conn);
+		return attach;
+	}
+	
+    /**
+     * 프로필 사진 추가
+     * @param member
+     * @return
+     */
+    public int insertAttachment(Member member) {
+    	Connection conn = getConnection();
+		int count = 0;
+		
+		try {
+			count =  memberDao.insertAttachment(conn, member);
+			commit(conn);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			rollback(conn);
+			
+		} finally {
+			close(conn);
+		}
+		
+		return count;
+	
+	}
+    /**
+     * 프로필사진 삭제
+     * @param member
+     * @return
+     */
+	  public int deleteAttachment(Member member) {
+    	Connection conn = getConnection();
+		int count = 0;
+		
+		try {
+			count =  memberDao.insertAttachment(conn, member);
+			commit(conn);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			rollback(conn);
+			
+		} finally {
+			close(conn);
+		}
+		
+		return count;
+	
+	}
+	  /**
+	   * 개인회원정보 수정
+	   * @param member
+	   * @return
+	   */
+	  public int updateMemberview(Member member) {
+			Connection conn = getConnection();
+			int count = 0;
+			
+			try {
+				count =  memberDao.updateMemberview(conn, member);
+				commit(conn);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				rollback(conn);
+				
+			} finally {
+				close(conn);
+			}
+			
+			return count;
+		
+		}
+	  
+	  /**
+	   * 블랙회원 리스트 조회
+	   * @param keyword
+	   * @param start
+	   * @param end
+	   * @return
+	   */
+		public List<Member> selectMemberBlackList(String keyword, int start, int end) {
+			Connection conn = getConnection();
+			List<Member> list 	= null;
+			
+			try {
+				list =  memberDao.selectMemberBlackList(conn, keyword, start, end);
+				
+			} catch (Exception e) {
+				e.printStackTrace(); 
+				
+			} finally {
+				close(conn);
+			}
+			
+			return list;
+		}
+		
+		/**
+		 * 블랙리스트 회원수
+		 * @param keyword
+		 * @return
+		 */
+		public int selectMemberBlackListCount(String keyword) {
+			Connection conn = getConnection();
+			int count 	= 0;
+			
+			try {
+				count =  memberDao.selectMemberBlackListCount(conn, keyword);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				
+			} finally {
+				close(conn);
+			}
+			
+			return count;
+		}
+		
+		/**
+		 * 회원 검색
+		 * @param param
+		 * @return
+		 */
+		public List<Member> searchMember(Map<String, Object> param) {
+			Connection conn = getConnection();
+			List<Member> list 	= null;
+			
+			try {
+				list =  memberDao.searchMember(conn, param);
+				
+			} catch (Exception e) {
+				e.printStackTrace(); 
+				
+			} finally {
+				close(conn);
+			}
+			
+			return list;
+		}
+		
+		public int searchMemberCount(Map<String, Object> param) {
+			Connection conn = getConnection();
+			int totalContent = memberDao.searchMemberCount(conn);
+			// 단순조회로 트랜잭션 처리하지 않음
+			close(conn);
+			return totalContent;
+}	
 }
 
