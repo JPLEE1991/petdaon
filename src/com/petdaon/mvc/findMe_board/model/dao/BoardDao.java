@@ -58,7 +58,6 @@ public class BoardDao {
 				  board.setMissDate(rset.getDate("miss_date"));		  
 				  board.setCharacter(rset.getString("character"));
 				  board.setStatus(rset.getString("status"));
-				  board.setBoardCommentCount(rset.getInt("bc_count"));
 				  board.setCompleYN(rset.getString("complete_yn"));
 				  
 				  

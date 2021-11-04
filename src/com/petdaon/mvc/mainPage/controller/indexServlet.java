@@ -16,7 +16,7 @@ import com.petdaon.mvc.serviceBoard.noticeBoard.model.vo.NoticeBoard;
 import com.petdaon.mvc.volunteer_board.model.service.VolunteerBoardService;
 import com.petdaon.mvc.volunteer_board.model.vo.VolunteerBoard;
 
-@WebServlet("/")
+//@WebServlet("/")
 public class indexServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BoardService findMeBoardService = new BoardService();
