@@ -297,4 +297,13 @@ public class VolunteerBoardService {
 		return list;
 	}
 
+	//  삭제여부가 'N' 이며 승인여부가 'Y'인 게시글 최근 등록일 순 4개 조회
+	public List<VolunteerBoard> selectVolunteerBoardListFourOrderByRegDateDesc() {
+		Connection conn = getConnection();
+		List<VolunteerBoard> list = volunteerBoardDao.selectVolunteerBoardListFourOrderByRegDateDesc(conn);
+		// 단순조회로 트랜잭션 처리하지 않음
+		close(conn);
+		return list;
+	}
+
 }

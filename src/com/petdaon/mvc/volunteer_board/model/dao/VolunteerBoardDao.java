@@ -829,4 +829,55 @@ public class VolunteerBoardDao {
 		return list;
 	}
 
+	// 삭제여부가 'N' 이며 승인여부가 'Y'인 게시글 최근 등록일 순 4개 조회
+	public List<VolunteerBoard> selectVolunteerBoardListFourOrderByRegDateDesc(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectVolunteerBoardListFourOrderByRegDateDesc");
+		List<VolunteerBoard> list = new ArrayList<>();
+		
+		// 1.PreparedStatment객체 생성 & 미완성쿼리 값대입
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				// 테이블 record 1 -> VO객체 1
+				VolunteerBoard board = new VolunteerBoard();
+				board.setNo(rset.getInt("no"));
+				board.setTitle(rset.getString("title"));
+				board.setCenterName(rset.getString("center_name"));
+				board.setContent(rset.getString("content"));
+				board.setStartDate(rset.getDate("start_date"));
+				board.setEndDate(rset.getDate("end_date"));
+				board.setEmail(rset.getString("email"));
+				board.setPhone(rset.getString("phone"));
+				board.setApprovalYn(rset.getString("approval_yn"));
+				board.setDeleteYn(rset.getString("delete_yn"));
+				board.setCapacity(rset.getInt("capacity"));
+				board.setPlace(rset.getString("place"));
+				board.setDeadlineDate(rset.getDate("deadline_date"));
+				board.setRegDate(rset.getDate("reg_date"));
+				board.setTime(rset.getString("time"));
+				board.setDay(rset.getString("day"));
+				board.setBoardCode(rset.getString("board_code"));
+				board.setWriter(rset.getString("writer"));
+				board.setEnrollYn(rset.getString("enroll_yn"));
+				board.setThumbnail(rset.getString("thumbnail"));
+				
+				//보드를 리스트에 추가한다.
+				list.add(board);
+			}
+			
+		} catch (Exception e) {
+			throw new BoardException("봉사게시글 최근 등록일 순 게시글 4개 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
 }

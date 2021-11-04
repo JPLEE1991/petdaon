@@ -4,16 +4,19 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
-<%-- <%
+<%
 	List<VolunteerBoard> list = (List<VolunteerBoard>) request.getAttribute("list");
+	//System.out.println("list@volunteerBoardList.jsp = " + list);
 %>
- --%>
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/volunteer.css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <!-- fullcalender -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/fullcalendar-5.10.0/main.css" />
 <script src="<%=request.getContextPath()%>/js/fullcalendar-5.10.0/main.js"></script>
+<%-- 슬라이드 구현을 위해 넣어줌. header부분에 있을 텐데 위의 jquery선언을 다시해줘서 문제가 일어난건가? --%>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <style>
 	/* 봉사 제목 앞에 뜨는 시간 숨기기 */
 	.fc-event-time{
@@ -37,6 +40,89 @@
 			</div>
 		</div>
 	</div>
+	
+	<%-- 봉사 최근 게시글 4개 카드형식으로 놓기 --%>
+	<div class="container mt-5">
+		<div class="row">
+		
+<%
+		if(list != null && !list.isEmpty()) { // isEmpty()는 객체가 null로 되어있어 비는 것이 아닌 값이 존재하지 않는 상태이다.
+			for(VolunteerBoard board : list) {%>
+				<div class="col-md-3">
+
+					<div class="card w-100 h-100" style="width: 18rem;">
+					
+						<a href="<%= request.getContextPath() %>/volunteerBoard/boardView?no=<%= board.getNo() %>">
+							<img src="<%= request.getContextPath() %>/<%= board.getThumbnail() %>" class="card-img-top" alt="<%= board.getTitle() %> 썸네일 사진">
+						</a>
+					
+					
+						<div class="card-body">
+							<a href="<%= request.getContextPath() %>/volunteerBoard/boardView?no=<%= board.getNo() %>" class="link-dark">
+								<p class="card-text fw-bold"><%= board.getTitle() %></p>
+							</a>
+							<p class="card-text">활동기간 : <%= board.getStartDate() %> ~ <%= board.getEndDate() %></p>
+							<p class="card-text">모집마감 : <%= board.getDeadlineDate() %></p>
+							<p class="card-text"><%= board.getDay() %> / <%= board.getTime() %></p>
+							<p class="card-text">장소 : <%= board.getPlace() %></p>
+							<%-- <a href="<%= request.getContextPath() %>/volunteerBoard/boardView?no=<%= board.getNo() %>" class="btn btn-primary float-end">상세보기</a> --%>
+						</div>
+					</div>
+				
+				</div>
+<%
+			}
+		}
+		%>		
+		
+			
+			<!-- <div class="col-md-3">
+			
+				<div class="card w-100" style="width: 18rem;">
+					<img src="..." class="card-img-top" alt="...">
+					<div class="card-body">
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+					</div>
+				</div>
+			
+			</div>
+			
+			<div class="col-md-3">
+			
+				<div class="card w-100" style="width: 18rem;">
+					<img src="..." class="card-img-top" alt="...">
+					<div class="card-body">
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+					</div>
+				</div>
+			
+			</div>
+			
+			<div class="col-md-3">
+			
+				<div class="card w-100" style="width: 18rem;">
+					<img src="..." class="card-img-top" alt="...">
+					<div class="card-body">
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+					</div>
+				</div>
+			
+			</div> -->
+		
+		</div>
+	
+	
+	</div>
+	
+	
+	
+	<%-- --%>
+	
+	
+	
+	
+	
+	
 	
 	<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
@@ -84,6 +170,7 @@ $(".enroll-btn").click(function(e){
 				    hour12: false
 				  } */
 				height: 650
+				
 			});
   			// 캘린더 랜더링
 			calendar.render();
@@ -92,18 +179,7 @@ $(".enroll-btn").click(function(e){
 		error: console.log
 	});
       
-	// 이전 수업내용 참고
-  	<%-- $.ajax({
-  		url: "<%= request.getContextPath() %>/volunteerBoard/boardList",
-  		success(data){
-  			$(celebName).append(`<option value=''>Celeb 선택</option>`)
-  			$(data).each((i, celeb) => {
-  				const {name} = celeb; // 구조분해 할당... 복습하기
-  				$(celebName).append(`<option value='\${name}'>\${name}</option>`)
-  			});
-  		},
-  		error: console.log
-  	}); --%>
+
 </script>
 	
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
