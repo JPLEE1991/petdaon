@@ -6,8 +6,8 @@
 <%@ include file="/WEB-INF/views/admin/adminHeader.jsp" %>
 <%
 	List<VolunteerBoard> list = (List<VolunteerBoard>) request.getAttribute("list");
-	String searchType = request.getParameter("searchType"); // 검색한 타입 얻어옴?
-	String searchKeyword = request.getParameter("searchKeyword"); // 검색한 키워드 얻어옴?
+	String searchType = request.getParameter("searchType");
+	String searchKeyword = request.getParameter("searchKeyword");
 %>
 <style>
 form {

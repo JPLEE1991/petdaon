@@ -15,6 +15,9 @@ public class VolunteerApplicationExt extends VolunteerApplication implements Ser
 	private String phone;	// 휴대폰
 	private String email;	// 이메일
 	
+	// 기존에서 하나 더 추가함.
+	private String title;	// 마이페이지 봉사신청확인을 위한 추가(봉사게시글 제목부분 이용)
+	
 	public VolunteerApplicationExt() {
 		super();
 	}
@@ -25,6 +28,13 @@ public class VolunteerApplicationExt extends VolunteerApplication implements Ser
 		this.memberName = name;
 		this.phone = phone;
 		this.email = email;
+	}
+	
+	// 마이페이지 봉사신청확인을 위한 추가(봉사게시글 제목부분 이용)
+	public VolunteerApplicationExt(int no, String approvalYn, String applicationYn, Date regDate, int boardNo,
+			String boardCode, String applicant, String title) {
+		super(no, approvalYn, applicationYn, regDate, boardNo, boardCode, applicant);
+		this.title = title;
 	}
 
 	public String getMemberName() {
@@ -50,6 +60,15 @@ public class VolunteerApplicationExt extends VolunteerApplication implements Ser
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	// 마이페이지 봉사신청확인을 위한 추가(봉사게시글 제목부분 이용)
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	@Override

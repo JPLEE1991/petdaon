@@ -265,4 +265,36 @@ public class VolunteerBoardService {
 		return totalContent;
 	}
 
+	// 회원아이디가 등록한 봉사 게시글 조회
+	public List<VolunteerBoard> selectVolunteerBoardListByWriter(String memberId) {
+		Connection conn = getConnection();
+		List<VolunteerBoard> list = volunteerBoardDao.selectVolunteerBoardListByWriter(conn, memberId);
+		// 단순조회로 트랜잭션 처리하지 않음
+		close(conn);
+		return list;
+	}
+
+	// 봉사게시글 접수취소 상태로 변경
+	public int updateVolunteerBoardEnrollStatusCancle(int no) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			result = volunteerBoardDao.updateVolunteerBoardEnrollStatusCancle(conn, no);
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}
+		return result;
+	}
+
+	// 회원아이디가 등록한 봉사신청 조회
+	public List<VolunteerApplicationExt> selectVolunteerApplicationListByWriter(String memberId) {
+		Connection conn = getConnection();
+		List<VolunteerApplicationExt> list = volunteerBoardDao.selectVolunteerApplicationListByWriter(conn, memberId);
+		// 단순조회로 트랜잭션 처리하지 않음
+		close(conn);
+		return list;
+	}
+
 }
