@@ -18,7 +18,7 @@ public class adoptboard extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//view단 처리
         request
-        .getRequestDispatcher("/WEB-INF/views/adopt_board/adoptForm.jsp")
+        .getRequestDispatcher("/WEB-INF/views/adopt_board/adopt.jsp")
         .forward(request, response);
 	}
 
