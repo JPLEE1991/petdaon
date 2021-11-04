@@ -50,6 +50,7 @@ public class MemberUpdatePasswordServlet extends HttpServlet {
 		Member loginMember = (Member) session.getAttribute(Constants.SESSION_KEY);
 
 		System.out.println("oldPassword=" + oldPassword);
+		System.out.println("newPassword=" + newPassword);
 		System.out.println("loginMember=" + loginMember);
 
 		if(oldPassword.equals(loginMember.getPassword())) {
@@ -59,7 +60,7 @@ public class MemberUpdatePasswordServlet extends HttpServlet {
 			msg = (result > 0) ? 
 					"비밀번호를 성공적으로 변경했습니다." : 
 						"비밀번호를 변경에 실패했습니다.";
-			location += "/member/mypage";
+			location += "/member/myDetail";
 		}
 		else {
 			msg = "비밀번호가 일치하지 않습니다.";				

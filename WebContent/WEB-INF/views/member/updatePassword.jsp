@@ -2,37 +2,38 @@
     pageEncoding="UTF-8"%>
     
 <%@ include file="/WEB-INF/views/member/mypageHeader.jsp" %>
-<section id=enroll-container>
-		<h2>비밀번호변경</h2>
+<div class="container-fluid" >
+	
+	<div class="join-title"><h1>비밀번호 변경</h1></div>
+	<div class="row">
+		<div class="col-sm-6 col-sm-offset-3">
+			<div class="panel panel-default">
+				<div class="panel-body">
 		<form 
 			name="updatePwdFrm" 
 			action="<%=request.getContextPath()%>/member/updatePassword" 
 			method="post" >
-			<table>
-				<tr>
-					<th>현재 비밀번호</th>
-					<td><input type="password" name="oldPassword" id="oldPassword" required></td>
-				</tr>
-				<tr>
-					<th>변경할 비밀번호</th>
-					<td>
-						<input type="password" name="newPassword" id="newPassword" required>
+			<div class="form-group">
+					<label for="oldPassword">현재 비밀번호</label>
+							<input type="password" id="oldPassword" name="oldPassword" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label for="newPassword">새로운 비밀번호</label>
+							<input type="password" id="newPassword" name="newPassword" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label for="newPasswordCheck">비밀번호 확인</label>
+							<input type="password" id="newPasswordCheck" name="newPasswordCheck" class="form-control" required>
+						</div>
+						<td colspan="2" style="text-align: center;">
+					<input type="submit"  value="변경" />
 					</td>
-				</tr>
-				<tr>
-					<th>비밀번호 확인</th>
-					<td>	
-						<input type="password" id="newPasswordCheck" required><br>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2" style="text-align: center;">
-						<input type="submit"  value="변경" />
-					</td>
-				</tr>
-			</table>
-		</form>
-	</section>
+				</div>
+			</div>
+		</div>
+	</div>	
+	</div>			
+	
 	<script>
 	/**
 	 * 폼제출 유효성검사
