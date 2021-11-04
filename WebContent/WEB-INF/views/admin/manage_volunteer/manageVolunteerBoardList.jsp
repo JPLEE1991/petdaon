@@ -159,11 +159,14 @@ $(document).ready(function(){
 	$("#main-title").text('봉사 승인');
 })
 
-// 수직 정렬을 위한 설정
-$(document).ready(function(){
+// 수직 정렬을 위한 설정 - 이상함. 컨텐츠양이 적으면 중앙정렬됨 아래로 패딩값 준걸로 고침
+/* $(document).ready(function(){
 	$('#index').addClass('d-flex align-items-center');
-})
+}) */
 
+$(document).ready(function(){
+	$('#index').addClass('pt-5');
+})
 
 // 검색타입 select 바뀔때마다 이벤트 발생
 $("#searchType").change((e) => {

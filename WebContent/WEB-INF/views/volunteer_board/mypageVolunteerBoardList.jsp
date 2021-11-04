@@ -207,8 +207,8 @@ function show(boardNo){
 		// 게시글 번호 보냄
 		url: "<%= request.getContextPath() %>/volunteerBoard/selectOne?boardNo=" + boardNo,
 		success(data){
-			//console.log(data);
-			const {no, title, centerName, content, startDate, endDate, email, phone, approvalYn, deleteYn, capacity, place, deadlineDate, regDate, time, day, boardCode, writer, enrollYn, thumbnail} = data;
+			console.log(data);
+			const {no, title, centerName, content, startDate, endDate, email, phone, approvalYn, deleteYn, capacity, place, deadlineDate, regDate, time, day, boardCode, writer, enrollYn} = data;
 			// 얻어온 값을 이용하여, modal에서 동적으로 바뀌어야 하는 값을 바꾸어 준다.
 			$(".no").html(`\${no}`);
 			$(".title").val(`\${title}`);

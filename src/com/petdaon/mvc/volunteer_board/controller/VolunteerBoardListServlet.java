@@ -25,9 +25,22 @@ public class VolunteerBoardListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request
+		try {
+			// 업무 로직
+			// 삭제여부가 'N' 이며 승인여부가 'Y'인 게시글 최근 등록일 순 4개 조회
+			List<VolunteerBoard> list = volunteerBoardService.selectVolunteerBoardListFourOrderByRegDateDesc();
+			//System.out.println("list@VolunteerBoardListServlet = " + list);
+			
+			// view단 처리
+			request.setAttribute("list", list);
+			request
 			.getRequestDispatcher("/WEB-INF/views/volunteer_board/volunteerBoardList.jsp")
 			.forward(request, response);
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+
+		}
 	}
 	
 	/**
