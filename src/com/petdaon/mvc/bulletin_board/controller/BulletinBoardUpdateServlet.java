@@ -35,12 +35,12 @@ public class BulletinBoardUpdateServlet extends HttpServlet {
 		
 		// 2.업무로직
 		BulletinBoard board = boardService.selectOneBoard(no);
-		System.out.println("board@servlet = " + board);
+		System.out.println("BulletinBoardUpdate@servlet = " + board);
 		
 		// 3.view단 위임
 		request.setAttribute("board", board);
 		request
-			.getRequestDispatcher("/WEB-INF/views/bulletin_board/boardList.jsp")
+			.getRequestDispatcher("/WEB-INF/views/bulletin_board/boardUpdate.jsp")
 			.forward(request, response);
 	}
 
@@ -55,6 +55,11 @@ public class BulletinBoardUpdateServlet extends HttpServlet {
 		FileRenamePolicy policy = new MvcFileRenamePolicy();
 		MultipartRequest multipartRequest = new MultipartRequest(request, saveDirectory, maxPostSize, encoding, policy);
 		
+		// 파일정보 가져오기
+		String originalFilename = multipartRequest.getOriginalFileName("upFile");
+		String renamedFilename = multipartRequest.getFilesystemName("upFile");
+		
+		
 		// 1. 사용자입력
 		int no = Integer.parseInt(multipartRequest.getParameter("no"));
 		String title = multipartRequest.getParameter("title");
@@ -63,8 +68,8 @@ public class BulletinBoardUpdateServlet extends HttpServlet {
 		String detail = multipartRequest.getParameter("detail");
 		String category = multipartRequest.getParameter("category");
 
-		BulletinBoard board = new BulletinBoard(0, "02", title, null, content, null, 0, 0, 0, animal, detail, category, null, null, null);
-		
+		BulletinBoard board = new BulletinBoard(no, "02", title, null, content, null, 0, 0, 0, animal, detail, category, null, null, null);
+		System.out.println(board);
 		// 첨부파일
 		File f = multipartRequest.getFile("upFile");
 		if(f != null) {
@@ -75,7 +80,7 @@ public class BulletinBoardUpdateServlet extends HttpServlet {
 			board.setAttach(attach);
 		}
 		
-		System.out.println("board@servlet = " + board);
+		System.out.println("BulletinBoardUpdate@servlet = " + board);
 		
 		// 2. 업무로직 
 		int result = 0;
@@ -98,7 +103,7 @@ public class BulletinBoardUpdateServlet extends HttpServlet {
 		
 		// 3. redirect
 		request.getSession().setAttribute("msg", msg);
-		String location = request.getContextPath() + "/bulletn_board/boardView?no=" + no;
+		String location = request.getContextPath() + "/bulletin_board/boardView?no=" + no;
 		response.sendRedirect(location);
 		
 		

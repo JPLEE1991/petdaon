@@ -31,13 +31,14 @@ function boardValidate(e){
 	return true;
 }
 </script>
-<section id="board-container">
+
 <h2>게시판 작성</h2>
 <form
 	name="boardEnrollFrm"
 	action="<%= request.getContextPath() %>/bulletin_board/boardEnroll" 
 	method="post"
 	enctype="multipart/form-data">
+	
 	<table id="tbl-board-view">
 	<tr>
 		<th>제 목</th>
@@ -94,6 +95,6 @@ function boardValidate(e){
 	</tr>
 </table>
 </form>
-</section>
+
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

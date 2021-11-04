@@ -29,17 +29,18 @@ public class BulletinBoardViewServlet extends HttpServlet {
 		try {
 				//1.파라미터 글번호
 				int no = Integer.parseInt(request.getParameter("no"));
-				
+				System.out.println("bulletinBoardViewServlet no : " + no);
 				// 2.비지니스로직 호출
 				
 				// 게시글 하나 가져오기
 				BulletinBoard board = boardService.selectOneBoard(no);
-				System.out.println(board);
+				System.out.println("bulletinBoardViewServlet board : " + board);
 				
 				// 게시글 가져오기에 실패한경우
 				if(board == null) {
 					request.getSession().setAttribute("msg", "조회한 게시글이 존재하지 않습니다.");
 					response.sendRedirect(request.getContextPath() + "/bulletin_board/boardList");
+					return;
 				}
 				
 				// XSS공격대비 
@@ -53,12 +54,17 @@ public class BulletinBoardViewServlet extends HttpServlet {
 				
 				// 3.view단 처리위임
 				request.setAttribute("board", board);
-				RequestDispatcher reqDispatcher = request.getRequestDispatcher("WEB-INF/views/bulletin_board/boardList.jsp");
+				RequestDispatcher reqDispatcher = request.getRequestDispatcher("/WEB-INF/views/bulletin_board/boardView.jsp");
 				reqDispatcher.forward(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 				throw e;
 			}
+	}
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }
