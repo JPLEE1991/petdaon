@@ -5,7 +5,7 @@
 	  <footer>
     <div class="padding-20px-tb">
       <div class="container">
-        <div class="row fixed-bottom border-top">
+        <div class="row border-top">
           <div class="col-md-12 text-center">
             <br>
             <p class="xs-font-size13 no-margin-bottom text-extra-light-gray sm-text-center">&copy; 펫다온 서울시 용산구 서빙고로17 (우) 04387 대표: 이진표</p>
