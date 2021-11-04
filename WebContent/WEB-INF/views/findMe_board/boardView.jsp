@@ -60,8 +60,8 @@ function shareKakao() {
 	      //local 서버 내에 있는 이미지라 링크가 걸리지 않음. 임의 이미지 링크 걸어놓음.
 	      imageUrl: "https://i.ytimg.com/vi/1aDQnoGS_2c/maxresdefault.jpg", // 콘텐츠 URL
 	      link: {
-	         mobileWebUrl: 'http://localhost:9090',
-	         webUrl: 'http://localhost:9090'
+	         mobileWebUrl: 'http://localhost:9090<%=request.getContextPath()%>/findMe_board/boardView?no=<%= board.getNo() %>',
+	         webUrl: 'http://localhost:9090<%=request.getContextPath()%>/findMe_board/boardView?no=<%= board.getNo() %>'
 	      }
 	    }
 	  });
@@ -406,7 +406,7 @@ img {
 						<a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();"></a>   			
 					</div>
 				</div>
-				<!-- /SNS공유 버튼 모음 -->
+				<!-- / SNS공유 버튼 모음 end-->
 				
 			<!-- 게시글 삭제 폼 전송  -->
 			<form action="<%= request.getContextPath() %>/findMe_board/boardDelete" name="deleteBoardFrm">

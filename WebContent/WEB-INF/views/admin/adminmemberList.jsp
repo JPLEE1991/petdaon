@@ -5,7 +5,7 @@
 				java.util.List"%>
 <%
 List<Member> list = (List<Member>)request.getAttribute("list");
-String 	keyword = request.getParameter("keyword"); // 검색한 키워드 얻어옴?
+String 		keyword = request.getParameter("keyword"); // 검색한 키워드 얻어옴?
 %>
 
 <style>
@@ -41,11 +41,6 @@ select option{
 function fnList() {
 	$('#searchForm')[0].submit();
 }
-
-//main-title 변경
-$(document).ready(function(){
-	$("#main-title").text('회원 목록');
-})
 </script>
 
 <div class="container row" style="margin: 0 auto;">
@@ -54,7 +49,7 @@ $(document).ready(function(){
 			<div id="search-container" class="d-flex justify-content-start">
 				<!-- 검색타입 :  -->
 				<label for="keyword">아이디/이름&nbsp;&nbsp;</label>
-				<input id="keyword" type="text" name="keyword" placeholder="아이디나 이름을 입력해주세요"value="<%=StringUtils.getString(keyword) %>" />
+				<input id="keyword" type="text" name="keyword" value="<%=StringUtils.getString(keyword) %>" />
 				<button type="submit" class="btn btn-primary btn-sm" onclick="javascript:fnList(); return false;">검색</button>
 			</div>
 		</form>
@@ -95,8 +90,8 @@ $(document).ready(function(){
 					<td><%=member.getWarning_count() %></td>
 				</tr>
 				<%
-				}
-				%>
+							}
+							%>
 			</tbody>
 		</table>
 	</div>
@@ -110,9 +105,11 @@ $(document).ready(function(){
 </div>
 
 
-
+<script src="<%=request.getContextPath()%>/resource/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
 
 <%@ include file="/WEB-INF/views/admin/adminFooter.jsp" %>
 
+</body>
+</html>
 
 

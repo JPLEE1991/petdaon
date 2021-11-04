@@ -36,16 +36,13 @@ public class MemberLoginServlet extends HttpServlet {
 			
 		} else {
 			String encPassword = MvcUtils.getEncryptedPassword(password);
-			if ("N".equals(member.getStatus())) {				// 탈퇴한 회원.
-				resultMsg = "탈퇴한 회원입니다.";
-				
-			} else if (!encPassword.equals(member.getPassword())) {	// 비밀번호 불일치
+			if (!encPassword.equals(member.getPassword())) {	// 비밀번호 불일치
 				resultMsg = "인증실패";
 				
 			} else {											// 인증성공
 				req.getSession(true).setAttribute(Constants.SESSION_KEY, member);
 
-				String url = this.getServletContext().getContextPath();
+				String url = this.getServletContext().getContextPath() + "/index.jsp";
 				res.sendRedirect(url);
 				return;
 			}

@@ -517,6 +517,12 @@ public class BoardDao {
 		case "gender":
 			sql = prop.getProperty("searchBoardByGender");
 			break;
+		case "status":
+			sql = prop.getProperty("searchByStatus");
+			break;
+		case "completeYN":
+			sql = prop.getProperty("searchByCompleteYN");
+			break;
 		}
 		System.out.println("sql@dao = " + sql);
 		
@@ -586,11 +592,18 @@ public class BoardDao {
 		case "gender":
 			sql = prop.getProperty("searchBoardCountByGender");
 			break;
+		case "status":
+			sql = prop.getProperty("searchByStatus");
+			break;
+		case "complteYN":
+			sql = prop.getProperty("searchByCompelteYN");
+			break;			
 		}
 		System.out.println("@BoardDao searchBoardCount searchType: "+searchType);
 		System.out.println("sql@dao = " + sql);
 		
 		try {
+			System.out.println("@Dao sql: "+sql);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, (String) param.get("searchKeyword"));
 			rset = pstmt.executeQuery();

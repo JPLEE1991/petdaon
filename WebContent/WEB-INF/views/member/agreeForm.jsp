@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%@ include file="/WEB-INF/views/common/header.jsp" %>
-
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 <style>
     .outer{
         margin-top:110px;
@@ -59,7 +61,9 @@
     
     
 </style>
-
+</head>
+<body>
+	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
 	 <div class="outer">
         <form align="center" action="<%= request.getContextPath() %>/member/memberEnroll" id="joinCheck">
@@ -128,4 +132,5 @@
     		
 		   
     </script>
-<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+</body>
+</html>
