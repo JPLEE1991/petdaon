@@ -8,66 +8,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/findMe_board/Form.css" />	
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/findMe_board/map.css" />
 
-<script>
- 	function showBreed(e){
-		var dog = ["닥스훈트","달마시안","도베르만","리트리버","닥스훈트","말라뮤트","말티즈","믹스견","비글","사모예드","셰퍼드","스피츠","시바","시베리안허스키","아메리칸불독","진도견","치와와","푸들","기타"];
-		var cat = ["노르웨이숲","데본렉스","러시안블루","리그돌-라가머핀","맹크스","먼치킨","메인쿤","믹스","발리네즈","버만","벵갈","봄베이","기타"];
-		var etc = ["모든 동물"];
-		var target = document.getElementById("breed");
-		
-		if($("#animalType").val()=="강아지")
-			var d = dog;				
-		else if($("#animalType").val()=="고양이")
-			var d = cat;		
-		else
-			var d = etc;
-				
-		target.options.length = 0;
-		
-		console.log("target: "+target);
-		for(x in d){
-			console.log("doing?");
-			var opt = document.createElement("option");
-			opt.value = d[x];
-			opt.innerHTML = d[x];
-			target.appendChild(opt);
-		}
-	}; 
-	
 
-
-/**
-* 유효성 검사
-*/
-$(document.findMeBoardEnrollFrm).submit(e => {
-    if($(username).val() == '' || $(content).val() == ''){
-      alert("이름과 내용을 작성해주세요.");
-      e.preventDefault();
-    }
-  });
-
-	$(() => {
-		$(document.findMeBoardEnrollFrm).submit(boardValidate);
-	});
-	
-	function boardValidate(e){
-		const $title = $("[name=title]");
-		const $contents = $("[name=contents]");
-		//제목을 작성하지 않은 경우 폼제출할 수 없음.
-		if(!/^.+$/.test($title.val())){
-			alert("제목을 입력하세요.");
-			return false;
-		}
-						   
-		//내용을 작성하지 않은 경우 폼제출할 수 없음.
-		// .(임의의 문자)에는 \n(개행문자)가 포함되지 않는다.
-		if(!/^(.|\n)+$/.test($contents.val())){
-			alert("내용을 입력하세요.");
-			return false;
-		}
-		return true;
-	}
-</script>
 <!--  -->
 <h2>나를 찾아줘</h2>
 <!--Form 제출  -->
@@ -452,6 +393,86 @@ $(document.findMeBoardEnrollFrm).submit(e => {
 	</div>
 </form>   
 
+
+<script>
+	function showBreed(e){
+		var dog = ["닥스훈트","달마시안","도베르만","리트리버","닥스훈트","말라뮤트","말티즈","믹스견","비글","사모예드","셰퍼드","스피츠","시바","시베리안허스키","아메리칸불독","진도견","치와와","푸들","기타"];
+		var cat = ["노르웨이숲","데본렉스","러시안블루","리그돌-라가머핀","맹크스","먼치킨","메인쿤","믹스","발리네즈","버만","벵갈","봄베이","기타"];
+		var etc = ["모든 동물"];
+		var target = document.getElementById("breed");
+		
+		if($("#animalType").val()=="강아지")
+			var d = dog;				
+		else if($("#animalType").val()=="고양이")
+			var d = cat;		
+		else
+			var d = etc;
+				
+		target.options.length = 0;
+		
+		console.log("target: "+target);
+		for(x in d){
+			console.log("doing?");
+			var opt = document.createElement("option");
+			opt.value = d[x];
+			opt.innerHTML = d[x];
+			target.appendChild(opt);
+		}
+	}; 
+
+document.findMeBoardEnrollFrm.onsubmit = function(){
+	console.log("유효성 검사 시작");
+	const $title = $("[name=title]");
+	const $phone = $("[name=phone]");
+	const $animalType = $("[name=animalType]");
+	const $breed = $("[name=breed]");
+	const $gender = $("[name=gender]");
+	const $weight = $("[name=weight]");
+	const $color = $("[name=color]");
+	const $character = $("[name=character]");
+	const $missDate = $("[name=missDate]");
+	const $status = $("[name=status]");
+	const $content = $("[name=content]");
+	const $lngclick = $("[name=lngclick]");
+	const $latclick = $("[name=latclick]");
+	
+	if(!/^.+$/.test($title.val())){
+		alert("제목을 입력하세요.");
+		return false;
+	}
+	if(!/^.+$/.test($animalType.val())){
+		alert("분류를 설정해주세요.");
+		return false;
+	}
+	if(!/^.+$/.test($breed.val())){
+		alert("종을 설정해주세요");
+		return false;
+	}
+	
+	if(!/^.+$/.test($weight.val())){
+		alert("몸무게를 입력하세요.");
+		return false;
+	}
+	
+	if(!/^(.|\n)+$/.test($color.val())){
+		alert("털색을 입력하세요.");
+		return false;
+	}
+	if(!/^(.|\n)+$/.test($character.val())){
+		alert("특징을 입력하세요.");
+		return false;
+	}
+	if(!/^(.|\n)+$/.test($content.val())){
+		alert("내용을 입력하세요.");
+		return false;
+	}
+	if($lngclick == null || $latclick == null){
+		alert("지도에서 위치를 선택해주세요");
+		return false;
+	}
+}
+
+</script>
 
 
 
