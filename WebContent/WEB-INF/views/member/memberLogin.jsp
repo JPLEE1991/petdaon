@@ -14,9 +14,8 @@ resultMsg = resultMsg == null ? "" : resultMsg;
 }
 .col-lg-4{margin:auto}
 h1 {text-align:center}
-
-
 </style>
+ 
  <script type="text/javascript">
 	var resultMsg = '<%=resultMsg%>';
 	if (resultMsg != '') alert(resultMsg);
@@ -24,8 +23,33 @@ h1 {text-align:center}
     function fnDoLogin() { 
     	$('form[name=loginFrm]')[0].submit();
     }
-    </script>
+    
+   	$(() => {
+   		/**
+   		* 로그인 유효성 검사
+   		*/
+   		$(document.loginFrm).submit(e => {
+   			const $memberId = $(memberId);
+   			const $password = $(password);
+   			//memberId체크
+   			if(!/^.{4,}$/.test($memberId.val())){
+   				alert("아이디를 입력하세요.");
+   				$memberId.select();
+   				e.preventDefault();
+   				return;
+   			}
+   			//비밀번호 체크
+   			if(!/^.{4,}$/.test($password.val())){
+   				alert("비밀번호를 입력하세요.");
+   				$password.select();
+   				e.preventDefault();
+   				return;
 
+   			}
+   		});
+   	});
+    </script>
+			
 <%
     // 로그인 유지작업 
     Cookie[] cookies = request.getCookies();

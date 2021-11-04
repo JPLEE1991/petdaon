@@ -37,6 +37,7 @@ public class AdminMemberDetailServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		//파라미터값을 가져옴
 		String memberId = req.getParameter("memberId");
 		String memberName = req.getParameter("memberName");
 		String memberRole = req.getParameter("memberRole");
@@ -51,7 +52,7 @@ public class AdminMemberDetailServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+		//멤버 객체
 		Member member = new Member();
 		member.setMemberId(memberId);
 		member.setMemberName(memberName);
@@ -64,8 +65,8 @@ public class AdminMemberDetailServlet extends HttpServlet {
 		
 		String url = this.getServletContext().getContextPath() + "/admin/adminmemberDetail?memberId=" + memberId;
 		
-		System.out.println("url = " + url);
-		
+		//System.out.println("url = " + url);
+		//redirect
 		res.sendRedirect(url);
 	}
 
