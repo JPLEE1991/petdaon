@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class MemberWelcomeServlet
  */
-@WebServlet("/member/mypage")
+@WebServlet("/member/myDetail")
 public class  MemberMypageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -20,7 +20,7 @@ public class  MemberMypageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request
-		.getRequestDispatcher("/WEB-INF/views/member/mypage.jsp")
+		.getRequestDispatcher("/WEB-INF/views/member/myDetail.jsp")
 		.forward(request, response);
 	}
 
