@@ -52,8 +52,8 @@ public class BulletinBoardDao {
             while(rset.next()) {
                 BulletinBoard board = new BulletinBoard();
                 board.setNo(rset.getInt("no"));
-                board.setTitle(rset.getString("title"));
                 board.setWriter(rset.getString("writer"));
+                board.setTitle(rset.getString("title"));
                 board.setContent(rset.getString("content"));
                 board.setRegDate(rset.getDate("enroll_date"));
                 board.setReadCount(rset.getInt("scrap_num"));
@@ -205,8 +205,8 @@ public class BulletinBoardDao {
 			if(rset.next()) {
 				board = new BulletinBoard();
 				board.setNo(rset.getInt("no"));
-				board.setTitle(rset.getString("title"));
 				board.setWriter(rset.getString("writer"));
+				board.setTitle(rset.getString("title"));
 				board.setContent(rset.getString("content"));
 				board.setRegDate(rset.getDate("enroll_date"));
 				board.setReadCount(rset.getInt("view_num"));
@@ -353,7 +353,10 @@ public class BulletinBoardDao {
 			//쿼리문미완성
 			pstmt.setString(1, board.getTitle());
 			pstmt.setString(2, board.getContent());
-			pstmt.setInt(3, board.getNo());
+			pstmt.setString(3, board.getAnimal());
+			pstmt.setString(4, board.getDetail());
+			pstmt.setString(5, board.getCategory());
+			pstmt.setInt(6, board.getNo());
 			
 			//쿼리문실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
 			//DML은 executeUpdate()

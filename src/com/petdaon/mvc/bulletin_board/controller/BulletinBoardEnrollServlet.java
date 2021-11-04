@@ -93,7 +93,7 @@ public class BulletinBoardEnrollServlet extends HttpServlet {
 				
 				// 3. 응답처리 : redirect
 				HttpSession session = request.getSession();
-				String location = request.getContextPath() + "/bulletin_board/boardlist";
+				String location = request.getContextPath() + "/bulletin_board/boardList";
 				response.sendRedirect(location);
 	}
 

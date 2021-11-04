@@ -131,7 +131,7 @@ $(".btn-reply").click((e) => {
 			<button class="btn-insert2">등록</button>
 			
 			<input type="hidden" name="commentLevel" value="2" />
-			<input type="hidden" name="writer" value="<%= loginMember != null ? loginMember.getMemberId() : "" %>" />
+			<input type="hidden" name="writer" value="<%= _member != null ? _member.getMemberId() : "" %>" />
 			<input type="hidden" name="boardNo" value="<%= board.getNo() %>" />
 			<input type="hidden" name="commentRef" value="\${commentRef}" />
 		</form>
