@@ -10,6 +10,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+
+<!--SNS 카카오톡 공유  -->
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
 <%
 	// 봉사 게시글
 	VolunteerBoard board = (VolunteerBoard) request.getAttribute("board");
@@ -42,7 +46,18 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/volunteer.css" />
-    
+
+<style>
+
+/* SNS공유 */
+.link-icon { position: relative; display: inline-block; width: auto; font-size: 14px; font-weight: 500; color: #333; margin-right: 10px; padding-top: 50px; width:40px }
+.link-icon.twitter { background-image: url(<%=request.getContextPath()%>/images/icon-twitter.png); background-repeat: no-repeat; }
+.link-icon.facebook { background-image: url(<%=request.getContextPath()%>/images/icon-facebook.png); background-repeat: no-repeat; } 
+.link-icon.kakao { background-image: url(<%=request.getContextPath()%>/images/icon-kakao.png); background-repeat: no-repeat; }
+/* /SNS공유 */
+
+</style> 
+  
     <div class="container">
     	<div class="row">
     		<div class="col-md-9">
@@ -220,6 +235,16 @@
 							</div>
 							
 						</form>
+						
+						
+						<!-- SNS 공유버튼 모음  -->
+						
+						<a id="btnKakao" class="link-icon kakao float-right" href="javascript:shareKakao();"></a>   			
+						<a id="btnFacebook" class="link-icon facebook float-right" href="javascript:shareFacebook();"></a>    
+						<a id="btnTwitter" class="link-icon twitter float-right" href="javascript:shareTwitter();"></a>
+
+						<!-- /SNS공유 버튼 모음 -->
+						
 						
 				    </div>
 				</div>
@@ -453,7 +478,7 @@ else {
 
 	
     </div>
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<br /><br /><br />
 <%-- 댓글삭제를 위한 폼 --%>
 <form 
    action="<%= request.getContextPath() %>/volunteerBoard/boardCommentDelete" 
@@ -652,6 +677,42 @@ $(document.volunteerBoardCommentFrm).submit((e) => {
 const loginAlert = () => {
 	alert("로그인후 이용할 수 있습니다.");
 }
+
+/* SNS공유  */
+var thisUrl = document.URL;	// 현재 URL
+var snsTitle = "<%=board.getTitle()%>";	// 전달할 타이틀
+//트위터 공유
+function shareTwitter() {
+	// encodeURIComponent는 스크립트 내장함수로 인코딩하여 넘기는 방법입니다.
+	var url = "http://twitter.com/share?url="+encodeURIComponent(thisUrl)+"&text="+encodeURIComponent(snsTitle); // 전달할 URL
+	window.open(url);
+}
+//페북 공유 기능
+function shareFacebook() {
+	var url = "http://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(thisUrl); // 전달할 URL
+    window.open(url);
+}
+//카카오 공유 기능
+function shareKakao() {
+	// 사용할 앱의 JavaScript 키 설정
+	Kakao.init('81fc3c40931e5c23dfea9c79c1a7abc4');
+	
+	// 카카오링크 버튼 생성
+	Kakao.Link.createDefaultButton({
+		container: '#btnKakao', // 카카오공유버튼ID
+	    objectType: 'feed',
+	    content: {
+	    	title: "<%=board.getTitle()%>", // 보여질 제목
+	      	<%-- description: "<%=board.getContent()%>", // 보여질 설명 --%>
+	      	//local 서버 내에 있는 이미지라 링크가 걸리지 않음. 임의 이미지 링크 걸어놓음.
+	      	imageUrl: thisUrl, // 콘텐츠 URL
+		      link: {
+		         mobileWebUrl: thisUrl,
+		         webUrl: thisUrl
+		      }
+	    	}
+	  	});
+	}
 
 
 </script>

@@ -197,7 +197,7 @@
 		    </div>
 		  </div>
 
-		<br /><br /><br /><br /><br />
+		<br /><br /><br />
 <script>
 // 제목을 클릭하면 show실행됨.
 function show(boardNo){
