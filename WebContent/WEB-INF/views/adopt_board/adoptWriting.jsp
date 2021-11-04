@@ -116,7 +116,7 @@ $(() => {
 	enctype="multipart/form-data">
 	<table id="tbl-board-view">
     <tr>
-        <th> 사이트 이름</th>
+        <th> 사이트  이름</th>
         <td><input type="text" name="title" required></td>
     </tr>
 	<tr>
