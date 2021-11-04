@@ -57,14 +57,17 @@
 }
 
 /* 검색영역 css */
- 	div#search-container {margin:0 0 10px 0; padding:3px;}
-    div#search-memberId {display: <%= searchType == null || "writer".equals(searchType) ? "inline-block" : "none" %>; }
-    div#search-gender {display: <%= "gender".equals(searchType) ? "inline-block" : "none" %>;}	
-    div#search-animalType {display: <%= "animalType".equals(searchType) ? "inline-block" : "none" %>;}
-    form{margin:0 0}
-    div#search-container button{font-size: 0.7em; padding: 8px 15px; margin-bottom: 5px }
-    #searchType{height: 30px; margin-top: 2.5px; margin-right: 5px}
-    div input{margint-right:5px}
+div#search-container {margin:0 0 10px 0; padding:3px;}
+div#search-memberId {display: <%= searchType == null || "writer".equals(searchType) ? "inline-block" : "none" %>; }
+div#search-gender {display: <%= "gender".equals(searchType) ? "inline-block" : "none" %>;}	
+div#search-animalType {display: <%= "animalType".equals(searchType) ? "inline-block" : "none" %>;}
+div#search-status {display: <%= "status".equals(searchType) ? "inline-block" : "none" %>;}
+div#search-completeYN {display: <%= "completeYN".equals(searchType) ? "inline-block" : "none" %>;}
+form{margin:0 0}
+div#search-container button{font-size: 0.7em; padding: 8px 15px; margin-bottom: 5px }
+#searchType{height: 30px; margin-top: 2.5px; margin-right: 5px; width:8vw;}
+div input{margint-right:5px}
+
 </style>
 
 
@@ -73,16 +76,18 @@
 
 <!--검색 기능  -->
  <div id="search-container" class="d-flex justify-content-center">
-	        <select id="searchType">
+	        <select id="searchType">검색: 
 	            <option value="memberId" <%= "memberId".equals(searchType) ? "selected" : "" %>>아이디</option>		
 	            <option value="animalType" <%= "animalType".equals(searchType) ? "selected" : "" %>>종류</option>
 	            <option value="gender" <%= "gender".equals(searchType) ? "selected" : "" %>>성별</option>
+	            <option value="status" <%= "status".equals(searchType) ? "selected" : "" %>>상태</option>
+	            <option value="completeYN" <%= "completeYN".equals(searchType) ? "selected" : "" %>>완료여부</option>
 	        </select>
 	        <div id="search-memberId" class="search-type">
 	            <form action="<%=request.getContextPath()%>/findMe_board/finder">
+	                <input type="hidden" name="searchType" value="writer"/>
 	                <input type="text" name="searchKeyword"  size="25" placeholder="검색할 아이디를 입력하세요." value="<%= "writer".equals(searchType) ? searchKeyword : "" %>" class=""/>
 	                <button type="submit" class="btn btn-primary">검색</button>			
-	                <input type="hidden" name="searchType" value="writer"/>
 	            </form>	
 	        </div>
 	        <div id="search-animalType" class="search-type">
@@ -103,6 +108,27 @@
 	                <button type="submit" class="btn btn-primary">검색</button>
 	            </form>
 	        </div>
+	        <div id="search-status" class="search-type">
+	        	<form action="<%=request.getContextPath()%>/findMe_board/finder">
+	                <input type="hidden" name="searchType" value="status"/>	        	
+	        		<select id="searchType" name="searchKeyword" id="">
+	        			<option value="실종" <%= "실종".equals(searchKeyword) ? "selected":"" %>>실종</option>
+	        			<option value="보호" <%= "보호".equals(searchKeyword) ? "selected":"" %>>보호</option>
+	        			<option value="목격" <%= "목격".equals(searchKeyword) ? "selected":"" %>>목격</option>
+	        		</select>
+		                <button type="submit" class="btn btn-primary">검색</button>	        			
+	        	</form>
+	        </div>
+	        <div id="search-completeYN" class="search-type">
+	        	<form action="<%=request.getContextPath()%>/findMe_board/finder">
+	                <input type="hidden" name="searchType" value="completeYN"/>	        	
+	        		<select id="searchType" name="searchKeyword" id="">
+	        			<option value="N" <%= "N".equals(searchKeyword) ? "selected":"" %>>진행 중</option>
+	        			<option value="Y" <%= "Y".equals(searchKeyword) ? "selected":"" %>>완료</option>
+	        		</select>
+		                <button type="submit" class="btn btn-primary">검색</button>	        			
+	        	</form>
+	        </div>	        
 	    </div>
 
 <!--/검색 기능  -->

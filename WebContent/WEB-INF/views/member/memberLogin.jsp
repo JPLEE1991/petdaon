@@ -18,6 +18,10 @@ resultMsg = resultMsg == null ? "" : resultMsg;
     }
     </script>
 </head>
+
+<style>
+.col-lg-4{margin:auto}
+</style>
 <body>
 
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
