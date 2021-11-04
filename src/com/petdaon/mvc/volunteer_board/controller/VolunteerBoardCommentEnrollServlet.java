@@ -36,7 +36,7 @@ public class VolunteerBoardCommentEnrollServlet extends HttpServlet {
 			
 			// 객체 생성
 			BoardComment bc = new BoardComment(0, writer, commentLevel, content, commentRef, null, volunteerBoardService.DELETE_NO, volunteerBoardService.VOLUNTEER_BOARD_CODE, boardNo);
-			System.out.println("bc@servlet = " + bc);
+			//System.out.println("bc@servlet = " + bc);
 			
 			// 2. 업무 로직
 			// 댓글(문의/답변) 등록

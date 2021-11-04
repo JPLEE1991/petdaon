@@ -715,6 +715,118 @@ public class VolunteerBoardDao {
 		return list;
 	}
 
+	// 회원아이디가 등록한 봉사 게시글 조회
+	public List<VolunteerBoard> selectVolunteerBoardListByWriter(Connection conn, String memberId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectVolunteerBoardListByWriter");
+		List<VolunteerBoard> list = new ArrayList<>();
+		
+		// 1.PreparedStatment객체 생성 & 미완성쿼리 값대입
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				// 테이블 record 1 -> VO객체 1
+				VolunteerBoard board = new VolunteerBoard();
+				board.setNo(rset.getInt("no"));
+				board.setTitle(rset.getString("title"));
+				board.setCenterName(rset.getString("center_name"));
+				board.setContent(rset.getString("content"));
+				board.setStartDate(rset.getDate("start_date"));
+				board.setEndDate(rset.getDate("end_date"));
+				board.setEmail(rset.getString("email"));
+				board.setPhone(rset.getString("phone"));
+				board.setApprovalYn(rset.getString("approval_yn"));
+				board.setDeleteYn(rset.getString("delete_yn"));
+				board.setCapacity(rset.getInt("capacity"));
+				board.setPlace(rset.getString("place"));
+				board.setDeadlineDate(rset.getDate("deadline_date"));
+				board.setRegDate(rset.getDate("reg_date"));
+				board.setTime(rset.getString("time"));
+				board.setDay(rset.getString("day"));
+				board.setBoardCode(rset.getString("board_code"));
+				board.setWriter(rset.getString("writer"));
+				board.setEnrollYn(rset.getString("enroll_yn"));
+				board.setThumbnail(rset.getString("thumbnail"));
+				
+				//보드를 리스트에 추가한다.
+				list.add(board);
+			}
+			
+		} catch (Exception e) {
+			throw new BoardException("봉사 등록 확인 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 
+	// 봉사게시글 접수취소 상태로 변경
+	public int updateVolunteerBoardEnrollStatusCancle(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateVolunteerBoardEnrollStatusCancle");
+		
+		try {
+			// 미완성 쿼리 값 대입
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			// 쿼리문 실행
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BoardException("봉사게시글 접수취소 상태변경 오류!", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	// 회원아이디가 등록한 봉사신청 조회
+	public List<VolunteerApplicationExt> selectVolunteerApplicationListByWriter(Connection conn, String memberId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectVolunteerApplicationListByWriter");
+		List<VolunteerApplicationExt> list = new ArrayList<>();
+		
+		// 1.PreparedStatment객체 생성 & 미완성쿼리 값대입
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				// 테이블 record 1 -> VO객체 1
+				VolunteerApplicationExt application = new VolunteerApplicationExt();
+				application.setNo(rset.getInt("no"));
+				application.setApprovalYn(rset.getString("approval_yn"));
+				application.setApplicationYn(rset.getString("application_yn"));
+				application.setRegDate(rset.getDate("reg_date"));
+				application.setBoardNo(rset.getInt("board_no"));
+				application.setBoardCode(rset.getString("board_code"));
+				application.setApplicant(rset.getString("applicant"));
+				application.setTitle(rset.getString("title"));
+				
+				//신청자 리스트에 추가한다.
+				list.add(application);
+			}
+			
+		} catch (Exception e) {
+			throw new BoardException("봉사 신청 확인 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 
 }

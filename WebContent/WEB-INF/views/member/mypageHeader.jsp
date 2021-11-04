@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <!-- 부트스트랩(CSS & JavaScript Bundle with Popper) -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<%-- <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script> --%>
+<script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 매테리얼 아이콘 -->
@@ -52,8 +52,8 @@ a.btn {font-weight:500;}
 							<ul>
 								<li><a href="#">관심글 내역</a></li>
 								<li><a href="#">1:1문의 내역</a></li>
-								<li><a href="<%= request.getContextPath() %>/volunteerBoard/mypageCheck?<%= _member.getMemberId() %>">봉사 등록 확인</a></li>
-								<li><a href="#">봉사 신청 확인</a></li>
+								<li><a href="<%= request.getContextPath() %>/volunteerBoard/mypage">봉사 등록 확인</a></li>
+								<li><a href="<%= request.getContextPath() %>/volunteerApplication/mypage">봉사 신청 확인</a></li>
 								<li><a href="#">신고내역</a></li>
 							</ul>
 						</div>
