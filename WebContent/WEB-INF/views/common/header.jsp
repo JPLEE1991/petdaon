@@ -101,14 +101,8 @@
         <li class="nav-item">
           <a class="nav-link" href="<%= request.getContextPath() %>/findMe_board/boardList">나를찾아줘 <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link " href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            커뮤니티
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="<%= request.getContextPath() %>/bulletin_board/boardList">자유게시판</a>
-            <a class="dropdown-item" href="<%= request.getContextPath() %>/gallery_board/boardList">자랑게시판</a>
-          </div>
+        <li class="nav-item">
+          <a class="nav-link" href="<%= request.getContextPath() %>/bulletin_board/boardList">커뮤니티</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<%= request.getContextPath() %>/volunteerBoard/boardList">봉사게시판</a>
