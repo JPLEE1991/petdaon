@@ -82,7 +82,7 @@
 <% 
 		if(board.getAttach() != null){
 %>
-				<img src="<%= request.getContextPath() %>/images/bulletin_board/file.png" width="16px" alt="" />	
+				<img src="<%= request.getContextPath() %>/upload/bulletin_board/file.png" width="16px" alt="" />	
 <% 		
 		} 
 %>		
