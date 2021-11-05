@@ -33,7 +33,7 @@ public class AskBoardEnrollServlet extends HttpServlet {
 				
 		//2. 업무로직
 		int result = askBoardService.insertAskBoard(askBoard);
-		String msg = result > 0 ? "문의 등록 성공!" : "문의 등록 실패!";
+		String msg = result > 0 ? "문의가 성공적으로 접수되었습니다." : "문의가 접수되지 않았습니다.";
 				
 		//3. 응답처리
 		HttpSession session = request.getSession();
