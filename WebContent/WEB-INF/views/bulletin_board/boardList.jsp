@@ -95,7 +95,7 @@
 %>			
 	</table>
 	
-	<div id='pageBar'><%= request.getAttribute("pageBar") %></div>
+	<div id='pageBar'><%= request.getAttribute("pagebar") %></div>
 </section>
 <br />
 
