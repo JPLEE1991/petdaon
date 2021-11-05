@@ -9,6 +9,23 @@
 	BulletinBoard board = (BulletinBoard) request.getAttribute("board");
 %>
 
+<style>
+/* SNS공유 */
+.link-icon { position: relative; display: inline-block; width: auto;    font-size: 14px; font-weight: 500; color: #333; margin-right: 10px; padding-top: 50px; width:40px }
+.link-icon.twitter { background-image: url(<%=request.getContextPath()%>/images/icon-twitter.png); background-repeat: no-repeat; }
+.link-icon.facebook { background-image: url(<%=request.getContextPath()%>/images/icon-facebook.png); background-repeat: no-repeat; } 
+.link-icon.kakao { background-image: url(<%=request.getContextPath()%>/images/icon-kakao.png); background-repeat: no-repeat; }
+
+.shareBtn { 
+	display: inline-block; 
+	margin-top: 20px;
+	margin-left: 320px;
+	}
+</style>
+<!--SNS 카카오톡 공유  -->
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/bulletin_board/board.css" />
 <section id="board-container">
 	<h2>게시판</h2>
@@ -45,7 +62,7 @@
 				<%= board.getContent() %>
 			</td>
 		</tr>
-
+		
 		<tr>
 			<%-- 작성자와 관리자만 마지막행 수정/삭제버튼이 보일수 있게 할 것 --%>
 			<th colspan="2">
@@ -56,7 +73,18 @@
 
 	</table>
 	
+		<!-- SNS 공유버튼 모음  -->
+		<div class="row text-center" style="float: none; margin 0 center">
+			<div class="shareBtn">
+				<a id="btnTwitter" class="link-icon twitter" href="javascript:shareTwitter();"></a>
+				<a id="btnFacebook" class="link-icon facebook" href="javascript:shareFacebook();"></a>    
+				<a id="btnKakao" class="link-icon kakao" href="javascript:shareKakao();"></a>   			
+			</div>
+		</div>
+		<!-- / SNS공유 버튼 모음 end-->
+	
 	<hr style="margin-top:30px"/>
+	
 	
 	<div class="comment-container">
 		<div class="comment-editor">
@@ -197,6 +225,41 @@ const loginAlert = () => {
 	$("#memberId").focus();
 };
 
+
+/* SNS공유  */
+//트위터 공유
+function shareTwitter() {
+  var sendText = "<%=board.getTitle()%>"; // 전달할 텍스트
+  var sendUrl = "http://192.168.0.43:9090/<%=request.getContextPath()%>"; // 전달할 URL
+  window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
+}
+//페북 공유 기능
+function shareFacebook() {
+  var sendUrl = "http://192.168.0.43:9090/<%=request.getContextPath()%>"; // 전달할 URL
+  window.open("http://www.facebook.com/sharer/sharer.php?u=" + sendUrl);
+}
+//카카오 공유 기능
+function shareKakao() {
+	 
+	  // 사용할 앱의 JavaScript 키 설정
+	  Kakao.init('81fc3c40931e5c23dfea9c79c1a7abc4');
+	 
+	  // 카카오링크 버튼 생성
+	  Kakao.Link.createDefaultButton({
+	    container: '#btnKakao', // 카카오공유버튼ID
+	    objectType: 'feed',
+	    content: {
+	      title: "<%=board.getTitle()%>", // 보여질 제목
+	      description: "<%=board.getContent()%>", // 보여질 설명
+	      //local 서버 내에 있는 이미지라 링크가 걸리지 않음. 임의 이미지 링크 걸어놓음.
+	      imageUrl: "https://i.ytimg.com/vi/1aDQnoGS_2c/maxresdefault.jpg", // 콘텐츠 URL
+	      link: {
+	         mobileWebUrl: 'http://localhost:9090<%=request.getContextPath()%>/findMe_board/boardView?no=<%= board.getNo() %>',
+	         webUrl: 'http://localhost:9090<%=request.getContextPath()%>/findMe_board/boardView?no=<%= board.getNo() %>'
+	      }
+	    }
+	  });
+	}
 
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
