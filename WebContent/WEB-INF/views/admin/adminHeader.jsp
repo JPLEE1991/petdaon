@@ -6,8 +6,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 매테리얼 아이콘 -->
-<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
 
 <style>
 main, #sidebar, #sidebar a {display:flex;}
@@ -69,11 +69,11 @@ a.btn {font-weight:500;}
 				</li>
 				<!-- 고객센터 -->
 				<li>
-					<a class="btn" data-bs-toggle="collapse" data-bs-target="#service" aria-expanded="false" aria-controls="service">고객센터&nbsp<i class="bi bi-chevron-right"></i></a>
+					<a class="btn" data-bs-toggle="collapse" data-bs-target="#service" aria-expanded="false" aria-controls="service">고객센터&nbsp<span class="material-icons-round">chevron_right</span></a>
 					<div class="collapse category" id="service">
 						<ul>
-							<li><a href="#">공지사항</a></li>
-							<li><a href="#">1:1문의</a></li>
+							<li><a href="<%= request.getContextPath() %>/admin/noticeBoard">공지사항</a></li>
+							<li><a href="<%= request.getContextPath() %>/admin/askBoard">1:1문의</a></li>
 							<li><a href="#">신고내역</a></li>
 						</ul>
 					</div>

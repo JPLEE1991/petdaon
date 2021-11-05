@@ -25,6 +25,10 @@
 	justify-content:flex-end;
 	margin-right:30px;
   }
+  #writerBtn {
+  	display: flex;
+  	margin-right: 360px;
+  }
 </style>
 </head>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
@@ -82,7 +86,7 @@
 <% 
 		if(board.getAttach() != null){
 %>
-				<img src="<%= request.getContextPath() %>/images/bulletin_board/file.png" width="16px" alt="" />	
+				<img src="<%= request.getContextPath() %>/upload/bulletin_board/file.png" width="16px" alt="" />	
 <% 		
 		} 
 %>		
@@ -95,13 +99,13 @@
 %>			
 	</table>
 	
-	<div id='pageBar'><%= request.getAttribute("pageBar") %></div>
+	<div id='pageBar'><%= request.getAttribute("pagebar") %></div>
 </section>
 <br />
 
 
 <div class="btn-w">
-<input type="button" class="btn btn-outline-secondary" value="글쓰기" id="btn-add" onclick="location.href='<%= request.getContextPath() %>/views/bulletin_board/boardForm';" />
+<input type="button" class="btn btn-outline-secondary" id="writerBtn" value="글쓰기" id="btn-add" onclick="location.href='<%= request.getContextPath() %>/views/bulletin_board/boardForm';" />
 </div>
 
 <br />

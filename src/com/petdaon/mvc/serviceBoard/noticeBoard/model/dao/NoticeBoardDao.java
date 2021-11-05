@@ -131,4 +131,59 @@ public class NoticeBoardDao {
 		}
 		return result;
 	}
+
+	public int deleteNoticeBoard(Connection conn, int no) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("deleteNoticeBoard");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, no);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertNoticeBoard(Connection conn, NoticeBoard noticeBoard) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertNoticeBoard");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, noticeBoard.getWriter());
+			pstmt.setString(2, noticeBoard.getTitle());
+			pstmt.setString(3, noticeBoard.getContent());
+				
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateNoticeBoard(Connection conn, NoticeBoard noticeBoard) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("updateNoticeBoard"); 
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, noticeBoard.getTitle());
+			pstmt.setString(2, noticeBoard.getContent());
+			pstmt.setInt(3, noticeBoard.getNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

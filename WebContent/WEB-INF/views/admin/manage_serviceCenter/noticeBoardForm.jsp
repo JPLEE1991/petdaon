@@ -12,6 +12,44 @@
 <style>
 </style>
 
+	<div class="container">
+		<div class="row">
+		
+			<!-- 1:1문의 -->
+			<div id="notice" class="card col-11">
+				<h3 class="text-center">공지사항</h3>	
+					
+				<!-- 공지사항폼 -->
+				<form name="noticeBoardEnrollFrm" action="<%= request.getContextPath() %>/admin/noticeBoard/noticeBoardEnroll" method="post">
+					<!-- 작성자 : 로그인 상태인 관리자아이디 가져오기 -->
+					<div class="input-group col-11 col-xl-9">
+					  <span id="writer" class="input-group-text col-5">작성자</span>
+					  <input type="text" name="writer" class="form-control col-7 bg-white" value="<%= loginMember.getMemberId() %>" readonly/>
+					</div>
+					<!-- 제목 -->
+					<div class="col-11 col-xl-9">
+					  <label for="title" class="form-label">제목</label>
+					  <input type="text" name="title" id="title" class="form-control" placeholder="제목을 입력해주세요.(20자 이내)" maxlength="20"/>
+					</div>
+					<!-- 내용 -->
+					<div class="col-11 col-xl-9">
+					  <label for="content" class="form-label">내용</label>
+					  <textarea name="content" id="content" class="form-control" rows="7" placeholder="공지 내용을 상세히 입력해주시기 바랍니다."></textarea>
+					</div>
+					<!-- 버튼 -->
+					<div class="btn-group col-12">
+						<a id="btn-cancel" href="<%= request.getContextPath() %>/admin/noticeBoard" class="btn">취소</a>
+						<input type="submit" id="btn-enroll" class="btn" value="확인">
+					</div>
+				</form>
+					
+			</div>
+			
+		</div>
+	</div>
+	
+	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	
 <script>
 $(document).ready(function(){
 	$("#main-title").text('공지사항 등록');
@@ -43,44 +81,5 @@ $(() => {
 	$(document.noticeBoardEnrollFrm).submit(noticeBoardValidate);
 });
 </script>
-
-	<div class="container">
-		<div class="row">
-		
-			<!-- 1:1문의 -->
-			<div id="notice" class="card col-11">
-				<h3 class="text-center">공지사항</h3>	
-					
-				<!-- 공지사항폼 -->
-				<form name="noticeBoardEnrollFrm" action="<%= request.getContextPath() %>/admin/noticeBoard/noticeBoardEnroll" method="post">
-					<!-- 작성자 : 로그인 상태인 관리자아이디 가져오기 -->
-					<div class="input-group col-11 col-xl-9">
-					  <span id="inquiry-writer" class="input-group-text col-5">작성자</span>
-					  <input type="text" name="writer" class="form-control col-7 bg-white" value="<%= loginMember.getMemberId() %>" readonly/>
-					</div>
-					<!-- 제목 -->
-					<div class="col-11 col-xl-9">
-					  <label for="inquiry-title" class="form-label">제목</label>
-					  <input type="text" name="title" id="title" class="form-control" placeholder="제목을 입력해주세요.(20자 이내)" maxlength="20"/>
-					</div>
-					<!-- 내용 -->
-					<div class="col-11 col-xl-9">
-					  <label for="inquiry-content" class="form-label">내용</label>
-					  <textarea name="content" id="content" class="form-control" rows="7" placeholder="공지 내용을 상세히 입력해주시기 바랍니다."></textarea>
-					</div>
-					
-					<!-- 버튼 -->
-					<div class="btn-group col-12">
-						<a id="btn-cancel" href="<%= request.getContextPath() %>/admin/noticeBoard" class="btn">취소</a>
-						<input type="submit" id="btn-enroll" class="btn" value="확인">
-					</div>
-				</form>
-					
-			</div>
-			
-		</div>
-	</div>
-	
-	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 <%@ include file="/WEB-INF/views/admin/adminFooter.jsp" %>

@@ -10,6 +10,7 @@ import com.petdaon.mvc.serviceBoard.askBoard.model.vo.AskBoard;
 public class AskBoardService {
 	
 	public static final String STATUS_DEFAULT = "D";
+	public static final String STATUS_ING = "I";
 	
 	private AskBoardDao askBoardDao = new AskBoardDao();
 	
@@ -27,6 +28,13 @@ public class AskBoardService {
 		return totalContents;
 	}
 
+	public AskBoard selectOneAskBoard(int inquiryNo) {
+		Connection conn = getConnection();
+		AskBoard askBoard = askBoardDao.selectOneAskBoard(conn, inquiryNo);
+		close(conn);
+		return askBoard;
+	}
+	
 	public int insertAskBoard(AskBoard askBoard) {
 		Connection conn = getConnection();
 		int result = askBoardDao.insertAskBoard(conn, askBoard);
@@ -36,11 +44,21 @@ public class AskBoardService {
 		close(conn);
 		return result;
 	}
-
-	public AskBoard selectOneAskBoard(int inquiryNo) {
+	
+	public int updateAskBoard(AskBoard askBoard) {
 		Connection conn = getConnection();
-		AskBoard askBoard = askBoardDao.selectOneAskBoard(conn, inquiryNo);
-		close(conn);
-		return askBoard;
+		int result = 0;
+		try {
+			result = askBoardDao.updateAskBoard(conn, askBoard);
+			if(result > 0) commit(conn);
+			close(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
 	}
+
 }
