@@ -17,9 +17,9 @@ public class BulletinBoardService {
 
     private static BulletinBoardDao boardDao = new BulletinBoardDao();
 
-    public List<BulletinBoard> selectBoardList(int startRownum, int endRownum) {
+    public List<BulletinBoard> selectBoardList(int start, int end) {
         Connection conn = getConnection();
-        List<BulletinBoard> list = boardDao.selectBoardList(conn, startRownum, endRownum);
+        List<BulletinBoard> list = boardDao.selectBoardList(conn, start, end);
         close(conn);
         return list;
     }

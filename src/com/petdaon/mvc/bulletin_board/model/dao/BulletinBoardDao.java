@@ -36,21 +36,19 @@ public class BulletinBoardDao {
         }
     }
 
-    public List<BulletinBoard> selectBoardList(Connection conn, int startRownum, int endRownum) {
+    public List<BulletinBoard> selectBoardList(Connection conn, int start, int end) {
         PreparedStatement pstmt = null;
-        String sql = prop.getProperty("selectBoardList");
         ResultSet rset = null;
+        String sql = prop.getProperty("selectBoardList");
         List<BulletinBoard> list = new ArrayList<>();
         
         try {
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, startRownum);
-            pstmt.setInt(2, endRownum);
+            pstmt.setInt(1, start);
+            pstmt.setInt(2, end);
             
-            // 2. 쿼리실행
             rset = pstmt.executeQuery();
             
-            // 3. rset -> list
             while(rset.next()) {
                 BulletinBoard board = new BulletinBoard();
                 board.setNo(rset.getInt("no"));

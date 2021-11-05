@@ -42,7 +42,7 @@
 	</div>
 	
 	<%-- 봉사 최근 게시글 4개 카드형식으로 놓기 --%>
-	<div class="container mt-5">
+	<div class="container my-5">
 		<div class="row">
 		
 <%
@@ -53,7 +53,11 @@
 					<div class="card w-100 h-100" style="width: 18rem;">
 					
 						<a href="<%= request.getContextPath() %>/volunteerBoard/boardView?no=<%= board.getNo() %>">
+						<% if(board.getThumbnail() != null) {%>
 							<img src="<%= request.getContextPath() %>/<%= board.getThumbnail() %>" class="card-img-top" alt="<%= board.getTitle() %> 썸네일 사진">
+						<% } else {%>
+							<img src="<%= request.getContextPath() %>/images/blank-volunteer-640.jpg" height="200px" class="card-img-top" alt="<%= board.getTitle() %> 썸네일 사진">
+						<% } %>
 						</a>
 					
 					
@@ -75,56 +79,11 @@
 		}
 		%>		
 		
-			
-			<!-- <div class="col-md-3">
-			
-				<div class="card w-100" style="width: 18rem;">
-					<img src="..." class="card-img-top" alt="...">
-					<div class="card-body">
-						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-					</div>
-				</div>
-			
-			</div>
-			
-			<div class="col-md-3">
-			
-				<div class="card w-100" style="width: 18rem;">
-					<img src="..." class="card-img-top" alt="...">
-					<div class="card-body">
-						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-					</div>
-				</div>
-			
-			</div>
-			
-			<div class="col-md-3">
-			
-				<div class="card w-100" style="width: 18rem;">
-					<img src="..." class="card-img-top" alt="...">
-					<div class="card-body">
-						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-					</div>
-				</div>
-			
-			</div> -->
-		
 		</div>
 	
-	
 	</div>
-	
-	
-	
+
 	<%-- --%>
-	
-	
-	
-	
-	
-	
-	
-	<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
 <script>
 // 등록하기 버튼 클릭 시 alert창 ''

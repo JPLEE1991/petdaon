@@ -174,9 +174,9 @@
 				
 			</div>
 			
-			<div class="row">
+			<div class="row mt-2 mb-5">
 			
-				<div class="d-flex justify-content-center my-3">
+				<div class="d-flex justify-content-center my-3 ">
 					<button type="button" class="col-sm-2 btn btn-secondary btn-lg mx-3" onclick="history.back()">취소</button>
 					<button type="submit" class="col-sm-2 btn btn-primary btn-lg mx-3">수정하기</button>
 				
@@ -185,8 +185,6 @@
 		</form>
 	</div>
 
-
-	<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 <script>
 
 /**
@@ -314,7 +312,7 @@ $(document).ready(function() {
 	          ['style', ['style']],
 	          ['fontsize', ['fontsize']],
 	          ['font', ['bold', 'underline', 'clear']],
-	          ['color', ['color']],
+	          ['color', ['forecolor','color']],
 	          ['para', ['ul', 'ol', 'paragraph']],
 	          ['table', ['table']],
 	          ['insert', ['link']],
