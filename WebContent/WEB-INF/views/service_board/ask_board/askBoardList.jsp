@@ -1,3 +1,4 @@
+<%@page import="com.petdaon.mvc.member.model.service.MemberService"%>
 <%@page import="com.petdaon.mvc.serviceBoard.askBoard.model.service.AskBoardService"%>
 <%@page import="com.petdaon.mvc.serviceBoard.askBoard.model.vo.AskBoard"%>
 <%@page import="java.util.List"%>
@@ -8,15 +9,17 @@
 	List<AskBoard> list = (List<AskBoard>) request.getAttribute("list");
 %>
 <%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/css/serviceCenter/boardList.css"/> --%>
-<!-- 부트스트랩 -->
+<!-- 부트스트랩(CSS & JavaScript Bundle with Popper) -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 매테리얼 아이콘 -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
 
 <style>
 h2 {padding:30px; margin:0 auto; text-align:center;}
+.material-icons-round {font-size:1em;}
 .card {border-radius:.8rem;}
 #breadcrumb {border:0; margin:0 auto; background-color:#ffd749; height:300px;}
 #breadcrumb nav {padding:30px 15px; font-size:18px;}
@@ -27,9 +30,9 @@ h2 {padding:30px; margin:0 auto; text-align:center;}
 .table td {border-top:0px; padding:30px 10px; text-align:center;}
 .table td:last-child {font-size:13px; vertical-align:middle; color:#efbc1f;}
 #inquirycontent {width:300px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin:0 auto; color:#8e929f;}
-#btn {text-align:center; padding:30px 0;}
-#btn span.cPage {color:#212529; display:inline-block; width:35px; height:35px; line-height:35px; vertical-align:middle; background-color:#ffd749; border-radius:15%;}
-#btn a {color:#212529; text-decoration:none; display:inline-block; width:35px; height:35px; line-height:35px; vertical-align:middle; background-color:#eceef2; border-radius:15%;}
+#btn {padding:30px 0; display:flex; justify-content:center; align-items:center;}
+#btn a {display:flex; justify-content:center; align-items:center; text-decoration:none; border-radius:15%; margin:0 2px; color:#212529; width:35px; height:35px; background-color:#eceef2;}
+#btn a.cPage {background-color:#ffd749;}
 #btn a:hover {background-color:#ffd749;}
 </style>
 	
@@ -44,7 +47,7 @@ h2 {padding:30px; margin:0 auto; text-align:center;}
 					<li class="nav-item">
 				       <a class="nav-link" href="<%= request.getContextPath() %>/serviceCenter">고객센터</a>
 				    </li>
-				    <span class="material-icons">chevron_right</span>
+				    <span class="material-icons-round">chevron_right</span>
 				    <li class="nav-item">
 				       <a class="nav-link" href="#">나의 문의내역</a>
 				    </li>
@@ -58,9 +61,9 @@ h2 {padding:30px; margin:0 auto; text-align:center;}
 						<tbody>
 						    <%
 								for(AskBoard askBoard : list) {
+									if(_member.getMemberId().equals(askBoard.getWriter())){
 							%>
-							<tr id="ask" data-toggle="modal" data-target="#modal">
-							<%-- <tr onClick="location.href='<%= request.getContextPath() %>/serviceCenter/askBoard/askBoardView?inquiryNo=<%= askBoard.getInquiryNo() %>'"> --%>
+							<tr id="ask" onClick="openView(<%= askBoard.getInquiryNo() %>)">
 								<td>문의번호 : <%= askBoard.getInquiryNo() %></td>
 								<td><%= askBoard.getInquiryTitle() %></td>
 								<td><p class="d-none d-sm-block d-sm-none d-md-block d-md-none d-lg-block" id="inquirycontent"><%= askBoard.getInquiryContent() %></p></td>
@@ -87,6 +90,7 @@ h2 {padding:30px; margin:0 auto; text-align:center;}
 								</td>
 							</tr>
 							<%
+									}
 								}
 							%>
 						</tbody>
@@ -98,48 +102,21 @@ h2 {padding:30px; margin:0 auto; text-align:center;}
 			<div>
 			    <div id="btn"><%= request.getAttribute("pagebar") %></div>
 			</div>
-
-<%
-	AskBoard askBoard = (AskBoard) request.getAttribute("askBoard");
-%>
-			<div id="modal" class="modal fade">
-			  <div class="modal-dialog">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        <h4 class="modal-title">Modal title</h4>
-			      </div>
-			      <div class="modal-body">
-			        <p>One fine body&hellip;</p>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			        <button type="button" class="btn btn-primary">Save changes</button>
-			      </div>
-			    </div><!-- /.modal-content -->
-			  </div><!-- /.modal-dialog -->
-			</div><!-- /.modal -->
 			
 		</div>
 	</div>
 	
 	<br/><br/><br/><br/><br/><br/>
 	
-	<script>
-	
-	<%-- $("#ask").on('click', function(){
-		$.ajax({
-			url : "<%= request.getContextPath() %>/serviceCenter/askBoard/askBoardView",
-			data: "inquiryNo=<%= askBoard.getInquiryNo() %>",
-			method: "GET",
-			success : function(result){
-				$("#modal").modal('show');
-				console.log(result);
-			},
-			error: console.log
-		});
-	}); --%>
-	
-	</script>
+<script>
+function openView(inquiryNo){
+	const width = 400;
+	const height = 400;
+	const x = (screen.availWidth - width) / 2 + screen.availLeft;
+	const y = (screen.availHeight - height) / 2 + screen.availTop;
+	const url = '<%= request.getContextPath() %>/serviceCenter/askBoard/askBoardView?inquiryNo=' + inquiryNo;
+	open(url, 'popup', `width=\${width}, height=\${height}, left=\${x}, top=\${y}`);
+};
+</script>
 	
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

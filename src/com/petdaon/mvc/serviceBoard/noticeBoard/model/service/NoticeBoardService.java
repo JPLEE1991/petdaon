@@ -40,4 +40,47 @@ public class NoticeBoardService {
 		close(conn);
 		return result;
 	}
+
+	public int deleteNoticeBoard(int no) {
+		Connection conn = getConnection();
+		int result = 0;
+		
+		try {
+			result = noticeBoardDao.deleteNoticeBoard(conn, no);
+			if(result == 0)
+				throw new IllegalArgumentException("해당 공지글이 존재하지 않습니다. : " + no );
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public int insertNoticeBoard(NoticeBoard noticeBoard) {
+		Connection conn = getConnection();
+		int result = noticeBoardDao.insertNoticeBoard(conn, noticeBoard);
+		if(result > 0) commit(conn);
+		else rollback(conn);
+
+		close(conn);
+		return result;
+	}
+
+	public int updateNoticeBoard(NoticeBoard noticeBoard) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			result = noticeBoardDao.updateNoticeBoard(conn, noticeBoard);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
 }

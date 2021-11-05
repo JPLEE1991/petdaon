@@ -87,26 +87,7 @@ public class AskBoardDao {
 		return totalContents;
 	}
 
-	public int insertAskBoard(Connection conn, AskBoard askBoard) {
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertAskBoard");
-		int result = 0;
-			
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, askBoard.getWriter());
-			pstmt.setString(2, askBoard.getInquiryTitle());
-			pstmt.setString(3, askBoard.getInquiryContent());
-				
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return result;
-	}
-
+	
 	public AskBoard selectOneAskBoard(Connection conn, int inquiryNo) {
 		AskBoard askBoard = null;
 		PreparedStatement pstmt = null;
@@ -138,5 +119,44 @@ public class AskBoardDao {
 			close(pstmt);
 		}
 		return askBoard;
+	}
+	
+	public int insertAskBoard(Connection conn, AskBoard askBoard) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertAskBoard");
+		int result = 0;
+			
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, askBoard.getWriter());
+			pstmt.setString(2, askBoard.getInquiryTitle());
+			pstmt.setString(3, askBoard.getInquiryContent());
+				
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateAskBoard(Connection conn, AskBoard askBoard) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("updateAskBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, askBoard.getAnswer());
+			pstmt.setString(2, askBoard.getAdminId());
+			pstmt.setInt(3, askBoard.getInquiryNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 }

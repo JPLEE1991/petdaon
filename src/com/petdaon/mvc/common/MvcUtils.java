@@ -99,14 +99,14 @@ public class MvcUtils {
 			//pageNo가 6일때부터 생성
 		}
 		else {
-			pagebar.append("<a href='" + url + (pageNo - 1) + "'>prev</a>\n");
+			pagebar.append("<a href='" + url + (pageNo - 1) + "'><span class=\"material-icons-round\">chevron_left</span></a>\n");
 		}
 		
 		//2. pageNo
 		while(pageNo <= pageEnd && pageNo <= totalPage) {
 			if(pageNo == cPage) {
 				//현재페이지인 경우 링크제공안함.
-				pagebar.append("<span class='cPage'>" + pageNo + "</span>\n");
+				pagebar.append("<a class='cPage'>" + pageNo + "</a>\n");
 			}
 			else {
 				//현재페이지가 아닌 경우 링크제공.
@@ -120,7 +120,7 @@ public class MvcUtils {
 			
 		}
 		else {
-			pagebar.append("<a href='" + url + pageNo + "'>next</a>\n");
+			pagebar.append("<a href='" + url + pageNo + "'><span class=\"material-icons-round\">chevron_right</span></a>\n");
 		}
 		
 		return pagebar.toString();

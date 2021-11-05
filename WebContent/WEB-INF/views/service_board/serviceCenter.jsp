@@ -1,3 +1,4 @@
+<%@page import="com.petdaon.mvc.serviceBoard.askBoard.model.vo.AskBoard"%>
 <%@page import="com.petdaon.mvc.serviceBoard.noticeBoard.model.vo.NoticeBoard"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -5,19 +6,21 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <%
 	List<NoticeBoard> list = (List<NoticeBoard>) request.getAttribute("list");
+	AskBoard askBoard = (AskBoard) request.getAttribute("askBoard");
 %>
 <%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/css/serviceCenter/boardList.css"/> --%>
-<!-- 부트스트랩 -->
+<!-- 부트스트랩(CSS & JavaScript Bundle with Popper) -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 매테리얼 아이콘 -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
 
 <style>
 h2 {padding:30px; margin:0 auto; text-align:center;}
+.material-icons-round {font-size:1em;}
 .card {border-radius:.5rem;}
-.material-icons {font-size:16px;}
 #inquiry-container {padding:25px; margin-top:20px; border:0; background-color:#eceef2;}
 #inquiry-container p:first-child {padding-bottom:25px; margin:0; font-size:18px;}
 #inquiry-container .card {border:0;}
@@ -50,7 +53,7 @@ h2 {padding:30px; margin:0 auto; text-align:center;}
 				    <div class="col-6">
 					    <div class="card">
 						  <div class="card-body">
-						    <a href="<%= request.getContextPath() %>/serviceCenter/askBoard/askBoardForm">1:1문의<span class="material-icons">chevron_right</span></a>
+						    <a href="<%= request.getContextPath() %>/serviceCenter/askBoard/askBoardForm">1:1문의<span class="material-icons-round">chevron_right</span></a>
 						    <p class="card-text">질문을 남겨주시면<br/>꼼꼼히 확인하고 답변 드리겠습니다.</p>
 						  </div>
 						</div>
@@ -59,7 +62,7 @@ h2 {padding:30px; margin:0 auto; text-align:center;}
 					<div class="col-6">
 						<div class="card">
 						  <div class="card-body">
-						    <a href="<%= request.getContextPath() %>/serviceCenter/askBoard/askBoardList">나의 문의내역<span class="material-icons">chevron_right</span></a>
+						    <a href="<%= request.getContextPath() %>/serviceCenter/askBoard/askBoardList">나의 문의내역<span class="material-icons-round">chevron_right</span></a>
 						    <p class="card-text">나의 문의내역에서는<br/>1:1문의 내역을 확인할 수 있습니다.</p>
 						  </div>
 						</div>
@@ -75,7 +78,7 @@ h2 {padding:30px; margin:0 auto; text-align:center;}
 					<tbody>
 					    <%
 					    	for(NoticeBoard noticeBoard : list) {
-						%>
+					    %>
 						<tr onClick="location.href='<%= request.getContextPath() %>/serviceCenter/noticeBoard/noticeBoardView?no=<%= noticeBoard.getNo() %>'">
 							<td><%= noticeBoard.getNo() %> &nbsp &nbsp &nbsp <%= noticeBoard.getTitle() %></td>
 							<td><%= noticeBoard.getEnrollDate() %></td>
@@ -88,7 +91,7 @@ h2 {padding:30px; margin:0 auto; text-align:center;}
 			</div>
 		    
 		    <!-- 공지사항 더보기 -->
-			<a id="btnbar" class="btn col-10 col-xxl-9" href="<%= request.getContextPath() %>/serviceCenter/noticeBoard/noticeBoardList">공지사항 더보기&nbsp<span class="material-icons">chevron_right</span></a>
+			<a id="btnbar" class="btn col-10 col-xxl-9" href="<%= request.getContextPath() %>/serviceCenter/noticeBoard/noticeBoardList">공지사항 더보기&nbsp<span class="material-icons-round">chevron_right</span></a>
 		    
     	</div>
     </div>
