@@ -220,11 +220,10 @@ td{
 				<table class="table">
 				  <thead>
 				    <tr>
-				      <th colspan="4">공지사항
-				      
-				      <a href="<%= request.getContextPath() %>/serviceCenter/noticeBoard/noticeBoardList">
-						<span class="notice_adopt">+더 보기</span>
-					  </a>
+				      <th colspan="4">공지사항				      
+					      <a href="<%= request.getContextPath() %>/serviceCenter/noticeBoard/noticeBoardList">
+							<span class="notice_adopt">+더 보기</span>
+						  </a>
 				      </th>
 				    </tr>
 				  </thead>
@@ -249,19 +248,30 @@ td{
 				  <thead>
 				    <tr>
 				      <th colspan="4">입양 임보			      
-				      <a href="<%= request.getContextPath() %>/adopt_board/adoptForm">
-						<span class="notice_adopt">+더 보기</span>
-					  </a>
+					      <a href="<%= request.getContextPath() %>/adoptBoard/list">
+							<span class="notice_adopt">+더 보기</span>
+						  </a>
 				      </th>
 				    </tr>
 				  </thead>
 				  <tbody>
-	<% for(NoticeBoard noticeBoard : noticeList){ %>
 				  	<tr>
-				      <td><%= noticeBoard.getTitle() %></td>
-				      <td><%= noticeBoard.getContent() %></td>
+				      <td>[무료 분양]</td>
+				      <td>주세요 닷컴</td>
 				    </tr>
-	<% } %>					    				  	
+				  	<tr>
+				      <td>[보호소]</td>
+				      <td>도그마루 보호소</td>
+				    </tr>
+				  	<tr>
+				      <td>[보호소]</td>
+				      <td>라온 보호소</td>
+				    </tr>
+				  	<tr>
+				      <td>[통합요양센터]</td>
+				      <td>유럽 보호소</td>
+				    </tr>
+			    				    				    				    
 				  </tbody>
 				</table>
 			</div>		
