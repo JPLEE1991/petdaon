@@ -8,6 +8,12 @@
 Member member = (Member)request.getAttribute("member");
 %>
 
+<style>
+#photo {
+    text-align: center;
+}
+</style>
+
 <script type="text/javascript">
 function fnUpdate() {
 	$('#uploadForm').submit();
