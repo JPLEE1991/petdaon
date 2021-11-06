@@ -13,8 +13,6 @@ function fnLeave() {
        list-style: circle;
     }
 
-    .yellow_txt {color: gold;}
-
     .box {
         border: 1px solid #ccc;
         padding: 50px;
@@ -39,7 +37,7 @@ function fnLeave() {
         	</div>
 			
 
-			<button type="submit" id="leave" onclick="javascript:fnGoList();">취소</button>
+			<button type="submit" id="cancle" onclick="location.href='<%=request.getContextPath()%>/member/myDetail'">취소</button>
 			<button type="submit" id="leave" onclick="javascript:fnLeave();">탈퇴</button>
 		</fieldset>
 	</form>

@@ -23,7 +23,7 @@ public class MemberLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private MemberService memberService = new MemberService();
-
+ 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		String resultMsg = "";
@@ -31,18 +31,21 @@ public class MemberLoginServlet extends HttpServlet {
 		String password = StringUtils.getString(req.getParameter("password"));
 		
 		Member member = memberService.selectOneMember(memberId);
-		if (member == null) {	// 사용자정보 없음
-			resultMsg = "인증실패";
+		if (member == null) {	// 사용자정보 없을때
+			resultMsg = "아이디와 비밀번호를 확인하세요";
 			
 		} else {
 			String encPassword = MvcUtils.getEncryptedPassword(password);
-			if (!encPassword.equals(member.getPassword())) {	// 비밀번호 불일치
-				resultMsg = "인증실패";
+			if ("N".equals(member.getStatus())) {				// 탈퇴한 회원.
+				resultMsg = "탈퇴한 회원입니다.";
+				
+			} else if (!encPassword.equals(member.getPassword())) {	// 비밀번호 불일치
+				resultMsg = "아이디와 비밀번호를 확인하세요";
 				
 			} else {											// 인증성공
 				req.getSession(true).setAttribute(Constants.SESSION_KEY, member);
 
-				String url = this.getServletContext().getContextPath() + "/index.jsp";
+				String url = this.getServletContext().getContextPath();
 				res.sendRedirect(url);
 				return;
 			}

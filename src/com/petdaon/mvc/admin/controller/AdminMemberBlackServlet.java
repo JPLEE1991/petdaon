@@ -23,15 +23,15 @@ public class AdminMemberBlackServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+		//파라미터값을 가져옴
 		String memberId = req.getParameter("memberId");
 		
 		memberService.blackMember(memberId);
 		
 		String url = this.getServletContext().getContextPath() + "/admin/adminmemberDetail?memberId=" + memberId;
 		
-		System.out.println("url = " + url);
-		
+		//System.out.println("url = " + url);
+		//redirect
 		res.sendRedirect(url);
 	
 	}
