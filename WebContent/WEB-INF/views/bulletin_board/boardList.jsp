@@ -22,13 +22,11 @@
   }
  .btn-w {
 	display: flex;
-	justify-content:flex-end;
-	margin-right:30px;
+	justify-content:center;
+	
   }
-  #writerBtn {
-  	display: flex;
-  	margin-right: 360px;
-  }
+
+  
 </style>
 </head>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
@@ -105,7 +103,7 @@
 
 
 <div class="btn-w">
-<input type="button" class="btn btn-outline-secondary" id="writerBtn" value="글쓰기" id="btn-add" onclick="location.href='<%= request.getContextPath() %>/views/bulletin_board/boardForm';" />
+<input type="button" class="btn btn-outline-secondary"  value="글쓰기" id="btn-add" onclick="location.href='<%= request.getContextPath() %>/views/bulletin_board/boardForm';" />
 </div>
 
 <br />
