@@ -104,27 +104,25 @@
   <ul class="flex justify-content-center">
     
 
+    <li class="nav-item">
+      <a href="https://animal.seoul.go.kr/index">
+          <img src="<%= request.getContextPath() %>/images/서울 동물복지 지원센터.png" width="420"; />
+          <p class="card-text">[서울 동물복지 지원센터]</p>
+       
       <li class="nav-item">
-      	<a href="https://www.zooseyo.com/main/main.php?">
-          <img src="<%= request.getContextPath() %>/images/주세요닷컴.png" width="420"; />
-			<p class="card-text">[주세요 닷컴]</p>
+      	<a href="https://www.animal.go.kr/front/awtis/institution/institutionList.do?boardId=shop&page=1&pageSize=0&regNo=&menuNo=1000000059&searchUprCd=&searchOrgCd=&searchText=">
+          <img src="<%= request.getContextPath() %>/images/동물 보호 관리시스템.png" width="420"; />
+			<p class="card-text">[동물 보호 관리 시스템]</p>
+			
      <li class="nav-item">
       <a href="https://dmanimal.co.kr">
           <img src="<%= request.getContextPath() %>/images/도그마루 보호소.png" width="420"; />
 <p class="card-text">[도그마루 보호소]</p>
-      
-    <li>
-     
-    <li class="nav-item">
-      <a href="www.minipetmall.co.kr/pc/review/review_030100.html">
-          <img src="<%= request.getContextPath() %>/images/미니펫.png" width="420"; />
-          <p class="card-text">[미니펫]</p>
-        </li>
-        
+    
          <li class="nav-item">
-      <a href="http://www.sinsadog.com/?n_media=27758&n_query=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_rank=9&n_ad_group=grp-a001-01-000000008843986&n_ad=nad-a001-01-000000142583531&n_keyword_id=nkw-a001-01-000001647971233&n_keyword=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_campaign_type=1&n_ad_group_type=1&NaPm=ct%3Dkvhbjzts%7Cci%3D0zO0000OtC1vJWIqYuZD%7Ctr%3Dsa%7Chk%3D3af178f94964d4bf626d9034d8eb6afcd045043a">
-          <img src="<%= request.getContextPath() %>/images/신사독.png" width="420"; />
-          <p class="card-text">[신사독]</p>
+      <a href="http://www.com2petcare.co.kr/theme/daontheme_ver2_02/html/company/01.php">
+          <img src="<%= request.getContextPath() %>/images/컴투펫케어.png" width="420"; />
+          <p class="card-text">[컴투펫케어]</p>
         </li>
 
    
@@ -136,15 +134,20 @@
   <br />
   <ul class="flex justify-content-center">
 
-      <li class="nav-item">
-      <a href="www.dog-zzang.co.kr/main/main.php?kwqy=N%25EA%25B0%2595%25EC%2595%2584%25EC%25A7%2580%25EC%259E%2585%25EC%2596%2591%25EC%2582%25AC%25EC%259D%25B4%25ED%258A%25B8">
-          <img src="<%= request.getContextPath() %>/images/도그짱.png" width="420"; />
-          <p class="card-text">[도그짱]</p>
+    <li class="nav-item">
+      <a href="http://flowerway-shelter.com/?n_media=27758&n_query=%EC%9C%A0%EA%B8%B0%EB%8F%99%EB%AC%BC%EB%B3%B4%ED%98%B8%EC%84%BC%ED%84%B0&n_rank=7&n_ad_group=grp-a001-01-000000018869257&n_ad=nad-a001-01-000000152369017&n_keyword_id=nkw-a001-01-000003358507448&n_keyword=%EC%9C%A0%EA%B8%B0%EB%8F%99%EB%AC%BC%EB%B3%B4%ED%98%B8%EC%84%BC%ED%84%B0&n_campaign_type=1&n_ad_group_type=1">
+          <img src="<%= request.getContextPath() %>/images/꽃길 분양소.png" width="420"; />
+          <p class="card-text">[꽃길 분양소]</p>
+        
+<li class="nav-item">
+      <a href="https://www.ijoa.co.kr/home">
+          <img src="<%= request.getContextPath() %>/images/아이조아.png" width="420"; />
+          <p class="card-text">[아이조아]</p>
         </li>
   <li class="nav-item">
-      <a href="ulovepetshelter.co.kr/level">
-          <img src="<%= request.getContextPath() %>/images/유럽펫보호소.png" width="420"; />
-          <p class="card-text">[유럽펫보호소]</p>
+      <a href="http://daengtopia.com/?n_media=122875&n_query=%EC%9C%A0%EA%B8%B0%EB%8F%99%EB%AC%BC%EB%B3%B4%ED%98%B8%EC%84%BC%ED%84%B0&n_rank=15&n_ad_group=grp-a001-01-000000020019607&n_ad=nad-a001-01-000000144263546&n_keyword_id=nkw-a001-01-000003520445864&n_keyword=%EC%9C%A0%EA%B8%B0%EB%8F%99%EB%AC%BC%EB%B3%B4%ED%98%B8%EC%84%BC%ED%84%B0&n_campaign_type=1&n_ad_group_type=1">
+          <img src="<%= request.getContextPath() %>/images/댕토피아.png" width="420"; />
+          <p class="card-text">[댕토피아]</p>
         </li>
 
 
@@ -152,11 +155,6 @@
       <a href="https://laonshelter.co.kr/">
           <img src="<%= request.getContextPath() %>/images/라온보고서.png" width="420"; />
           <p class="card-text">[라온 보고서]</p>
-        </li>
-<li class="nav-item">
-      <a href="www.animals.or.kr/center/adopt?utm_source=naver&utm_medium=sa&utm_campaign=pc&utm_content=%EC%9E%85%EC%96%91&utm_term=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_media=122875&n_query=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_rank=6&n_ad_group=grp-a001-01-000000015617002&n_ad=nad-a001-01-000000095276356&n_keyword_id=nkw-a001-01-000002932495589&n_keyword=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_campaign_type=1&n_ad_group_type=1&NaPm=ct%3Dkvhbm47s%7Cci%3D0z40002ltC1v8SWXQvi5%7Ctr%3Dsa%7Chk%3D18ce0435e5cc56c6af092ed931d8e5ad51cc6622/">
-          <img src="<%= request.getContextPath() %>/images/동물 자유연대.png" width="420"; />
-          <p class="card-text">[동물 자유연대]</p>
         </li>
 
 
@@ -169,26 +167,24 @@
   <ul class="flex justify-content-center">
 
   <li class="nav-item">
-      <a href="https://www.ijoa.co.kr/44">
-          <img src="<%= request.getContextPath() %>/images/아이조아.png" width="420"; />
-          <p class="card-text">[아이조아]</p>
-        </li>
+      <a href="https://myohagae.com/">
+          <img src="<%= request.getContextPath() %>/images/묘하개.png" width="420"; />
+          <p class="card-text">[묘하개]</p>
+       
    <li class="nav-item">
       <a href="http://harishelter.com/?n_media=27758&n_query=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_rank=2&n_ad_group=grp-a001-01-000000020236437&n_ad=nad-a001-01-000000126277093&n_keyword_id=nkw-a001-01-000003541348788&n_keyword=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_campaign_type=1&n_ad_group_type=1">
           <img src="<%= request.getContextPath() %>/images/하리네 쉼터.png" width="420"; />
           <p class="card-text">[하리네 쉼터]</p>
-        </li>
+       
   <li class="nav-item">
-      <a href="ttp://puppynu.co.kr/?n_media=27758&n_query=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_rank=6&n_ad_group=grp-a001-01-000000019690106&n_ad=nad-a001-01-000000122282939&n_keyword_id=nkw-a001-01-000003466012448&n_keyword=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_campaign_type=1&n_ad_group_type=1&NaPm=ct%3Dkvge0jgo%7Cci%3D0yK0000zCBXvoS%5F9iuYE%7Ctr%3Dsa%7Chk%3Da3594b4fddb7533d6318eacb060195f0cdbf4dd2">
-          <img src="<%= request.getContextPath() %>/images/퍼피앤유.png" width="420"; />
-  <p class="card-text">[하리네 쉼터]</p>
+      <a href="http://hibyeshelter.com/?n_media=122875&n_query=%EC%9C%A0%EA%B8%B0%EB%8F%99%EB%AC%BC%EB%B3%B4%ED%98%B8%EC%86%8C&n_rank=12&n_ad_group=grp-a001-01-000000018716771&n_ad=nad-a001-01-000000115385079&n_keyword_id=nkw-a001-01-000003339052432&n_keyword=%EC%9C%A0%EA%B8%B0%EB%8F%99%EB%AC%BC%EB%B3%B4%ED%98%B8%EC%86%8C&n_campaign_type=1&n_ad_group_type=1">
+          <img src="<%= request.getContextPath() %>/images/하이바이 보호소.png" width="420"; />
+  <p class="card-text">[하이바이 보호소]</p>
   
-        
         <li class="nav-item">
-      <a href="http://www.babymong.co.kr/shop/main/index.php?n_media=122875&n_query=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_rank=11&n_ad_group=grp-m001-01-000001835836090&n_ad=nad-a001-01-000000131450203&n_keyword_id=nkw-m001-01-000001835836169&n_keyword=%EA%B0%95%EC%95%84%EC%A7%80%EC%9E%85%EC%96%91%EC%82%AC%EC%9D%B4%ED%8A%B8&n_campaign_type=1&n_ad_group_type=1&NaPm=ct%3Dkvhboe08%7Cci%3D0zK00001tS1v1uySNvmI%7Ctr%3Dsa%7Chk%3D1cb89bb8abe39835836a5931007f97a98703875b">
-          <img src="<%= request.getContextPath() %>/images/베이비 몽.png" width="420"; />
-          <p class="card-text">[하리네 쉼터]</p>
-        </li>
+      	<a href="https://www.zooseyo.com/main/main.php?">
+          <img src="<%= request.getContextPath() %>/images/주세요닷컴.png" width="420"; />
+			<p class="card-text">[주세요 닷컴]</p>
         
         <li class="nav-item">
       <a href="../petdaon/WepContent/WEB-INF/views/adopt_board/adoptWriting.jsp">
