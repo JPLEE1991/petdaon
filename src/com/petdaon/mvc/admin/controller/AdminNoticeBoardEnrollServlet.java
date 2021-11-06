@@ -38,7 +38,7 @@ public class AdminNoticeBoardEnrollServlet extends HttpServlet {
 		//3. 응답처리
 		HttpSession session = request.getSession();
 		session.setAttribute("msg", msg);
-		String location = request.getContextPath() + "/serviceCenter/noticeBoard/noticeBoardList";
+		String location = request.getContextPath() + "/admin/noticeBoard";
 		response.sendRedirect(location);
 	}
 }

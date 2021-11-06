@@ -11,6 +11,8 @@ public class AskBoardService {
 	
 	public static final String STATUS_DEFAULT = "D";
 	public static final String STATUS_ING = "I";
+	public static final String STATUS_CANCEL = "C";
+	public static final String STATUS_FINISH = "F";
 	
 	private AskBoardDao askBoardDao = new AskBoardDao();
 	
@@ -58,6 +60,24 @@ public class AskBoardService {
 		} finally {
 			close(conn);
 		}
+		return result;
+	}
+
+	public int updateInquiryStatus(String inquiryNo, String status) {
+		Connection conn = getConnection();
+		int result = askBoardDao.updateInquiryStatus(conn, inquiryNo, status);
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int updateInquiryStatusCancel(int inquiryNo) {
+		Connection conn = getConnection();
+		int result = askBoardDao.updateInquiryStatusCancel(conn, inquiryNo);
+		if(result > 0) commit(conn);
+		else rollback(conn);
+		close(conn);
 		return result;
 	}
 
