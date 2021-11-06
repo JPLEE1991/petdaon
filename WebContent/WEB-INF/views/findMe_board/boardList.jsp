@@ -191,13 +191,13 @@ div input{margint-right:5px}
   	
   	
 <!--글쓰기 버튼  -->
+<%
+	if(_member.getMemberId()!=null && _member.getMemberId()!=""){
+%>
 	<div>
    	<input class="btn btn-primary float-right" type="button" value="글쓰기" id="btn-add" onclick="location.href='<%= request.getContextPath() %>/findMe_board/boardForm';" />
 	    <div id="btn"><%= request.getAttribute("pagebar") %></div>
 	</div>
-<%
-	if(_member.getMemberId()!=null && _member.getMemberId()!=""){
-%>
 <%
 	}
 %>
