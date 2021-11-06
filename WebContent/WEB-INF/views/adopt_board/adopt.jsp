@@ -47,6 +47,8 @@
   }
   img{
   	margin-bottom: 10px;
+  	height: 190px;
+  	width: 190px;
   }
 </style>
 <style>
@@ -64,7 +66,7 @@
     margin: 30px;
   }
   p{
-  	font-size: 2em;
+  	font-size: 1em;
   	color: black;
   }
 
@@ -98,7 +100,7 @@
 
   <!-- animal icon nav -->
   
-
+<hr class="content"/>
   <ul class="flex justify-content-center">
     
 
