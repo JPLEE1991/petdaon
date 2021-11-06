@@ -9,7 +9,10 @@
 .row{
 	width: 100%;
 }
-
+.card-img-top {
+  display: block;
+  height: 8vw;
+}
 .card-body{
 	padding: 10px;
 	text-align: center;
