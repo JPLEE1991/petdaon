@@ -50,7 +50,7 @@ a.btn {font-weight:500;}
 						<a class="btn font-weight-bold" data-bs-toggle="collapse" data-bs-target="#activity" aria-expanded="false" aria-controls="activity">MY 활동&nbsp<i class="bi bi-chevron-right"></i></a>
 						<div class="collapse category" id="activity">
 							<ul>
-								<li><a href="#">1:1문의 내역</a></li>
+								<li><a href="<%= request.getContextPath() %>/serviceCenter/askBoard/askBoardList">나의 문의내역</a></li>
 								<li><a href="<%= request.getContextPath() %>/volunteerBoard/mypage">봉사 등록 확인</a></li>
 								<li><a href="<%= request.getContextPath() %>/volunteerApplication/mypage">봉사 신청 확인</a></li>
 							</ul>

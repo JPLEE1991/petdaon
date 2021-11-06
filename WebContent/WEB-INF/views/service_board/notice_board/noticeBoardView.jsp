@@ -1,86 +1,53 @@
-<%@page import="com.petdaon.mvc.member.model.service.MemberService"%>
-<%@page import="com.petdaon.mvc.common.Constants,
-				com.petdaon.mvc.member.model.vo.Member"%>
+<%@page import="com.petdaon.mvc.serviceBoard.noticeBoard.model.vo.NoticeBoard"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/admin/adminHeader.jsp" %>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
 <%
-	Member loginMember = (Member) request.getSession(true).getAttribute(Constants.SESSION_KEY);
-	boolean editable = loginMember != null &&
-			(MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole()));
+	NoticeBoard noticeBoard = (NoticeBoard) request.getAttribute("noticeBoard");
+	/* boolean editable = loginMember != null && (
+			  loginMember.getMemberId().equals(noticeBoard.getWriter())
+			  || MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())
+			); */
 %>
+<%-- <link rel="stylesheet" href="<%=request.getContextPath()%>/css/serviceCenter/boardList.css"/> --%>
+<!-- 부트스트랩(CSS & JavaScript Bundle with Popper) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 매테리얼 아이콘 -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+
 <style>
+h2 {padding:30px; margin:0 auto; text-align:center;}
+.material-icons-round {font-size:1em;}
+#notice {padding:30px 0;}
+#notice-title {font-size:20px; font-weight:bold; padding-bottom:5px;}
+#notice-date {font-size:15px; color:#8e929f; padding-bottom:15px;}
+#btnbar {border:1px solid rgba(0,0,0,.125); border-radius:.5rem; display:flex; justify-content:center; align-items:center; padding:9px; margin:0 auto;}
+#btnbar:focus {background-color:#eceef2; box-shadow:none;}
 </style>
-
-<script>
-$(document).ready(function(){
-	$("#main-title").text('공지사항 등록');
-});
-
-/**
- * noticeBoardEnrollFrm 유효성 검사
- * 제목 또는 내용을 작성하지 않은 경우 폼 제출불가
- */
-function noticeBoardValidate(){
-	const $title = $("[name=title]");
-	const $content = $("[name=content]");
 	
-	if(!/^.+$/.test($title.val())){
-		alert("제목을 입력하세요.");
-		$title.focus();
-		return false;
-	}
-	
-	if(!/^(.|\n)+$/.test($content.val())){
-		alert("내용을 입력하세요.");
-		$content.focus();
-		return false;
-	}
-	return true;
-};
-
-$(() => {
-	$(document.noticeBoardEnrollFrm).submit(noticeBoardValidate);
-});
-</script>
-
 	<div class="container">
 		<div class="row">
 		
-			<!-- 1:1문의 -->
-			<div id="notice" class="card col-11">
-				<h3 class="text-center">공지사항</h3>	
-					
-				<!-- 공지사항폼 -->
-				<form name="noticeBoardEnrollFrm" action="<%= request.getContextPath() %>/admin/noticeBoard/noticeBoardEnroll" method="post">
-					<!-- 작성자 : 로그인 상태인 관리자아이디 가져오기 -->
-					<div class="input-group col-11 col-xl-9">
-					  <span id="inquiry-writer" class="input-group-text col-5">작성자</span>
-					  <input type="text" name="writer" class="form-control col-7 bg-white" value="<%= loginMember.getMemberId() %>" readonly/>
-					</div>
-					<!-- 제목 -->
-					<div class="col-11 col-xl-9">
-					  <label for="inquiry-title" class="form-label">제목</label>
-					  <input type="text" name="title" id="title" class="form-control" placeholder="제목을 입력해주세요.(20자 이내)" maxlength="20"/>
-					</div>
-					<!-- 내용 -->
-					<div class="col-11 col-xl-9">
-					  <label for="inquiry-content" class="form-label">내용</label>
-					  <textarea name="content" id="content" class="form-control" rows="7" placeholder="공지 내용을 상세히 입력해주시기 바랍니다."></textarea>
-					</div>
-					
-					<!-- 버튼 -->
-					<div class="btn-group col-12">
-						<a id="btn-cancel" href="<%= request.getContextPath() %>/admin/noticeBoard" class="btn">취소</a>
-						<input type="submit" id="btn-enroll" class="btn" value="확인">
-					</div>
-				</form>
-					
-			</div>
+			<h2>고객센터</h2>
 			
+			<div class="container col-9">
+				<!-- 공지 -->
+				<div id="notice" class="container">
+					<div id="notice-title"><%= noticeBoard.getTitle() %></div>
+					<div id="notice-date"><%= noticeBoard.getEnrollDate() %> &nbsp &nbsp &nbsp 조회 <%= noticeBoard.getViewNum() %></div>
+					<div id="notice-content"><%= noticeBoard.getContent() %></div>
+				</div>
+				
+				<!-- 목록으로 -->
+				<a id="btnbar" class="btn col-12" href="<%= request.getContextPath() %>/serviceCenter/noticeBoard/noticeBoardList"><span class="material-icons-round">chevron_left</span>&nbsp목록으로</a>
+			
+			</div>
 		</div>
 	</div>
 	
-	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-
-<%@ include file="/WEB-INF/views/admin/adminFooter.jsp" %>
+	<br/><br/><br/><br/><br/><br/>
+	
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>

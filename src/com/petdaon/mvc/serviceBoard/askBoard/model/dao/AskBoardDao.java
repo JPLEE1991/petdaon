@@ -151,6 +151,44 @@ public class AskBoardDao {
 			pstmt.setString(1, askBoard.getAnswer());
 			pstmt.setString(2, askBoard.getAdminId());
 			pstmt.setInt(3, askBoard.getInquiryNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateInquiryStatus(Connection conn, String inquiryNo, String status) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("updateInquiryStatus"); 
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, status);
+			pstmt.setString(2, inquiryNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateInquiryStatusCancel(Connection conn, int inquiryNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("updateInquiryStatusCancel"); 
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, inquiryNo);
+			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

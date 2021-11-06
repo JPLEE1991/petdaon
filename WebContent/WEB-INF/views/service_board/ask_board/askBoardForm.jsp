@@ -8,11 +8,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 매테리얼 아이콘 -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
 
 <style>
 h2 {padding:30px; margin:0 auto; text-align:center;}
 h3 {padding-top:50px; margin:0 auto; text-align:center;}
 p {padding:40px 0 20px 0; border-bottom:1px solid #eceef2; margin-bottom:40px; color:#8e929f;}
+.material-icons-round {font-size:1em;}
 .card {border-radius:.8rem;}
 #breadcrumb {border:0; margin:0 auto; background-color:#ffd749; height:300px;}
 #breadcrumb nav {padding:30px 15px; font-size:18px;}
@@ -70,7 +72,7 @@ $(() => {
 					<li class="nav-item">
 				       <a class="nav-link" href="<%= request.getContextPath() %>/serviceCenter">고객센터</a>
 				    </li>
-				    <span class="material-icons">chevron_right</span>
+				    <span class="material-icons-round">chevron_right</span>
 				    <li class="nav-item">
 				       <a class="nav-link" href="#">1:1문의</a>
 				    </li>

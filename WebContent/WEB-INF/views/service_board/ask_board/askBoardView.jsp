@@ -33,8 +33,9 @@ hr {background-color:#8e929f;}
 #content-answer {background-color:#eceef2; height:100px; overflow:scroll;}
 #content-answer p:last-child {font-size:12px; color:#8e929f; margin:0;}
 #askBoardAnswerFrm textarea {font-size:14px;}
-#askBoardAnswerFrm a {background-color:#212529; color:#eceef2; padding:5px 10px; border:0; border-radius:0 0 0.2rem 0.2rem; font-size:.9rem;}
 #askBoardAnswerFrm textarea:focus-visible {outline:none;}
+#askBoardAnswerFrm a {background-color:#212529; color:#eceef2; padding:5px 10px; border:0; border-radius:0 0 0.2rem 0.2rem; font-size:.9rem;}
+#askBoardCancelFrm a {background-color:#ffd749; color:#212529; padding:5px 10px; border:0; border-radius:0 0 0.2rem 0.2rem; font-size:.9rem;}
 </style>
 	
 	<div class="container">
@@ -81,22 +82,34 @@ hr {background-color:#8e929f;}
 				<% } %>
 				
 				<%
-					if(editable){
-						if(askBoard.getStatus().equals(AskBoardService.STATUS_DEFAULT) || askBoard.getStatus().equals(AskBoardService.STATUS_ING)){
+					if(askBoard.getStatus().equals(AskBoardService.STATUS_DEFAULT) || askBoard.getStatus().equals(AskBoardService.STATUS_ING)){
+						if(editable){
 				%>
-					<form
-						id="askBoardAnswerFrm"
-						name="askBoardAnswerFrm"
-						method="post">
+					<form id="askBoardAnswerFrm" name="askBoardAnswerFrm" method="post">
 						<input type="hidden" name="inquiryNo" value="<%= askBoard.getInquiryNo() %>"/>
 						<textarea class="list-group-item col-12" name="answer" id="answer" rows="5"></textarea>
 						<input type="hidden" name="adminId" value="<%= loginMember != null ? loginMember.getMemberId() : "" %>"/>
-						<a class="btn list-group-item col-12" href="javascript:updateAskBoard();">답변 등록</a>
+						<a class="btn list-group-item col-12 " href="javascript:askBoardAnswerEnroll();">답변 등록</a>
+					</form>
+				<%
+						} else {
+				%>
+					<form id="askBoardCancelFrm" name="askBoardCancelFrm" method="post">
+						<input type="hidden" name="inquiryNo" value="<%= askBoard.getInquiryNo() %>"/>
+						<a class="btn list-group-item col-12" href="javascript:askBoardCancel();">접수 취소</a>
 					</form>
 				<%
 						}
 					}
 				%>
+				
+				<%-- <%
+					if(askBoard.getWriter().equals(loginMember)) {
+				%>
+					<a class="btn list-group-item col-12" href="javascript:deleteNoticeBoard();">삭제</a>	
+				<%
+					}
+				%> --%>
 				</div>
 			</div>
 			
@@ -131,7 +144,7 @@ $(() => {
  * 1) 팝업창에서 답변등록버튼 클릭하면, updateAskBoard() 스크립트 호출
  * 2) form에 데이터가 target으로 이동하며 페이지 액션 발생
  */
-const updateAskBoard = () => {
+const askBoardAnswerEnroll = () => {
 	if(confirm("답변을 등록하시겠습니까?")){
 		//부모창의 이름을 설정
 		window.opener.name = "parentPage";
@@ -140,6 +153,19 @@ const updateAskBoard = () => {
 		//부모창에 호출될 url
 		document.askBoardAnswerFrm.action = "<%= request.getContextPath() %>/admin/askBoard/askBoardAnswerEnroll";
 		document.askBoardAnswerFrm.submit(); //폼 submit
+		self.close(); //팝업창을 스스로 닫도록 하는 코드
+	}
+};
+
+const askBoardCancel = () => {
+	if(confirm("접수를 취소하시겠습니까?")){
+		//부모창의 이름을 설정
+		window.opener.name = "parentPage";
+		//타겟을 부모창으로 설정
+		document.askBoardCancelFrm.target = "parentPage";
+		//부모창에 호출될 url
+		document.askBoardCancelFrm.action = "<%= request.getContextPath() %>/serviceCenter/askBoard/askBoardCancel";
+		document.askBoardCancelFrm.submit(); //폼 submit
 		self.close(); //팝업창을 스스로 닫도록 하는 코드
 	}
 };

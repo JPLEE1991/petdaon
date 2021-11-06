@@ -32,30 +32,31 @@
 				    <%
 						for(AskBoard askBoard : list) {
 					%>
-					<tr id="ask" onClick="openView(<%= askBoard.getInquiryNo() %>)">
+					<tr id="ask">
 						<td>문의번호 : <%= askBoard.getInquiryNo() %></td>
-						<td><%= askBoard.getInquiryTitle() %></td>
+						<td onClick="openView(<%= askBoard.getInquiryNo() %>)"><%= askBoard.getInquiryTitle() %></td>
 						<td><p class="d-none d-sm-block d-sm-none d-md-block d-md-none d-lg-block" id="inquirycontent"><%= askBoard.getInquiryContent() %></p></td>
 						<td>
+						<!-- 접수 또는 처리중인 상태만 접수상태 변경 가능 -->
+						<% if(AskBoardService.STATUS_DEFAULT.equals(askBoard.getStatus()) || AskBoardService.STATUS_ING.equals(askBoard.getStatus())) { %>
+						<!-- 접수상태 select option -->
+							<select class="status" data-inquiry-no="<%= askBoard.getInquiryNo() %>">
+			            		<option
+			            			value="<%= AskBoardService.STATUS_DEFAULT %>"
+			            			<%= AskBoardService.STATUS_DEFAULT.equals(askBoard.getStatus()) ? "selected" : "" %>>접수</option>
+			            		<option
+			            			value="<%= AskBoardService.STATUS_ING %>"
+			            			<%= AskBoardService.STATUS_ING.equals(askBoard.getStatus()) ? "selected" : "" %>>처리중</option>
+			            		<option
+			            			value="<%= AskBoardService.STATUS_FINISH %>"
+			            			<%= AskBoardService.STATUS_FINISH.equals(askBoard.getStatus()) ? "selected" : "" %>>처리완료</option>
+			            	</select>
+			            <% } else { %>
+							<!-- 접수취소 또는 처리완료 상태는 select option 제공하지 않음 -->
 							<%=
-								askBoard.getStatus().equals("D") ? "접수" :
-								askBoard.getStatus().equals("C") ? "접수취소" :
-								askBoard.getStatus().equals("I") ? "처리중" : "처리완료"
+								askBoard.getStatus().equals("C") ? "접수취소" : "처리완료"
 							%>
-							<%-- <select class="status">
-			            		<option
-			            			value="<%= AskBoardService.D_STATUS %>"
-			            			<%= AskBoardService.D_STATUS.equals(askBoard.getStatus()) ? "selected" : "" %>>접수</option>
-			            		<option
-			            			value="<%= AskBoardService.C_STATUS %>"
-			            			<%= AskBoardService.C_STATUS.equals(askBoard.getStatus()) ? "selected" : "" %>>접수취소</option>
-			            		<option
-			            			value="<%= AskBoardService.I_STATUS %>"
-			            			<%= AskBoardService.I_STATUS.equals(askBoard.getStatus()) ? "selected" : "" %>>처리중</option>
-			            		<option
-			            			value="<%= AskBoardService.F_STATUS %>"
-			            			<%= AskBoardService.F_STATUS.equals(askBoard.getStatus()) ? "selected" : "" %>>처리완료</option>
-			            	</select> --%>
+						<% } %>
 						</td>
 					</tr>
 					<%
@@ -70,21 +71,62 @@
 		    <div id="btn"><%= request.getAttribute("pagebar") %></div>
 		</div>
 	</div>
-			
+
+<form
+    action="<%= request.getContextPath() %>/admin/askBoard/updateInquiryStatus"
+   	method="POST"
+    name="updateStatusFrm">
+  	<input type="hidden" name="inquiryNo"/>
+    <input type="hidden" name="status"/>
+</form>		
 <script>
 $(document).ready(function(){
 	$("#main-title").text('1:1문의');
 });
 
-/* 각 문의 클릭하면 해당하는 상세페이지를 팝업창으로 제공한다. */
+/* 각 문의 클릭하면 해당하는 상세페이지를 팝업창으로 제공 */
 function openView(inquiryNo){
 	const width = 400;
 	const height = 450;
 	const x = (screen.availWidth - width) / 2 + screen.availLeft;
 	const y = (screen.availHeight - height) / 2 + screen.availTop;
 	const url = '<%= request.getContextPath() %>/serviceCenter/askBoard/askBoardView?inquiryNo=' + inquiryNo;
+	/*
+		window.open('url', '팝업명', '팝업 옵션');
+		- width : 팝업창의 너비를 지정
+		- height : 팝업창의 x축 위치를 지정
+		- left : 팝업창의 y축 위치를 지정
+	*/
 	open(url, 'popup', `width=\${width}, height=\${height}, left=\${x}, top=\${y}`);
 };
+
+/* 접수 상태 변경 */
+$(".status").change((e) => {
+	const $this = $(e.target);
+	const inquiryNo = $this.data("inquiryNo"); //data-속성의 키값을 camelcasing으로 처리
+	const status = $this.val();
+	
+	let str = "";
+	if(status == "<%= AskBoardService.STATUS_DEFAULT %>") {
+		str = "접수";
+	} else if(status == "<%= AskBoardService.STATUS_ING %>") {
+		str = "처리중";
+	} else {
+		str = "처리완료";
+	}
+	
+	const msg = `접수상태를 \${str}(으)로 변경하시겠습니까?`;
+	if(confirm(msg)){
+		const $frm = $(document.updateStatusFrm);
+		$frm.find("[name=inquiryNo]").val(inquiryNo);
+		$frm.find("[name=status]").val(status);
+		$frm.submit();
+	}
+	else {
+		//초기값으로 복귀
+		$this.find("[selected]").prop("selected", true);
+	}
+});
 </script>
 			
 <%@ include file="/WEB-INF/views/admin/adminFooter.jsp" %>

@@ -36,6 +36,9 @@
           display: inline;
           color: white;
         }
+        #mainHeader a{
+          text-decoration: none;
+        }
         #login{
           display: inline;
           float: right;
@@ -63,7 +66,7 @@
 <body>
   <div id="mainHeader" >
     <div class="container">
-      <h2>펫다온 Petdaon</h2>
+      <a href="<%= request.getContextPath() %>"><h2>펫다온 Petdaon</h2></a>
        <div id="login">
       	<%
       	Member _member = (Member)request.getSession(true).getAttribute(Constants.SESSION_KEY);
