@@ -87,7 +87,12 @@ select option{
 
 
 <script src="<%=request.getContextPath()%>/resource/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
-
+<script>
+// main-title 변경
+$(document).ready(function(){
+	$("#main-title").text('블랙리스트 관리');
+})
+</script>
 
 <br><br><br><br><br><br><br><br><br><br><br>
 

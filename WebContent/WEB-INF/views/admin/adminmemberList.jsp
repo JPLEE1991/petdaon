@@ -106,7 +106,12 @@ function fnList() {
 
 
 <script src="<%=request.getContextPath()%>/resource/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
-
+<script>
+// main-title 변경
+$(document).ready(function(){
+	$("#main-title").text('회원 관리');
+})
+</script>
 <%@ include file="/WEB-INF/views/admin/adminFooter.jsp" %>
 
 </body>
