@@ -46,18 +46,13 @@ JSP / SQL / JSTL / JAVA / AJAX / JQUERY / HTML/CSS / JAVASCRIPT
 <hr>
 Apache Tomcat9.0
 
-### Pattern
-<hr>
-MVC2방식
-
 ### DataBase
 <hr>
-ORACLE 11g Express Edition Release 11.2.0
+ORACLE version 21.2.0.187
 
 ### Tool
 <hr>
-Eclipse IDE for Java Developers (includes Incubating components)
-/ JDK 1.8 / CHROME / SQL DEVELOPER
+Eclipse IDE for Java Developers (includes Incubating components) / jdk-11.0.2 / CHROME / SQL DEVELOPER
 
 
 ### 개발 이미지(완료)
