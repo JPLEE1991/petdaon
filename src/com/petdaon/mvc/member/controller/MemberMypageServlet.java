@@ -20,7 +20,7 @@ import com.petdaon.mvc.member.model.vo.Member;
 
 
 /**
- * Servlet implementation class MemberWelcomeServlet
+ * Servlet implementation class MemberMypageServlet
  */
 @WebServlet("/member/myDetail")
 public class  MemberMypageServlet extends HttpServlet {

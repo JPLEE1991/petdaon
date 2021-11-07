@@ -59,10 +59,9 @@ a.btn {font-weight:500;}
 				</li>
 				<!-- 게시물 관리 -->
 				<li>
-					<a class="btn" data-bs-toggle="collapse" data-bs-target="#board" aria-expanded="false" aria-controls="board">게시물 관리&nbsp<i class="bi bi-chevron-right"></i></a>
+					<a class="btn" data-bs-toggle="collapse" data-bs-target="#board" aria-expanded="false" aria-controls="board">봉사 승인<i class="bi bi-chevron-right"></i></a>
 					<div class="collapse category" id="board">
 						<ul>
-							<li><a href="#">게시물 목록</a></li>
 							<li><a href="<%= request.getContextPath() %>/admin/volunteerBoardList">봉사 게시글 승인</a></li>
 						</ul>
 					</div>

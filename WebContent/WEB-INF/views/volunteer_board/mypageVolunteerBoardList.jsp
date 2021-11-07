@@ -241,7 +241,6 @@ function show(boardNo){
 			<%-- 접수취소를 위한 준비. 미승인인 경우 접수취소가 가능하며 접수취소 버튼 클릭 시 volunteerBoardCancleFrm 폼 제출 한다.--%>
 			// hidden으로 된 input태그 게시글 번호 넣음
 			$("input[name=board-no]").val(`\${no}`);
-			<%-- if("<%= VolunteerBoardService.APPLICATION_NO %>" == approvalYn && "<% VolunteerBoardService.ENROLL_YES %>" == enrollYn) { --%>
 			if("<%= VolunteerBoardService.APPLICATION_NO %>" == approvalYn && "<%= VolunteerBoardService.ENROLL_YES %>" == enrollYn) {
 				<%-- 미승인이면서 접수상태인 경우 '접수 취소' 버튼 show() --%>
 				$('.cancle').show();

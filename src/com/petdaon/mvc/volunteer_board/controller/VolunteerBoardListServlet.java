@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.petdaon.mvc.volunteer_board.model.service.VolunteerBoardService;
 import com.petdaon.mvc.volunteer_board.model.vo.VolunteerBoard;
 
@@ -52,11 +53,13 @@ public class VolunteerBoardListServlet extends HttpServlet {
 		//System.out.println("list@VolunteerBoardListServlet = " + list);
 		
 		// view단 처리
-		//request.setAttribute("list", list);
-		
 		response.setContentType("application/json; charset=utf-8"); // json이라는 것을 헤더에 명시한다.
-
-		new Gson().toJson(list, response.getWriter());
+		//new Gson().toJson(list, response.getWriter());
+		// new GsonBuilder()을 이용하여 Gson 객체를 생성하면, 몇 가지 옵션을 추가해서 객체를 생성할 수 있음.
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create(); 
+		// 데이터 형식이 yyyy-MM-dd 형식으로 나오게 설정. (코드를 작성하지 않을 시 gson으로 json 리턴 시 날짜 타입이 "Nov 4, 2021"와 같이 읽어들여 달력에 제대로 반영되지 않아 코드 추가함)
+		
+		gson.toJson(list, response.getWriter());
 	}
 	
 

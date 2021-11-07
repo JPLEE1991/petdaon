@@ -83,7 +83,7 @@
         <%
         	if ("A".equals(_member.getMemberRole())) {
         %>
-        	<a href="<%= request.getContextPath() %>/admin">관리자 페이지</a>        
+        	<a href="<%= request.getContextPath() %>/admin/adminmemberList">관리자 페이지</a>        
         <%
         	} else {
         %>
