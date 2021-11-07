@@ -98,7 +98,7 @@
 		}
 						 
 		//내용을 작성하지 않은 경우 폼제출할 수 없음.
-		// .(임의의 문자)에는 \n(개행문자)가 포함되지 않는다.
+		// .(임의의 문자)에는 \n(개행문자)가 포함되지 않는다<div class=""></div>
 		if(!/^(.|\n)+$/.test($contents.val())){
 			alert("내용을 입력하세요.");
 			return false;
@@ -106,6 +106,9 @@
 		return true;
 	}
 </script>
+<style>
+#fname{font-size: 0.6em;}
+</style>
 <!--  -->
 <!--Form 제출  -->
 <form
@@ -127,7 +130,7 @@
 %>
 				<%-- 첨부파일이 있을경우만, 이미지와 함께 original파일명 표시 --%>
 				<img id="profile" alt="첨부파일" src="<%= request.getContextPath() %>/upload/findMe_board/<%= board.getAttach().getRenamedFilename() %>" style="width:100px"/>
-				<span id="fname"><%= attach.getOriginalFilename() %></span>			
+				<br /><span id="fname"><%= attach.getOriginalFilename() %></span>			
 				<br />
 				<input type="checkbox" name="delFile" id="delFile" value="<%= attach.getNo() %>"/>
 				<label for="delFile">기존파일삭제</label>
