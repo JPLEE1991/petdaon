@@ -115,9 +115,7 @@ hr {background-color:#8e929f;}
 			
 		</div>
 	</div>
-	
-	<br/><br/><br/>
-	
+	<br/>
 <script>
 /**
  * askBoardAnswerFrm 유효성 검사

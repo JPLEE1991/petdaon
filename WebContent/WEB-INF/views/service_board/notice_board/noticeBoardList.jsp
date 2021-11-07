@@ -23,7 +23,7 @@ h2 {padding:30px; margin:0 auto; text-align:center;}
 #breadcrumb nav {padding:30px 15px; font-size:18px;}
 #breadcrumb nav li a.nav-link {color:#212529;}
 #noticelist-container {height:700px;}
-#noticelist {height:899px; border:0; margin:0 auto; background-color:white; padding:15px 30px; top:-28.5%;}
+#noticelist {height:800px; border:0; margin:0 auto; background-color:white; padding:15px 30px; top:-28.5%;}
 .table tbody tr:hover {background-color:none; cursor:pointer;}
 .table td {border-top:0px; padding:30px; text-align:left;} /*  */
 .table td:last-child {font-size:13px; color:#8e929f; vertical-align:middle; text-align:right;} /*  */
@@ -78,7 +78,6 @@ h2 {padding:30px; margin:0 auto; text-align:center;}
 			
 		</div>
 	</div>
-	
-	<br/><br/><br/><br/><br/><br/>
+	<br><br>
 	
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

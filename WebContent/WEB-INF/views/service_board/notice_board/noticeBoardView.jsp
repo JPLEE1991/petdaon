@@ -47,7 +47,6 @@ h2 {padding:30px; margin:0 auto; text-align:center;}
 			</div>
 		</div>
 	</div>
-	
-	<br/><br/><br/><br/><br/><br/>
+	<br><br><br><br>
 	
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

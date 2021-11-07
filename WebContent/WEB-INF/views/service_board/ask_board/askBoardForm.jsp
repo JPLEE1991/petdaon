@@ -20,7 +20,7 @@ p {padding:40px 0 20px 0; border-bottom:1px solid #eceef2; margin-bottom:40px; c
 #breadcrumb nav {padding:30px 15px; font-size:18px;}
 #breadcrumb nav li a.nav-link {color:#212529;}
 #ask-container {height:600px;}
-#ask {height:800px; border:0; margin:0 auto; background-color:white; padding:15px 30px; top:-33%;}
+#ask {height:500px; border:0; margin:0 auto; background-color:white; padding:15px 30px; top:-33%;}
 form div:not(:last-child) {padding-bottom:25px; margin:0 auto;}
 #inquiry-writer {justify-content:center;}
 #inquiry-content {background-color:white; resize:none;}
@@ -82,6 +82,7 @@ $(() => {
 			<!-- 1:1문의 -->
 			<div id="ask-container" class="container col-8 col-xxl-7">
 				<div id="ask" class="card col-11 position-absolute start-50 translate-middle-x">
+				
 					<h3 class="text-center">1:1문의</h3>
 					<p class="text-center">펫다온을 이용하시면서 불편하거나 개선할 사항이 있다면 문의해주세요.</p>		
 					
@@ -115,7 +116,5 @@ $(() => {
 			
 		</div>
 	</div>
-	
-	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
