@@ -27,7 +27,9 @@
 <br>
  저희 사이트에는 반려동물에 관한 이야기를 자유롭게 할 수 있는 자유게시판, 유기동물 봉사를 할 수 있는 봉사게시판, 실종, 보호, 발견 신고를 할 수 있는 나를찾아줘 게시판을 만들어 보았으며, 반려동물을 사랑하는 사람들끼리 소통하며 반려동물에게 도움을 주고자 펫다온 웹사이트를 기획해보았습니다.
 
-
+<br>
+기획 회의록(작성자- 유지우): https://toothsome-paint-e10.notion.site/2d641ed8df784d218e486ba804d05cbc?v=afcaa049c7d9459ab4d0baf34e3a84ac
+  
 ### 웹 어플리케이션 주요기능
 <hr>
 1. 관리자 페이지<br>
@@ -71,9 +73,9 @@ Eclipse IDE for Java Developers (includes Incubating components)
 <br>
 
  <h4>사용자메인</h4>
-<img src="./images/mainPage.png">
+<img src="./WebContent/images/mainPage.png">
  <h4>관리자 메인</h4>
-<img src="./images/adminPage.png">
+<img src="./WebContent/images/adminPage.png">
 
 <hr>
 git hub 자료 : https://github.com/JPLEE1991/petdaon
