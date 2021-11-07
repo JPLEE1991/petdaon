@@ -17,6 +17,7 @@ Member member = (Member)request.getAttribute("member");
 <script type="text/javascript">
 function fnUpdate() {
 	$('#uploadForm').submit();
+	alert("수정되었습니다");
 }
 
 function fnDelPhoto() {

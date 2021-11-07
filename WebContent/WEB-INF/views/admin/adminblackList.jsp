@@ -4,37 +4,54 @@
 <%
 List<Member> list = (List<Member>)request.getAttribute("list");
 %>
-<!DOCTYPE html>
-<html lang="en">
-	<head> 
-<title>회원관리</title>
+
  	<style>
+form {
+	margin-bottom : 0;
+}
+select {
+	height:30px;
+}
+select option{
+	font-size: 12px;
+}
+.form-select{
+	font-size: 12px;
+}
+
+/* 테이블 overflow 설정 */
+.table.table-ellipsis tbody td {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.form-control {
+	padding: 0;
+}
     </style>
     <script type="text/javascript">
     </script>
-	</head>
- 	<body>
+
 <%@ include file="/WEB-INF/views/admin/adminHeader.jsp" %>
 
-	
-	<div class="container-fluid" >
-	
-	<div class="join-title"><h2>블랙리스트 회원목록(<%=list.size() %>)</h2></div>
-	<div class="row">
-		<div class="col-sm-10 col-sm-offset-1">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<table>
-						<tbody>
-							<tr>
-								<th>아이디</th>
-								<th>이름</th>
-								<th>회원권한</th>
-								<th>휴대폰번호</th>
-								<th>가입일</th>
-								<th>상태</th>
-								<th>경고횟수</th>
-							</tr>
+	<div class="col-md-12">
+	<!-- 테이블 -->
+	<div class="table-responsive-xl">
+		<table class="table table-ellipsis">
+			<thead>
+				<tr class="table-secondary">
+					<th scope="col">아이디</th>
+					<th scope="col">이름</th>
+					<th scope="col">회원권한</th>
+					<th scope="col">휴대폰</th>
+					<th scope="col">가입일</th>
+					<th scope="col">상태</th>
+					<th scope="col">경고횟수</th>
+				</tr>
+			</thead>
+			<tbody>
 							<%
 							for (int i = 0; i < list.size(); i++) {
 								Member member = list.get(i);
@@ -58,26 +75,21 @@ List<Member> list = (List<Member>)request.getAttribute("list");
 						</tbody>
 					</table>
 				</div>
-			</div>
-		</div>
-	</div>
-	
+				
 	
 	<!-- 페이징버튼 -->
-	<div>
-	    <div id="btn"><%= request.getAttribute("pagebar") %></div>
+	<div style="text-align: center;">
+		<div id="pageBar" class="d-inline-block">
+			<%= request.getAttribute("pagebar") %>
+		</div>
 	</div>
-			
-	</div>
-
+</div>
 
 
 <script src="<%=request.getContextPath()%>/resource/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
 
 
-</body>
-</html>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br>
 
 
 

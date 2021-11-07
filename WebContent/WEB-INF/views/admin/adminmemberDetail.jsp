@@ -37,6 +37,7 @@ function fnUpdate() {
 function fnLeave() {
 	$('form[name=enrollFrm]')[0].action	= '<%=request.getContextPath()%>/admin/adminmemberleave';
 	$('form[name=enrollFrm]')[0].submit();
+	alert('탈퇴되었습니다'); 
 }
 
 /**
@@ -45,6 +46,7 @@ function fnLeave() {
 function fnBlack() {
 	$('form[name=enrollFrm]')[0].action	= '<%=request.getContextPath()%>/member/memberBlack';
 	$('form[name=enrollFrm]')[0].submit();
+	alert('블랙리스트로 등록되었습니다')
 	
 }
 </script>    
