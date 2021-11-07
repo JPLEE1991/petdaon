@@ -427,7 +427,6 @@ if(applicationList != null && !applicationList.isEmpty()) { // isEmpty()는 객�
 <%-- 반대로 승인 상태에서 미승인 누르면 미승인 하시겠습니까? 물어보고 확인 누르면 미승인 상태로 변함 --%>
 <%-- 이미 상태인것을 선택할 시에는 이미 승인 상태입니다. 이미 미승인 상태입니다 alert창 --%>
 <%-- 승인상태(N/Y) 와 댓글번호 파라미터로 보내서 ?값 두개에다 넣기 --%>
-	<% if(VolunteerBoardService.APPROVAL_YES.equals(va.getApprovalYn())) {%>
 						<%-- 승인 여부를 위한 폼 태그 --%>
 						<form
 							name="volunteerApplicationApprovalFrm"
@@ -435,20 +434,14 @@ if(applicationList != null && !applicationList.isEmpty()) { // isEmpty()는 객�
 							method="post">
    							<input type="hidden" name="no" value="<%= va.getNo() %>"/>
    							<input type="hidden" name="boardNo" value="<%= board.getNo() %>"/>
+	<% if(VolunteerBoardService.APPROVAL_YES.equals(va.getApprovalYn())) {%>
 							<button type="button" class="application-yes btn btn-primary btn-sm already" value="승인">승인</button>
 							<button type="submit" class="application-no btn btn-outline-primary btn-sm" name="approvalStatus" value="<%= VolunteerBoardService.APPROVAL_NO %>">미승인</button>
-						</form>
 	<% } else { %>
-						<form
-							name="volunteerApplicationApprovalFrm"
-							action="<%=request.getContextPath() %>/volunteerApplication/applicationApproval"
-							method="post">
-   							<input type="hidden" name="no" value="<%= va.getNo() %>"/>
-   							<input type="hidden" name="boardNo" value="<%= board.getNo() %>"/>
 							<button type="submit" class="application-yes btn btn-outline-primary btn-sm" name="approvalStatus" value="<%= VolunteerBoardService.APPROVAL_YES %>">승인</button>
 							<button type="button" class="application-no btn btn-primary btn-sm already" value="미승인">미승인</button>
-						</form>
 	<% } %>
+						</form>
 <% } else { %>
 				      
 				      	<span class="bg-primary text-white small p-1 rounded">
