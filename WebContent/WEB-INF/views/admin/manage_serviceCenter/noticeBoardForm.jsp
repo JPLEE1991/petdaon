@@ -10,29 +10,35 @@
 			(MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole()));
 %>
 <style>
+#noticeEnrollCard {margin-top:70px;}
+#noticeBoardEnrollFrm {margin:0 auto; padding:40px 0 30px 0;}
+#noticeBoardEnrollFrm div {padding:15px;}
+#btn-cancel {padding:10px 0; background-color:#eceef2; color:#8e929f; z-index:0;}
+#btn-cancel:hover {background-color:rgb(236, 238, 242, 70%);}
+#btn-enroll {padding:10px 0; background-color:#ffd749;}
+#btn-enroll:hover {background-color:rgb(255, 215, 73, 70%);}
+.form-control:focus {box-shadow:0 0 0 0.25rem #ffd749; border-color:#ffd749;}
 </style>
 
 	<div class="container">
 		<div class="row">
 		
-			<!-- 1:1문의 -->
-			<div id="notice" class="card col-11">
-				<h3 class="text-center">공지사항</h3>	
-					
+			<!-- 공지사항 등록 -->
+			<div id="noticeEnrollCard" class="card container col-10 col-xl-9">
 				<!-- 공지사항폼 -->
-				<form name="noticeBoardEnrollFrm" action="<%= request.getContextPath() %>/admin/noticeBoard/noticeBoardEnroll" method="post">
+				<form id="noticeBoardEnrollFrm" class="col-10 col-xxl-9" name="noticeBoardEnrollFrm" action="<%= request.getContextPath() %>/admin/noticeBoard/noticeBoardEnroll" method="post">
 					<!-- 작성자 : 로그인 상태인 관리자아이디 가져오기 -->
-					<div class="input-group col-11 col-xl-9">
+					<div class="input-group col-12">
 					  <span id="writer" class="input-group-text col-5">작성자</span>
 					  <input type="text" name="writer" class="form-control col-7 bg-white" value="<%= loginMember.getMemberId() %>" readonly/>
 					</div>
 					<!-- 제목 -->
-					<div class="col-11 col-xl-9">
+					<div class="col-12">
 					  <label for="title" class="form-label">제목</label>
 					  <input type="text" name="title" id="title" class="form-control" placeholder="제목을 입력해주세요.(20자 이내)" maxlength="20"/>
 					</div>
 					<!-- 내용 -->
-					<div class="col-11 col-xl-9">
+					<div class="col-12">
 					  <label for="content" class="form-label">내용</label>
 					  <textarea name="content" id="content" class="form-control" rows="7" placeholder="공지 내용을 상세히 입력해주시기 바랍니다."></textarea>
 					</div>
@@ -47,8 +53,6 @@
 			
 		</div>
 	</div>
-	
-	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 	
 <script>
 $(document).ready(function(){

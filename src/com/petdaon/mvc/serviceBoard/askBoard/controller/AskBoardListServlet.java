@@ -28,7 +28,7 @@ public class AskBoardListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//1.사용자입력값처리 cPage numPerPage = 10
 		int cPage = 1;
-		int numPerPage = 10;
+		int numPerPage = 11;
 		try {
 			cPage = Integer.parseInt(request.getParameter("cPage"));
 		} catch(NumberFormatException e) {

@@ -18,6 +18,8 @@
 #btn a {display:flex; justify-content:center; align-items:center; text-decoration:none; border-radius:15%; margin:0 2px; color:#212529; width:35px; height:35px; background-color:#eceef2;}
 #btn a.cPage {background-color:#ffd749;}
 #btn a:hover {background-color:#ffd749;}
+#btn-enroll {border:1px solid rgba(0,0,0,.125); border-radius:.5rem; display:flex; justify-content:center; align-items:center; padding:9px; margin:0 auto;}
+#btn-enroll:focus {background-color:#eceef2; box-shadow:none;}
 </style>
 
 	<!--공지사항 관리페이지 -->
@@ -39,7 +41,7 @@
 					%>	
 				</tbody>
 			</table>
-			<a class="btn" href="<%= request.getContextPath() %>/admin/noticeBoard/noticeBoardForm">등록</a>
+			<a id="btn-enroll" class="btn col-12" href="<%= request.getContextPath() %>/admin/noticeBoard/noticeBoardForm">등록</a>
 		</div>
 		
 		<!-- 페이징버튼 -->
