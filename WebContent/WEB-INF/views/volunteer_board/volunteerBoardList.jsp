@@ -17,12 +17,6 @@
 <script src="<%=request.getContextPath()%>/js/fullcalendar-5.10.0/main.js"></script>
 <%-- 슬라이드 구현을 위해 넣어줌. header부분에 있을 텐데 위의 jquery선언을 다시해줘서 문제가 일어난건가? --%>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<style>
-	/* 봉사 제목 앞에 뜨는 시간 숨기기 */
-	.fc-event-time{
-		display:none;
-	}
-</style>
 <!--  -->
 
 	<div class="container">
@@ -92,11 +86,10 @@ $(".enroll-btn").click(function(e){
 등록 후 담당자 정보 수정과 게시글 삭제는 관리자의 권한이 필요합니다. 관리자에게 문의해주세요.`);
 });
 
-
 	//페이지 로딩시, 봉사 게시글 전체 달력에 넣기 - 풀캘린더 이용
     $.ajax({
     	url: "<%= request.getContextPath() %>/volunteerBoard/boardList",
-    	// header에서 GET으로 volunteerBoardList.jsp를 보내기 때문에 POST 이용함.
+    	// 이미 header에서 GET방식으로 최근4개 게시물을 조회하는 로직이 존재하고 volunteerBoardList.jsp를 보내기 때문에 POST방식 지정.
     	type: 'POST',
 		success(data){
 			//console.log(data);
@@ -106,12 +99,11 @@ $(".enroll-btn").click(function(e){
   			// data(봉사 게시글 목록들)를 map()을 활용하여 이벤트 옵션 설정하고 return한다.
   			var events = data.map(function(board) {
   				return {
-  					//id : board.no, // 이부분 아직 파악 못함 자기전에 그냥 넣어놓음 url로 해결되면 지우자.
   					// title : 캘린더에 표시되는 일정의 이름 // start : 캘린더에 표시되는 일정 시작 일 // end : 캘린더에 표시되는 일정 마지막 일
   					title : board.title,
-					start : new Date(board.startDate), // json형식이 "Nov 4, 2021"와 같이 읽어들여 new Date() 함수를 사용하여 날짜 형식으로 변환함
-					// 시작일에만 표시되는게 깔끔해서 주석처리함. 사용자들 보기에 시작일만 있으면 날짜가 가늠이 안될 수 있어 고민해보기.
-					//end : new Date(board.endDate)
+					start : board.startDate,
+					/* end 부분 시작일에만 표시되는게 깔끔해서 주석처리함.*/ <%-- 깔끔하지만 사용자들 보기에 시작일만 표시되어 총 기간이 가늠이 안될 수 있다는 점이 아쉽다. --%>
+					//end : board.endDate,
 					
 					// 달력 각 게시글 클릭 시 이동하게 만듬.
 					// GET URL 경로 뒤에 파라미터(봉사 게시글 번호)를 붙여 전달함
@@ -122,6 +114,7 @@ $(".enroll-btn").click(function(e){
   			var calendar = new FullCalendar.Calendar(calendarEl, {
   				/* 이벤트 옵션 위에서 불러옴 */
 				events : events,
+				// 서블릿에서 Gson객체를 생성할 시 날짜 타입을 "yyyy-MM-dd"로 받아왔기 때문에 시간정보가 들어있지 않음.
 				/* eventTimeFormat 이벤트 시간 형식 */
  				/* eventTimeFormat: { // like '14:30:00'
  					hour: '2-digit',
