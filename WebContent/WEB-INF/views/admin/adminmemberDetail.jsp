@@ -44,7 +44,7 @@ function fnLeave() {
  * 블랙리스트 등록
  */
 function fnBlack() {
-	$('form[name=enrollFrm]')[0].action	= '<%=request.getContextPath()%>/member/memberBlack';
+	$('form[name=enrollFrm]')[0].action	= '<%=request.getContextPath()%>/admin/adminmemberBlack';
 	$('form[name=enrollFrm]')[0].submit();
 	alert('블랙리스트로 등록되었습니다')
 	
@@ -56,8 +56,8 @@ function fnBlack() {
 
 	
 	<div class="container-fluid" >
-	
-	<div class="join-title"><h1>회원상세</h1></div>
+	<br>
+	<div class="join-title"></div>
 	<div class="row">
 		<div class="col-sm-6 col-sm-offset-3">
 			<div class="panel panel-default">
@@ -117,8 +117,12 @@ function fnBlack() {
 
 
 <script src="<%=request.getContextPath()%>/resource/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
-
-
+<script>
+// main-title 변경
+$(document).ready(function(){
+	$("#main-title").text('회원 상세보기');
+})
+</script>
 </body>
 </html>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

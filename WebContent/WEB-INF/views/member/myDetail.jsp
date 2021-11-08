@@ -71,7 +71,7 @@ function fnDelPhoto() {
 			</div>
 			<div class="form-group">
 				<label for="birthday">생년월일</label>
-				<input type="text" id="birthday" name="birthday" class="form-control" placeholder="생년월일" value="<%=member.getBirthday()%>"/>
+				<input type="text" id="birthday" name="birthday" class="form-control" placeholder="생년월일" value="<%=member.getBirthday() %>"/>
 			</div>
 			<button type="submit" class="btn btn-info btn-lg btn-block" onclick="javascript:fnGoList(); return false;">취소</button>
 			<button type="submit" class="btn btn-info btn-lg btn-block" onclick="javascript:fnUpdate(); return false;">수정</button>

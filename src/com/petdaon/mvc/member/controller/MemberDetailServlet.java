@@ -54,7 +54,7 @@ public class MemberDetailServlet extends HttpServlet {
 		String memberId = multipartRequest.getParameter("memberId");
 		String email = StringUtils.getString(multipartRequest.getParameter("email"));
 		String phone = StringUtils.getString(multipartRequest.getParameter("phone"));
-		String birthday = multipartRequest.getParameter("birthday");
+		String birthday = StringUtils.getString(multipartRequest.getParameter("birthday"));
 		String delPhoto = multipartRequest.getParameter("delPhoto");
 		
 		// yyyy-MM-dd
@@ -62,7 +62,7 @@ public class MemberDetailServlet extends HttpServlet {
 		try {
 			date = Date.valueOf(birthday);
 		} catch (Exception e) {
-//			e.printStackTrace();
+		//	e.printStackTrace();
 		}
 		
 		Member member = new Member();

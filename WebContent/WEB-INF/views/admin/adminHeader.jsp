@@ -53,7 +53,7 @@ a.btn {font-weight:500;}
 					<div class="collapse category" id="member">
 						<ul>
 							<li><a href="<%= request.getContextPath() %>/admin/adminmemberList">회원</a></li>
-							<li><a href="<%= request.getContextPath() %>/admin/adminblackList">>블랙리스트</a></li>
+							<li><a href="<%= request.getContextPath() %>/admin/adminblackList">블랙리스트</a></li>
 						</ul>
 					</div>
 				</li>
