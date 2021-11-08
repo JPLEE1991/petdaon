@@ -66,3 +66,9 @@ Eclipse IDE for Java Developers (includes Incubating components) / jdk-11.0.2 / 
 
 <hr>
 git hub 자료 : https://github.com/JPLEE1991/petdaon
+
+-사용자 
+ID: kh1231 / PW: 1234
+
+-관리자
+ID: admin / PW: 1234
